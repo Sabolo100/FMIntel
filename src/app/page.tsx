@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { calculateReadTime } from "@/lib/readTime";
 import { priceBadgeConfig } from "@/lib/priceBadge";
+import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
 
 const categories = [
   {
@@ -137,6 +138,7 @@ const latestArticles: {
   badge: ArticleBadge;
   priceBadge?: { label: string; className: string } | null;
   featured?: boolean;
+  recoveryTime?: RecoveryTime | null;
 }[] = [
   {
     category: "Edzésterv",
@@ -151,6 +153,7 @@ const latestArticles: {
       className: "bg-brand-600 text-white",
     },
     priceBadge: null,
+    recoveryTime: recoveryTimeConfig.intense,
   },
   {
     category: "Felszerelés",
@@ -164,6 +167,7 @@ const latestArticles: {
       className: "bg-accent-500 text-white",
     },
     priceBadge: priceBadgeConfig.premium,
+    recoveryTime: null,
   },
   {
     category: "MTB",
@@ -177,6 +181,7 @@ const latestArticles: {
       className: "bg-green-600 text-white",
     },
     priceBadge: null,
+    recoveryTime: recoveryTimeConfig.light,
   },
 ];
 
@@ -436,6 +441,30 @@ export default function HomePage() {
                       {calculateReadTime(article.wordCount)} olvasás
                     </span>
                   </div>
+                  {article.recoveryTime && (
+                    <div className="mb-3">
+                      <span
+                        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full ${article.recoveryTime.className}`}
+                        title="Ajánlott regenerációs idő edzés után"
+                      >
+                        <svg
+                          className="w-3 h-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                          />
+                        </svg>
+                        {article.recoveryTime.label}
+                      </span>
+                    </div>
+                  )}
                   {article.priceBadge && (
                     <div className="mb-3">
                       <span
