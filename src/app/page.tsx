@@ -270,7 +270,7 @@ export default function HomePage() {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                className="group bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-200"
+                className="group bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div
