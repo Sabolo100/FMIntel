@@ -6,6 +6,7 @@ import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { intensityZoneConfig, type IntensityZone } from "@/lib/intensityZone";
 import { ageBadgeConfig, type AgeBadge } from "@/lib/ageBadge";
+import { gearLevelConfig, type GearLevel } from "@/lib/gearLevel";
 
 const categories = [
   {
@@ -145,6 +146,7 @@ const latestArticles: {
   isNew?: boolean;
   intensityZone?: IntensityZone | null;
   ageBadge?: AgeBadge | null;
+  gearLevel?: GearLevel | null;
 }[] = [
   {
     category: "Edzésterv",
@@ -162,6 +164,7 @@ const latestArticles: {
     recoveryTime: recoveryTimeConfig.intense,
     intensityZone: intensityZoneConfig.z2,
     ageBadge: ageBadgeConfig["50_active"],
+    gearLevel: "basic",
   },
   {
     category: "Felszerelés",
@@ -178,6 +181,7 @@ const latestArticles: {
     recoveryTime: null,
     isNew: true,
     ageBadge: ageBadgeConfig["45_advanced"],
+    gearLevel: "pro",
   },
   {
     category: "MTB",
@@ -195,6 +199,7 @@ const latestArticles: {
     isNew: true,
     intensityZone: intensityZoneConfig.z3,
     ageBadge: ageBadgeConfig["45_beginner"],
+    gearLevel: "mid",
   },
 ];
 
@@ -536,6 +541,33 @@ export default function HomePage() {
                           />
                         </svg>
                         {article.ageBadge.label}
+                      </span>
+                    </div>
+                  )}
+                  {article.gearLevel && (
+                    <div className="mb-3">
+                      <span
+                        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full ${gearLevelConfig[article.gearLevel].className}`}
+                        title="Szükséges felszerelés szintje"
+                        aria-label={`Felszerelés szint: ${gearLevelConfig[article.gearLevel].label}`}
+                      >
+                        <svg
+                          className="w-3 h-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <circle cx="5.5" cy="17.5" r="2.5" strokeWidth="1.5" />
+                          <circle cx="18.5" cy="17.5" r="2.5" strokeWidth="1.5" />
+                          <path
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15 6a1 1 0 1 0 2 0 1 1 0 0 0-2 0M9 17.5l2-5 3-2 2-4"
+                          />
+                        </svg>
+                        {gearLevelConfig[article.gearLevel].label}
                       </span>
                     </div>
                   )}
