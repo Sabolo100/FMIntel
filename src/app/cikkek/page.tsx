@@ -79,7 +79,7 @@ export default function CikkekPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredArticles.map((article) => (
-                <ArticleCard key={article.id} {...article} />
+                <ArticleCard key={article.id} {...article} href={`/cikkek/${article.id}`} />
               ))}
             </div>
           </section>
@@ -94,7 +94,7 @@ export default function CikkekPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {newArticles.map((article) => (
-                <ArticleCard key={article.id} {...article} />
+                <ArticleCard key={article.id} {...article} href={`/cikkek/${article.id}`} />
               ))}
             </div>
           </section>
@@ -125,7 +125,7 @@ export default function CikkekPage() {
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {filtered.map((article) => (
-                        <ArticleCard key={article.id} {...article} />
+                        <ArticleCard key={article.id} {...article} href={`/cikkek/${article.id}`} />
                       ))}
                     </div>
                   </div>

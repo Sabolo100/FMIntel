@@ -21,6 +21,7 @@ export type ArticleCardProps = {
   intensityZone?: IntensityZone | null;
   ageBadge?: AgeBadge | null;
   gearLevel?: GearLevel | null;
+  href?: string;
 };
 
 export default function ArticleCard({
@@ -37,6 +38,7 @@ export default function ArticleCard({
   intensityZone,
   ageBadge,
   gearLevel,
+  href,
 }: ArticleCardProps) {
   return (
     <article className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow group">
@@ -158,7 +160,7 @@ export default function ArticleCard({
         </h3>
         <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">{excerpt}</p>
         <a
-          href="#"
+          href={href ?? "#"}
           className="mt-4 inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 transition-colors"
         >
           Olvasd el
