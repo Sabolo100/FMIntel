@@ -2,12 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { calculateReadTime } from "@/lib/readTime";
-import { priceBadgeConfig } from "@/lib/priceBadge";
-import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
 import { newBadgeConfig } from "@/lib/newBadge";
-import { intensityZoneConfig, type IntensityZone } from "@/lib/intensityZone";
-import { ageBadgeConfig, type AgeBadge } from "@/lib/ageBadge";
-import { gearLevelConfig, type GearLevel } from "@/lib/gearLevel";
+import { gearLevelConfig } from "@/lib/gearLevel";
+import { articles } from "@/data/articles";
 
 const categories = [
   {
@@ -129,80 +126,10 @@ const features = [
   },
 ];
 
-type ArticleBadge = {
-  label: string;
-  className: string;
-} | null;
-
-const latestArticles: {
-  category: string;
-  title: string;
-  excerpt: string;
-  wordCount: number;
-  categoryColor: string;
-  badge: ArticleBadge;
-  priceBadge?: { label: string; className: string } | null;
-  featured?: boolean;
-  recoveryTime?: RecoveryTime | null;
-  isNew?: boolean;
-  intensityZone?: IntensityZone | null;
-  ageBadge?: AgeBadge | null;
-  gearLevel?: GearLevel | null;
-}[] = [
-  {
-    category: "Edzésterv",
-    title: "Kerékpáros alapozó program 50 év felett",
-    featured: true,
-    excerpt:
-      "Hogyan kezdd el vagy folytasd a kerékpározást biztonságosan? Átfogó 8 hetes edzésterv tapasztalt bringásoknak.",
-    wordCount: 1600,
-    categoryColor: "bg-brand-100 text-brand-700",
-    badge: {
-      label: "Ajánlott 50+",
-      className: "bg-brand-600 text-white",
-    },
-    priceBadge: null,
-    recoveryTime: recoveryTimeConfig.intense,
-    intensityZone: intensityZoneConfig.z2,
-    ageBadge: ageBadgeConfig["50_active"],
-    gearLevel: "basic",
-  },
-  {
-    category: "Felszerelés",
-    title: "A legjobb carbon országúti kerékpárok 2024-ben",
-    excerpt:
-      "Prémium carbon kerékpárok összehasonlítása: Specialized, Trek, Canyon és Colnago modellek részletes elemzése.",
-    wordCount: 2400,
-    categoryColor: "bg-accent-100 text-accent-700",
-    badge: {
-      label: "Tesztelt",
-      className: "bg-accent-500 text-white",
-    },
-    priceBadge: priceBadgeConfig.premium,
-    recoveryTime: null,
-    isNew: true,
-    ageBadge: ageBadgeConfig["45_advanced"],
-    gearLevel: "pro",
-  },
-  {
-    category: "MTB",
-    title: "Top 5 MTB útvonal a Balaton-felvidéken",
-    excerpt:
-      "Lenyűgöző tájak, változatos terep és kihívó szakaszok. A legjobb mountain bike útvonalak a Bakony szívében.",
-    wordCount: 1200,
-    categoryColor: "bg-green-100 text-green-700",
-    badge: {
-      label: "Tipp",
-      className: "bg-green-600 text-white",
-    },
-    priceBadge: null,
-    recoveryTime: recoveryTimeConfig.light,
-    isNew: true,
-    intensityZone: intensityZoneConfig.z3,
-    ageBadge: ageBadgeConfig["45_beginner"],
-    gearLevel: "mid",
-  },
-];
+// Kiemelt cikkek a főoldalon: e1 (edzésterv, featured), f1 (felszerelés, prémium), c1 (cikk, tipp)
+const latestArticles = articles.filter((a) =>
+  ["e1", "f1", "c1"].includes(a.id)
+);
 
 export default function HomePage() {
   return (
@@ -403,7 +330,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {latestArticles.map((article) => (
               <article
-                key={article.title}
+                key={article.id}
                 className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow group"
               >
                 {article.featured && (
@@ -578,8 +505,8 @@ export default function HomePage() {
                   <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">
                     {article.excerpt}
                   </p>
-                  <a
-                    href="#"
+                  <Link
+                    href={`/cikkek/${article.id}`}
                     className="mt-4 inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 transition-colors"
                   >
                     Olvasd el
@@ -596,7 +523,7 @@ export default function HomePage() {
                         d="M17 8l4 4m0 0l-4 4m4-4H3"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
