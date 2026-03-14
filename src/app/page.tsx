@@ -4,7 +4,7 @@ import Link from "next/link";
 import { calculateReadTime } from "@/lib/readTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { gearLevelConfig } from "@/lib/gearLevel";
-import { articles } from "@/data/articles";
+import { getFeaturedArticles, articleDetailHref } from "@/lib/getFeaturedArticles";
 
 const categories = [
   {
@@ -126,10 +126,8 @@ const features = [
   },
 ];
 
-// Kiemelt cikkek a főoldalon: e1 (edzésterv, featured), f1 (felszerelés, prémium), c1 (cikk, tipp)
-const latestArticles = articles.filter((a) =>
-  ["e1", "f1", "c1"].includes(a.id)
-);
+// Kiemelt cikkek a főoldalon: dinamikusan az articles.ts-ből, featured jelölés + legújabb dátum alapján
+const latestArticles = getFeaturedArticles(3);
 
 export default function HomePage() {
   return (
@@ -506,7 +504,7 @@ export default function HomePage() {
                     {article.excerpt}
                   </p>
                   <Link
-                    href={`/cikkek/${article.id}`}
+                    href={articleDetailHref(article)}
                     className="mt-4 inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 transition-colors"
                   >
                     Olvasd el
