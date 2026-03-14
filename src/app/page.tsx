@@ -4,6 +4,7 @@ import { calculateReadTime } from "@/lib/readTime";
 import { priceBadgeConfig } from "@/lib/priceBadge";
 import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
 import { newBadgeConfig } from "@/lib/newBadge";
+import { intensityZoneConfig, type IntensityZone } from "@/lib/intensityZone";
 
 const categories = [
   {
@@ -141,6 +142,7 @@ const latestArticles: {
   featured?: boolean;
   recoveryTime?: RecoveryTime | null;
   isNew?: boolean;
+  intensityZone?: IntensityZone | null;
 }[] = [
   {
     category: "Edzésterv",
@@ -156,6 +158,7 @@ const latestArticles: {
     },
     priceBadge: null,
     recoveryTime: recoveryTimeConfig.intense,
+    intensityZone: intensityZoneConfig.z2,
   },
   {
     category: "Felszerelés",
@@ -186,6 +189,7 @@ const latestArticles: {
     priceBadge: null,
     recoveryTime: recoveryTimeConfig.light,
     isNew: true,
+    intensityZone: intensityZoneConfig.z3,
   },
 ];
 
@@ -483,6 +487,25 @@ export default function HomePage() {
                         className={`inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full ${article.priceBadge.className}`}
                       >
                         {article.priceBadge.label}
+                      </span>
+                    </div>
+                  )}
+                  {article.intensityZone && (
+                    <div className="mb-3">
+                      <span
+                        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full ${article.intensityZone.className}`}
+                        title={article.intensityZone.description}
+                        aria-label={`Pulzuszóna: ${article.intensityZone.zone} – ${article.intensityZone.description}`}
+                      >
+                        <svg
+                          className="w-3 h-3 flex-shrink-0"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        {article.intensityZone.zone}
                       </span>
                     </div>
                   )}
