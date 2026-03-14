@@ -5,6 +5,7 @@ import { priceBadgeConfig } from "@/lib/priceBadge";
 import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { intensityZoneConfig, type IntensityZone } from "@/lib/intensityZone";
+import { ageBadgeConfig, type AgeBadge } from "@/lib/ageBadge";
 
 const categories = [
   {
@@ -143,6 +144,7 @@ const latestArticles: {
   recoveryTime?: RecoveryTime | null;
   isNew?: boolean;
   intensityZone?: IntensityZone | null;
+  ageBadge?: AgeBadge | null;
 }[] = [
   {
     category: "Edzésterv",
@@ -159,6 +161,7 @@ const latestArticles: {
     priceBadge: null,
     recoveryTime: recoveryTimeConfig.intense,
     intensityZone: intensityZoneConfig.z2,
+    ageBadge: ageBadgeConfig["50_active"],
   },
   {
     category: "Felszerelés",
@@ -174,6 +177,7 @@ const latestArticles: {
     priceBadge: priceBadgeConfig.premium,
     recoveryTime: null,
     isNew: true,
+    ageBadge: ageBadgeConfig["45_advanced"],
   },
   {
     category: "MTB",
@@ -190,6 +194,7 @@ const latestArticles: {
     recoveryTime: recoveryTimeConfig.light,
     isNew: true,
     intensityZone: intensityZoneConfig.z3,
+    ageBadge: ageBadgeConfig["45_beginner"],
   },
 ];
 
@@ -506,6 +511,31 @@ export default function HomePage() {
                           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                         </svg>
                         {article.intensityZone.zone}
+                      </span>
+                    </div>
+                  )}
+                  {article.ageBadge && (
+                    <div className="mb-3">
+                      <span
+                        className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-full ${article.ageBadge.className}`}
+                        title="Ajánlott korosztály és tapasztalati szint"
+                        aria-label={`Célkorosztály: ${article.ageBadge.label}`}
+                      >
+                        <svg
+                          className="w-3 h-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                        {article.ageBadge.label}
                       </span>
                     </div>
                   )}
