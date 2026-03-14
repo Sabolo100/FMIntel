@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { calculateReadTime } from "@/lib/readTime";
+import { priceBadgeConfig } from "@/lib/priceBadge";
 
 const categories = [
   {
@@ -134,6 +135,7 @@ const latestArticles: {
   wordCount: number;
   categoryColor: string;
   badge: ArticleBadge;
+  priceBadge?: { label: string; className: string } | null;
 }[] = [
   {
     category: "Edzésterv",
@@ -146,6 +148,7 @@ const latestArticles: {
       label: "Ajánlott 50+",
       className: "bg-brand-600 text-white",
     },
+    priceBadge: null,
   },
   {
     category: "Felszerelés",
@@ -158,6 +161,7 @@ const latestArticles: {
       label: "Tesztelt",
       className: "bg-accent-500 text-white",
     },
+    priceBadge: priceBadgeConfig.premium,
   },
   {
     category: "MTB",
@@ -170,6 +174,7 @@ const latestArticles: {
       label: "Tipp",
       className: "bg-green-600 text-white",
     },
+    priceBadge: null,
   },
 ];
 
@@ -424,6 +429,15 @@ export default function HomePage() {
                       {calculateReadTime(article.wordCount)} olvasás
                     </span>
                   </div>
+                  {article.priceBadge && (
+                    <div className="mb-3">
+                      <span
+                        className={`inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full ${article.priceBadge.className}`}
+                      >
+                        {article.priceBadge.label}
+                      </span>
+                    </div>
+                  )}
                   <h3 className="font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors leading-snug">
                     {article.title}
                   </h3>
