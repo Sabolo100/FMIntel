@@ -126,7 +126,7 @@ export default function EdzestervekPage() {
                       )}
                     </div>
 
-                    <a href="#" className="inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 transition-colors">
+                    <a href={`/edzestervek/${plan.id}`} className="inline-flex items-center gap-1 text-brand-600 text-sm font-medium hover:text-brand-700 transition-colors">
                       Edzésterv megnyitása
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -148,7 +148,7 @@ export default function EdzestervekPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {newPlans.map((plan) => (
-                <ArticleCard key={plan.id} {...plan} />
+                <ArticleCard key={plan.id} {...plan} href={`/edzestervek/${plan.id}`} />
               ))}
             </div>
           </section>
@@ -167,7 +167,7 @@ export default function EdzestervekPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {plans.map((plan) => (
-                  <ArticleCard key={plan.id} {...plan} />
+                  <ArticleCard key={plan.id} {...plan} href={`/edzestervek/${plan.id}`} />
                 ))}
               </div>
             </section>
@@ -183,7 +183,7 @@ export default function EdzestervekPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {trainingPlans.map((plan) => (
-              <ArticleCard key={plan.id} {...plan} />
+              <ArticleCard key={plan.id} {...plan} href={`/edzestervek/${plan.id}`} />
             ))}
           </div>
         </section>
