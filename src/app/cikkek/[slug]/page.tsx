@@ -192,17 +192,25 @@ export default function ArticleDetailPage({ params }: Props) {
               {article.excerpt}
             </p>
 
-            {/* Tartalom placeholder */}
-            <div className="space-y-4 text-slate-700 leading-relaxed">
-              <p>
-                Ez a cikk hamarosan teljes terjedelmében elérhető lesz. Az összefoglaló már most olvasható fent.
-              </p>
-              <p>
-                A tartalmat kifejezetten <strong>45-60 éves kerékpárosok</strong> számára állítottuk össze,
-                figyelembe véve a korosztály fizikai sajátosságait, az ízületek védelmét és a regeneráció
-                fontosságát.
-              </p>
-            </div>
+            {/* Tartalom */}
+            {article.content && article.content.length > 0 ? (
+              <div className="space-y-5 text-slate-700 leading-relaxed">
+                {article.content.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4 text-slate-700 leading-relaxed">
+                <p>
+                  Ez a cikk hamarosan teljes terjedelmében elérhető lesz. Az összefoglaló már most olvasható fent.
+                </p>
+                <p>
+                  A tartalmat kifejezetten <strong>45-60 éves kerékpárosok</strong> számára állítottuk össze,
+                  figyelembe véve a korosztály fizikai sajátosságait, az ízületek védelmét és a regeneráció
+                  fontosságát.
+                </p>
+              </div>
+            )}
           </div>
         </article>
 
