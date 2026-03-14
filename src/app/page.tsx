@@ -136,10 +136,12 @@ const latestArticles: {
   categoryColor: string;
   badge: ArticleBadge;
   priceBadge?: { label: string; className: string } | null;
+  featured?: boolean;
 }[] = [
   {
     category: "Edzésterv",
     title: "Kerékpáros alapozó program 50 év felett",
+    featured: true,
     excerpt:
       "Hogyan kezdd el vagy folytasd a kerékpározást biztonságosan? Átfogó 8 hetes edzésterv tapasztalt bringásoknak.",
     wordCount: 1600,
@@ -378,8 +380,13 @@ export default function HomePage() {
             {latestArticles.map((article) => (
               <article
                 key={article.title}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow group"
+                className="relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow group"
               >
+                {article.featured && (
+                  <div className="absolute top-[22px] right-[-28px] w-28 bg-accent-500 text-white text-xs font-bold text-center py-1 rotate-45 shadow-sm z-10">
+                    Kiemelt
+                  </div>
+                )}
                 {/* Placeholder image area */}
                 <div className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 relative">
                   <div className="absolute inset-0 flex items-center justify-center">
