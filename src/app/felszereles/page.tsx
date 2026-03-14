@@ -65,7 +65,7 @@ export default function FelszerelesPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {newEquipment.map((item) => (
-                <ArticleCard key={item.id} {...item} />
+                <ArticleCard key={item.id} {...item} href={`/felszereles/${item.id}`} />
               ))}
             </div>
           </section>
@@ -89,7 +89,7 @@ export default function FelszerelesPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {premiumItems.map((item) => (
-                <ArticleCard key={item.id} {...item} />
+                <ArticleCard key={item.id} {...item} href={`/felszereles/${item.id}`} />
               ))}
             </div>
           </section>
@@ -108,7 +108,7 @@ export default function FelszerelesPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {items.map((item) => (
-                  <ArticleCard key={item.id} {...item} />
+                  <ArticleCard key={item.id} {...item} href={`/felszereles/${item.id}`} />
                 ))}
               </div>
             </section>
@@ -124,7 +124,7 @@ export default function FelszerelesPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {equipmentArticles.map((item) => (
-              <ArticleCard key={item.id} {...item} />
+              <ArticleCard key={item.id} {...item} href={`/felszereles/${item.id}`} />
             ))}
           </div>
         </section>

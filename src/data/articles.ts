@@ -382,6 +382,13 @@ export const articles: Article[] = [
     isNew: true,
     ageBadge: ageBadgeConfig["45_advanced"],
     gearLevel: "pro",
+    content: [
+      "A carbon országúti kerékpárok piaca 2024-ben lenyűgözően fejlődött: minden gyártó új geometriát, aerodinamikai fejlesztéseket és elektronikus váltókat kínál. A 45-60 éves korosztálynak különösen fontos, hogy nemcsak a teljesítményt, hanem a komfortot és az ízületek védelmét is figyelembe vegyük a választásnál. A tesztelés során négy kiemelkedő modellt vizsgáltunk meg, amelyek mindegyike megér egy alapos elemzést.",
+      "A Specialized Tarmac SL8 az év legnagyobb durranása: a váz tömege 73 dekagrammra csökkent, miközben a merevség és a komfort egyaránt javult. A méretes átmenetek tompításához épített 'FreeFoil' kialakítás különösen hasznos kövesebb utakon. Az SL8 geometriája enyhén emeltebb előrészt kínál, ami 50 év felett a hát és a nyak szempontjából kedvező. Ára 3 500–8 000 euró között mozog a komponens szettől függően.",
+      "A Trek Madone SLR 9 az aerodinamika bajnoka: alagúttesztek szerint 6 wattal jobb, mint elődje, és teljesen integrált vezetékvezetéssel rendelkezik. Ez utóbbi esztétikailag lenyűgöző, de fontos megjegyezni, hogy a beállítás és a karbantartás nehezebbé válik – szervizben járatlan otthoni barkácsoló számára ez hátrányt jelenthet. A 'IsoSpeed' technológia mégis komfortossá teszi a hosszú tekeréseket, és a 45+ korosztály megtapasztalhatja, hogy az aerodinamika komforttal is párosulhat.",
+      "A Canyon Ultimate CFR az ár-érték arány bajnoka a prémium szegmensben: azonos teljesítményű carbon vázat kb. 20-30%-kal olcsóbban kínál, mint a hagyományos márkák. Mivel Canyon közvetlenül értékesít, az ár nem tartalmaz kereskedői felárat. A hátránya: az ajánlott mérettáblázatot pontosan kell követni, személyes kipróbálásra nincs lehetőség vásárlás előtt. A Colnago C68 – bár drágább és nehezebb – az olasz kézműves hagyomány csúcsa: a váz kézzel fémtagozódó carbon-háló, és a geometria különösen kedvező 45+ korosztálynak.",
+      "Összegzésként: ha a teljesítmény az első, a Tarmac SL8 a legjobb választás; ha aeró és presztízs kell, a Madone SLR; ha pénztárca-barát premium megoldás kell, a Canyon Ultimate CFR. A Colnago C68 azoknak szól, akiknek a kerékpározás szenvedély és műalkotás egyszerre. Mindegyik modellnél javasolt a személyes bike fitting elvégzése – carbon kerékpárnál a beállítás azonos fontosságú a váz minőségével.",
+    ],
   },
   {
     id: "f2",
@@ -399,6 +406,13 @@ export const articles: Article[] = [
     isNew: true,
     ageBadge: ageBadgeConfig["50_active"],
     gearLevel: "pro",
+    content: [
+      "A fullsuspension MTB kerékpárok 45-60 éves bringásoknak különösen értékes befektetést jelentenek: a felfüggesztési rendszer nemcsak a komfortot növeli, hanem az ízületekre – elsősorban a térdre, csípőre és gerincre – nehezedő ütéseket is csökkenti. Az aktív első és hátsó felfüggesztéssel rendelkező kerékpárok terepen szignifikánsan tovább használhatók fájdalommentesen, mint a merev keretű társaik. Négy modellt teszteltünk 2024 tavaszi és nyári szezonban, különböző tereptípusokon.",
+      "A Trek Fuel EX 9.9 a sokoldalúság bajnoka: trail geometriája (65,5 fokos fejcső-szög, 130 mm hátsó felfüggesztés) lehetővé teszi, hogy egyforma örömmel tekerj az erdei singletrackeken és a technikai ereszkedőkön. Az 'ABP' (Active Braking Pivot) technológia révén fékezés közben a felfüggesztés nem merül be – ez 45 év felett különösen értékes, mert csökkenti a reakcióidőre nehezedő nyomást meredek lejtőkön. Ára 6 000–9 000 euró, ami indokolt a komponens-szett minőségével.",
+      "A Specialized Stumpjumper EVO 15 az enduro-orientált versenyzőknek szól: 150 mm-es felfüggesztéssel és 64,5 fokos fejcsőszöggel a meredek technikai terep specialistája. 50+ korosztálynak ez azért értékes, mert a nagyobb szabadságfok biztonságosabbá teszi a nehéz szakaszokat – nem kell maximálisan koncentrálni a kerékpár minden rezdülésére, az elektronika és a felfüggesztés elvégzi az apró korrekciókat. Hátránya, hogy felfelé nehezebb tekerni, mint a Fuel EX.",
+      "A Canyon Spectral CF 8 a legjobb ár-érték arányt kínálja ebben a szegmensben: carbon vázzal, 140 mm-es felfüggesztéssel és Shimano XT váltóval 3 200 euróért kapható. A geometria 'modern trail' kategóriás, könnyen tanulható és versatilis. A 45+ korosztály számára a Canyon Spectral különösen ajánlható, ha nincs szükség csúcstechnikára, de prémium minőséget és long-term megbízhatóságot keresnek.",
+      "Végső ajánlás: 45-60 éves, főleg trail és erdei terepet tekercselő bringásnak a Trek Fuel EX a legjobb mindennapos partner. Technikai enduro terepre és meredekebb pályákra a Stumpjumper EVO a biztonságos választás. Budget szempontból a Canyon Spectral CF verhetetlen. Mindhárom esetben javasolt szervizben kérni egy első beállítást – a felfüggesztés nyomás és csillapítás beállítása testsulyhoz és stílushoz igazítva sokat tesz hozzá az élményhez.",
+    ],
   },
   {
     id: "f3",
@@ -415,6 +429,13 @@ export const articles: Article[] = [
     priceBadge: priceBadgeConfig.mid,
     ageBadge: ageBadgeConfig["45_beginner"],
     gearLevel: "mid",
+    content: [
+      "A kerékpáros sisak az egyetlen felszerelés, amelynél soha nem érdemes kompromisszumot kötni: egy elesés esetén ez az eszköz védi a fejet a komoly sérüléstől. 45-60 éves kerékpárosoknak különösen fontos a jó illeszkedés, a szellőzés és az ergonómia – a fejforma változásával és a hosszabb tekerésekkel együtt a kényelem ugyanolyan döntő tényező, mint a biztonság. Hét modellt teszteltünk, amelyek az ár-értéktől a prémium szegmensig fedik le a piacot.",
+      "Az országúti szegmensben a Giro Synthe MIPS az egyik legjobb fejfedő: kiváló szellőzéssel, MIPS anti-rotációs védelemmel és könnyű kialakítással rendelkezik. A MIPS rendszer (Multi-directional Impact Protection System) 45+ korban különösen értékes, mert az oldalirányú ütések hatását csökkenti, amelyek agyrázást okozhatnak. A Bontrager Ballista szintén kiemelkedő, és kifejezetten szélesebb fejformára tervezték – sok magyar kerékpáros számára ez komfortosabb illeszkedést jelent.",
+      "MTB sisakok között a Fox Speedframe Pro MIPS és a Giro Montaro MIPS vezet a teszten. Mindkettő félmaszk kialakítású, ami a legtöbb trail és technikai terep kerékpározáshoz elegendő védelmet nyújt, miközben könnyebb, mint a teli arcvédős modellek. 45 év felett a Fox Speedframe könnyebb súlya (350 g körül) kevésbé terheli a nyakizomzatot hosszú tekerések során – ez szürkülve visszaköszönő gerincpanaszok esetén nem elhanyagolható szempont.",
+      "A teljes arcvédős kategóriában a Troy Lee Designs D4 Carbon a csúcs: rendkívül könnyű (kevesebb mint 900 g), jól szellőzik és hatékony védelmet nyújt meredek enduro terepen. Ha rendszeresen jársz technikai ereszkedőkre, a befektetés megéri. Budget kategóriában a MET Estro MIPS meglepően jó minőséget kínál 100-150 euróért – kezdőknek és heti egy tekeréshez tökéletes választás.",
+      "Összefoglalva: az ár-érték győztes a MET Estro MIPS (kezdő/közepes) és a Giro Synthe MIPS (haladó/verseny). MTB-seknek a Fox Speedframe Pro MIPS ajánlott, teli arcvédős sisakhoz a Troy Lee D4. A legfontosabb tanács: mielőtt megveszed, próbáld fel személyesen – a sisak csak tökéletes illeszkedés esetén véd megfelelően. Minden évben ellenőrizd az ESP-csatokat és a habbelső állapotát, és 3-5 évente mindenképpen cserélni kell.",
+    ],
   },
   {
     id: "f4",
@@ -431,6 +452,13 @@ export const articles: Article[] = [
     priceBadge: priceBadgeConfig.mid,
     ageBadge: ageBadgeConfig["45_beginner"],
     gearLevel: "basic",
+    content: [
+      "A téli kerékpározás igazi próbatétel a felszerelésnek – és a kerékpárosnak is. Magyarországon az október–március közötti időszakban 0 és -10 Celsius fok közötti hőmérsékleteken is sokan tekernek, és a megfelelő ruházat döntő különbséget jelent a kellemetlen élmény és az élvezetes túra között. A rétegzős öltözés alapelve egyszerű: három réteg, amelyek mindegyike más funkciót tölt be.",
+      "Az alap réteg (base layer) feladata az izzadság elvezetése a bőrtől. Merino gyapjú és szintetikus anyagok egyaránt jók, de merino előnye, hogy kevésbé szaglik hosszú viselés után. A téli kerékpárspecifikus base layerek szorosabban illeszkednek, mint a futós változatok, és hosszabb hátrésszel rendelkeznek, hogy a hajlított kerékpáros pózban is takarva maradjon a derék. Ajánlott márkák: Rapha, Assos, Craft, illetve az olcsóbb Decathlon B'Twin vonal.",
+      "A középső réteg (mid layer) szigetelést biztosít: fleece vagy softshell kerékpárosmez az ideális. Figyelj arra, hogy a kerékpáros mez elől rövid, hátul hosszú legyen – ez a praktikus szabás az egyetlen igazi különbség az általános outdoor ruházathoz képest. -5 fok alatt érdemes mellkasi szélvédős panellel ellátott modellt választani, mivel mellkasra fúvó hideg szél légúti panaszokat okozhat.",
+      "A külső réteg (shell jacket) szél- és vízállóságot nyújt. Kerékpáros 'softshell' kabát 0 fokig általában elegendő; ennél hidegebb, esős időre inkább 'hardshell' membránkabát (Gore-Tex vagy hasonló) ajánlott. A kézfej és a lábfej a legtöbb bringás számára a legsebezhetőbb pont: vastag neoprén cipővédő (shoe cover) és vízálló téli kesztyű elengedhetetlen. A fejre balaklava vagy sapka a sisak alá; a szemnek szélvédős sportüveg ajánlott.",
+      "Néhány extra tipp 45-60 éveseknek: az ízületek melegebb tartása télen megelőzi a reggeli merevséget – viselhető térdmelegítő alagutat elég hatékony és diszkrét megoldás. A fényvisszaverő elemek és első/hátsó lámpa télen kötelező, mivel sötétebb az idő. Kerüld a pamut ruházatot: vizes állapotban nem szigetel, és komoly hipotermia-kockázatot jelent hosszabb tekeréseken. Ha nem biztos vagy a ruházatod megfelelőségében, inkább öltözz rétegesebben – levenni mindig lehet.",
+    ],
   },
   {
     id: "f5",
@@ -448,6 +476,13 @@ export const articles: Article[] = [
     isNew: true,
     ageBadge: ageBadgeConfig["45_beginner"],
     gearLevel: "mid",
+    content: [
+      "A ciklokrossz és a gravel bike felszínesen hasonlónak tűnik, de a kettő között lényeges különbségek vannak. A CX-kerékpárok versenyspecifikusak: magasabb állvánnyal rendelkeznek (hogy a kerékpárt váll felett lehessen hordani akadályoknál), a keret alatt több sár-eltávolodási szabad hellyel bírnak, és gyorsabb geometriájuk van. A gravel bikeok ezzel szemben távolsági túrázásra optimalizáltak: stabilabb menetjellemzők, több táskahorgony, és szélesebb gumikhoz való kompatibilitás jellemzi őket.",
+      "Ha versenyezni szeretnél a ciklokrossz szezónban, érdemes igazi CX-kerékpárt venni. Ha elsősorban kavicsos utakon, dűlőutakon és forest road-okon tekersz, gravel bike a jobb választás – sőt, sok amatőr CX-versenyző is gravel bike-kal indul, és a szabályok ezt jellemzően engedik. A 45-60 éves korosztálynak, akik a szórakozást és a közösségi élményt keresik, a gravel bike versatilisebb és kevésbé megterhelő befektetés.",
+      "Mire figyelj az első CX kerékpár vásárlásakor? A keret anyaga: alu keretek 800–2 000 euró között, carbon keretek 2 500 eurótól indulnak. Carbon CX-keret könnyebb és rezgéscsillapítóbb – hosszú versenyeken és technikai talajon ez érzékelhető. A váltórendszer: SRAM Rival vagy Shimano GRX 600 szintű komponensek az optimális ár-érték pont. A gumiszélesség: 33 mm a minimális CX-méret, 35-38 mm tubeless kialakítással a legsokoldalúbb.",
+      "Budget szegmensben (1 000–1 800 euró) a Giant TCX Advanced és a Trek Boone jó kiindulópontok alu kerettel. Mid-range (2 000–3 500 euró) szegmensben a Specialized Crux Sport és a Canyon Inflite CF SLX kiváló értéket kínálnak carbon vázakkal. Prémium szegmensben (3 500 euró felett) a Ridley X-Night és a Colnago G3-X a mestermunkák – akik komolyan versenyeznek, ezek mellé dönthetnek.",
+      "Néhány végső tanács 45+ korosztálynak: ha tartós gerincproblémád van, válaszd a geometriában enyhén emeltebb verziót. A tubeless gumi 45 év felett különösen ajánlott – a defektmentes haladás kevesebb stresszt jelent. A cipő-pedál rendszerhez CX-specifikus cleatet válassz, amely sárban is könnyű bele- és kilépést biztosít. Az első szezonban ne félj lassabban menni az akadályoknál: a technikát érdemes megelőzni a sebességgel szemben.",
+    ],
   },
   {
     id: "f6",
@@ -465,6 +500,13 @@ export const articles: Article[] = [
     isNew: true,
     ageBadge: ageBadgeConfig["50_active"],
     gearLevel: "mid",
+    content: [
+      "A kerékpáros számítógép az egyik legértékesebb edzéssegédeszköz – különösen 45-60 éves bringásoknak, akik nem csupán élvezetből, hanem egészségtudatosan is tekernek. A GPS-es készülékek lehetővé teszik az útvonal rögzítését, a pulzus monitorozását, a teljesítmény (watt) mérését és az edzésadatok elemzését. De melyik eszköz illik a te igényeidhez?",
+      "A Garmin Edge sorozat a piac etalonja: az Edge 540 Solar (kb. 400 euró) kiváló kijelzővel, napelemes töltéssel és részletes edzésmetszetekkel rendelkezik. Az Edge 840 Touch (kb. 500 euró) érintőképernyőt és fejlettebb navigációt kínál – ha rendszeresen jársz ismeretlen utakon, ez az extra megéri. Az Edge 1040 Solar a profi modell: 35 órás akkumulátor-tartam és a legátfogóbb edzéselemzés. 45-60 éves korosztálynak a Garmin 840 a legjobb egyensúly.",
+      "A Wahoo Elemnt sorozat a Garmin fő riválisa: egyszerűbb kezelőfelület, gyors szinkronizáció és Strava-integráció jellemzi. Az Elemnt Bolt V2 (kb. 350 euró) kompakt és könnyű – aki nem akar bonyolult menüket navigálni, ennek örülni fog. A Wahoo Elemnt Roam V2 (kb. 450 euró) a túrázók választása: nagyobb képernyő, jobb útvonal-navigáció és topográfiai térkép. A Wahoo-ra érdemes váltani, ha Garmin felhasználóként fáradt vagy a túlkomplikált szoftvertől.",
+      "A Bryton Rider 750 SE a budget-tudatos bringásoknak szól: 200-250 euróért kínál GPS navigációt, pulzusmérést és watt-kompatibilitást, ami 45 éves kerékpárostól elvárható. A szoftver nem annyira kifinomult, mint a Garmin Connecté, de az alapadatok rögzítéséhez és Strava szinkronizációhoz tökéletesen megfelel. Ha még nem próbáltál GPS eszközt, Bryton kiváló belépési pont.",
+      "Mire figyelj vásárlásnál? Ha van power meternek (wattmérőnek), ANT+ és Bluetooth dual kompatibilitás szükséges – mindhárom gyártó biztosítja ezt. A képernyő láthatósága napsütésben döntő: a Garmin és Wahoo egyaránt kiváló napfényes olvashatóságot kínál. Az akkumulátor-tartam hosszú Gran Fondókhoz minimum 15-20 óra – ez alapkövetelmény. Végül: ellenőrizd, hogy a tartó kompatibilis-e a kormányed átmérőjével, különösen carbon kormánynál.",
+    ],
   },
   {
     id: "f7",
@@ -482,5 +524,12 @@ export const articles: Article[] = [
     isNew: true,
     ageBadge: ageBadgeConfig["45_advanced"],
     gearLevel: "pro",
+    content: [
+      "Az elektronikus váltók megjelenése forradalmasította az országúti kerékpározást: a Shimano Di2, a SRAM eTap AXS és a Campagnolo EPS rendszerek pontos, kézmozdulattal vagy gombnyomással aktiválható váltást kínálnak, amelyek soha nem 'nem váltanak' – feltéve, hogy az akkumulátor töltött. De valóban megéri a prémiumár 45-60 évesen? A válasz összetettebb, mint hinnénk.",
+      "A Shimano Dura-Ace Di2 R9200 a profi mezőny standardja: 12 sebességes rendszer, 2,3 gramm nyomóerővel aktiválható váltás és személyre szabható gombkiosztás jellemzi. Különleges funkciója a Synchronized Shifting: a rendszer automatikusan váltja az első áttételt is, ha szükséges, ami hegyes terepen vagy Gran Fondón komolyan csökkenti a kognitív terhelést. Az Ultegra Di2 R8100 ugyanezt 30-40%-kal olcsóbban kínálja – teljesítményben és súlyban minimális különbséggel.",
+      "A SRAM eTap AXS 12s rendszer a kábelmentesség bajnoka: az összes komponens vezeték nélkül kommunikál, ami szervizben előny, de telepített ütközők esetén némi tanulási görbét igényel. A rendszer legfontosabb előnye a 'Mullet' konfiguráció lehetősége: elöl road cranket, hátul MTB-es fogaskereket lehet kombinálni – ez hegyi terepen jól jön. A Campagnolo EPS V4 az olasz tábor legfrissebb rendszere, amelynek ergonómiája sok kézpántos kerékpáros számára a legtermészetesebb.",
+      "Mechanikus alternatíva a Shimano Ultegra R8000 és a SRAM Rival, amelyek megbízható, olcsóbb opciókat kínálnak. A mechanikus váltó előnye: könnyebb javíthatóság útközben, nincs akkumulátorfüggés, és jelentősen alacsonyabb ár (Ultegra R8000 component szett kb. 900 euró vs. Ultegra Di2 R8100 kb. 1 800 euró). Hosszú táv-tekerőknek és bikepacking-kedvelőknek a mechanikus rendszer még mindig meggyőző opció.",
+      "Összegzés: 45-60 éves tapasztalt kerékpárosnak, aki rendszeresen edz és versenyzésre gondol, az Ultegra Di2 R8100 a legjobb ár-érték arányú elektronikus választás. Aki Gran Fondókon és hosszú tekeréseken kényelmet keres – különösen, ha kezei vagy csukói érzékenyek –, az elektronika érezhetően jobb ergonómiát ad. Ha viszont elsősorban városban és könnyű terepen tekersz, a mechanikus Ultegra R8000 megbízható és olcsóbb marad. Az elektronikus váltó élvezete tagadhatatlan – de csak akkor éri meg, ha valóban kihasználod a lehetőségeit.",
+    ],
   },
 ];
