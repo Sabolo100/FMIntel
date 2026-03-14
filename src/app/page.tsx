@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { calculateReadTime } from "@/lib/readTime";
 
 const categories = [
   {
@@ -130,7 +131,7 @@ const latestArticles: {
   category: string;
   title: string;
   excerpt: string;
-  readTime: string;
+  wordCount: number;
   categoryColor: string;
   badge: ArticleBadge;
 }[] = [
@@ -139,7 +140,7 @@ const latestArticles: {
     title: "Kerékpáros alapozó program 50 év felett",
     excerpt:
       "Hogyan kezdd el vagy folytasd a kerékpározást biztonságosan? Átfogó 8 hetes edzésterv tapasztalt bringásoknak.",
-    readTime: "8 perc",
+    wordCount: 1600,
     categoryColor: "bg-brand-100 text-brand-700",
     badge: {
       label: "Ajánlott 50+",
@@ -151,7 +152,7 @@ const latestArticles: {
     title: "A legjobb carbon országúti kerékpárok 2024-ben",
     excerpt:
       "Prémium carbon kerékpárok összehasonlítása: Specialized, Trek, Canyon és Colnago modellek részletes elemzése.",
-    readTime: "12 perc",
+    wordCount: 2400,
     categoryColor: "bg-accent-100 text-accent-700",
     badge: {
       label: "Tesztelt",
@@ -163,7 +164,7 @@ const latestArticles: {
     title: "Top 5 MTB útvonal a Balaton-felvidéken",
     excerpt:
       "Lenyűgöző tájak, változatos terep és kihívó szakaszok. A legjobb mountain bike útvonalak a Bakony szívében.",
-    readTime: "6 perc",
+    wordCount: 1200,
     categoryColor: "bg-green-100 text-green-700",
     badge: {
       label: "Tipp",
@@ -409,7 +410,19 @@ export default function HomePage() {
                     >
                       {article.category}
                     </span>
-                    <span className="text-xs text-slate-400">{article.readTime} olvasás</span>
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+                      <svg
+                        className="w-3.5 h-3.5 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <circle cx="12" cy="12" r="9" strokeWidth="1.75" strokeLinecap="round" />
+                        <path strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 3" />
+                      </svg>
+                      {calculateReadTime(article.wordCount)} olvasás
+                    </span>
                   </div>
                   <h3 className="font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors leading-snug">
                     {article.title}
