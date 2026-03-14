@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { calculateReadTime } from "@/lib/readTime";
 import { priceBadgeConfig } from "@/lib/priceBadge";
 import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
+import { newBadgeConfig } from "@/lib/newBadge";
 
 const categories = [
   {
@@ -139,6 +140,7 @@ const latestArticles: {
   priceBadge?: { label: string; className: string } | null;
   featured?: boolean;
   recoveryTime?: RecoveryTime | null;
+  isNew?: boolean;
 }[] = [
   {
     category: "Edzésterv",
@@ -168,6 +170,7 @@ const latestArticles: {
     },
     priceBadge: priceBadgeConfig.premium,
     recoveryTime: null,
+    isNew: true,
   },
   {
     category: "MTB",
@@ -182,6 +185,7 @@ const latestArticles: {
     },
     priceBadge: null,
     recoveryTime: recoveryTimeConfig.light,
+    isNew: true,
   },
 ];
 
@@ -416,6 +420,14 @@ export default function HomePage() {
                       className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm ${article.badge.className}`}
                     >
                       {article.badge.label}
+                    </span>
+                  )}
+                  {article.isNew && (
+                    <span
+                      className={`absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm ${newBadgeConfig.className}`}
+                      aria-label="Új tartalom"
+                    >
+                      {newBadgeConfig.label}
                     </span>
                   )}
                 </div>
