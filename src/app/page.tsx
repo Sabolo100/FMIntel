@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { calculateReadTime } from "@/lib/readTime";
 import { priceBadgeConfig } from "@/lib/priceBadge";
 import { recoveryTimeConfig, type RecoveryTime } from "@/lib/recoveryTime";
@@ -231,8 +232,8 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <a
-                href="#tartalmak"
+              <Link
+                href="/cikkek"
                 className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
                 Fedezd fel a tartalmakat
@@ -244,13 +245,13 @@ export default function HomePage() {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </a>
-              <a
-                href="#edzestervek"
+              </Link>
+              <Link
+                href="/edzestervek"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
                 Edzéstervek
-              </a>
+              </Link>
             </div>
 
             {/* Stats */}
@@ -285,9 +286,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {categories.map((cat) => (
-              <a
+              <Link
                 key={cat.id}
-                href={`#${cat.id}`}
+                href={`/stilusok#${cat.id}`}
                 className="group bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-300 hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -331,7 +332,7 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -383,8 +384,8 @@ export default function HomePage() {
                 Friss tartalmak kerékpáros életmódhoz és sporthoz
               </p>
             </div>
-            <a
-              href="#"
+            <Link
+              href="/cikkek"
               className="hidden md:inline-flex items-center gap-1.5 text-brand-600 hover:text-brand-700 font-medium text-sm transition-colors"
             >
               Összes cikk
@@ -396,7 +397,7 @@ export default function HomePage() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -613,8 +614,8 @@ export default function HomePage() {
             Csatlakozz a magyar kerékpáros közösséghez és fedezd fel, hogyan hozhatsz ki
             többet a tekerésből 45-60 évesen.
           </p>
-          <a
-            href="#tartalmak"
+          <Link
+            href="/cikkek"
             className="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 font-bold px-8 py-3.5 rounded-xl transition-colors"
           >
             Tartalmak felfedezése
@@ -626,7 +627,7 @@ export default function HomePage() {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
 

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -7,8 +9,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 bg-brand-600 rounded-md flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-2 mb-3 group w-fit">
+              <div className="w-7 h-7 bg-brand-600 rounded-md flex items-center justify-center group-hover:bg-brand-500 transition-colors">
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -27,58 +29,63 @@ export default function Footer() {
                 </svg>
               </div>
               <span className="text-white font-bold text-lg">Onjaro</span>
-            </div>
+            </Link>
             <p className="text-sm leading-relaxed">
               Magyar kerékpársport-portál tapasztalt kerékpárosok számára. Edzéstervek,
               felszerelés-tanácsok és közösség.
             </p>
           </div>
 
-          {/* Links */}
+          {/* Tartalmak */}
           <div>
             <h3 className="text-white font-semibold mb-3">Tartalmak</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/cikkek" className="hover:text-white transition-colors">
+                  Összes cikk
+                </Link>
+              </li>
+              <li>
+                <Link href="/edzestervek" className="hover:text-white transition-colors">
                   Edzéstervek
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/felszereles" className="hover:text-white transition-colors">
                   Felszerelés-tanácsok
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Regeneráció és egészség
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Útvonaltervek
-                </a>
+                <Link href="/cikkek#cikk" className="hover:text-white transition-colors">
+                  Technika és egészség
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Stílusok */}
           <div>
-            <h3 className="text-white font-semibold mb-3">Kerékpáros típusok</h3>
+            <h3 className="text-white font-semibold mb-3">Kerékpározási stílusok</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/stilusok#orszaguti" className="hover:text-white transition-colors">
                   Országúti kerékpározás
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/stilusok#mtb" className="hover:text-white transition-colors">
                   Mountain Bike (MTB)
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="/stilusok#ciklokrossz" className="hover:text-white transition-colors">
                   Ciklokrossz
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/stilusok" className="hover:text-white transition-colors">
+                  Minden stílus
+                </Link>
               </li>
             </ul>
           </div>
