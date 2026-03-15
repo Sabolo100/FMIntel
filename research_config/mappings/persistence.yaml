@@ -1,0 +1,43 @@
+# Field mappings: Pydantic model field -> Supabase column
+# Used by the persistence layer to map extracted data to database columns.
+
+articles:
+  field_mapping:
+    title: "title"
+    type: "type"
+    style: "style"
+    category: "category"
+    excerpt: "excerpt"
+    content: "content"
+    word_count: "word_count"
+    date: "date"
+    category_color: "category_color"
+    badge: "badge"
+    price_badge: "price_badge"
+    featured: "featured"
+    recovery_time: "recovery_time"
+    is_new: "is_new"
+    intensity_zone: "intensity_zone"
+    age_badge: "age_badge"
+    gear_level: "gear_level"
+    weeks_duration: "weeks_duration"
+    sessions_per_week: "sessions_per_week"
+    difficulty: "difficulty"
+
+  auto_fields:
+    id: "auto_generate"
+    created_at: "auto_timestamp"
+    updated_at: "auto_timestamp"
+
+  required_fields:
+    - "title"
+    - "type"
+    - "style"
+    - "category"
+    - "excerpt"
+    - "content"
+
+  defaults:
+    is_new: true
+    featured: false
+    category_color: "bg-blue-100 text-blue-800"

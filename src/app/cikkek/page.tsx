@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArticleCard from "@/components/ArticleCard";
-import { articles } from "@/data/articles";
+import { getArticles } from "@/lib/articlesDb";
 import type { ArticleStyle, ArticleType } from "@/data/articles";
 
 // Szűrő opciók
@@ -20,15 +20,11 @@ const styleFilters: { value: ArticleStyle | "osszes"; label: string }[] = [
   { value: "altalanos", label: "Általános" },
 ];
 
-// Rendezés: legújabb elöl
-const allArticles = [...articles].sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-);
+export default async function CikkekPage() {
+  const allArticles = await getArticles();
+  const newArticles = allArticles.filter((a) => a.isNew);
+  const featuredArticles = allArticles.filter((a) => a.featured);
 
-const newArticles = allArticles.filter((a) => a.isNew);
-const featuredArticles = allArticles.filter((a) => a.featured);
-
-export default function CikkekPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
@@ -142,8 +138,8 @@ export default function CikkekPage() {
           </svg>
           <p className="text-sm">
             Új cikk hozzáadásához szúrj be egy bejegyzést a{" "}
-            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">src/data/articles.ts</code>{" "}
-            fájlba.
+            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">Supabase articles</code>{" "}
+            táblába.
           </p>
         </div>
       </div>

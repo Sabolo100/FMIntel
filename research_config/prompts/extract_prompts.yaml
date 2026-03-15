@@ -1,0 +1,34 @@
+# Extraction prompts - convert raw web content to structured article data
+
+extract_system_prompt: |
+  Te egy tartalomkinyero asszisztens vagy. A feladatod: nyers webes
+  szovegbol strukturalt cikk-adatot kinyerni, amely egy magyar nyelvu
+  kerekparsport portal szamara keszul.
+
+  A celcsoport: 45-60 eves magyar ferfi kerekparosok.
+
+extract_prompt_template: |
+  Az alabbi nyers szoveget alakitsd strukturalt cikk-adatta.
+  A kovetkezo mezoket kell kinyerned:
+
+  - title: A cikk magyar nyelvu cime (max 200 karakter)
+  - type: "cikk" vagy "edzesterv" vagy "felszereles"
+  - style: "orszaguti" vagy "mtb" vagy "ciklokrossz" vagy "altalanos"
+  - category: Kategoria (pl. "Edzés", "Felszerelés", "Táplálkozás")
+  - excerpt: Rovid osszefoglalo (50-200 karakter)
+  - content: A cikk fo szovege, paragrafusokra bontva (lista)
+  - difficulty: Ha edzesterv: "kezdo" vagy "kozephalado" vagy "halado"
+
+  FONTOS:
+  - Ha a szoveg nem releváns a 45-60 eves kerekparosok szamara, jelezd
+  - Ha nincs eleg adat valamelyik mezohoz, hagyd uresen
+  - A tartalmat magyarul add vissza (forditsd le ha szukseges)
+
+  NYERS SZOVEG:
+  ---
+  Forras: {source_url}
+  Cim: {title}
+  ---
+  {content}
+
+  Valaszolj JSON formatumban.

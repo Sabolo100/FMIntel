@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { articles } from "@/data/articles";
+import { getArticles, getArticleById } from "@/lib/articlesDb";
 import { calculateReadTime } from "@/lib/readTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { gearLevelConfig } from "@/lib/gearLevel";
@@ -11,12 +11,13 @@ type Props = {
   params: { slug: string };
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const articles = await getArticles();
   return articles.map((article) => ({ slug: article.id }));
 }
 
-export function generateMetadata({ params }: Props) {
-  const article = articles.find((a) => a.id === params.slug);
+export async function generateMetadata({ params }: Props) {
+  const article = await getArticleById(params.slug);
   if (!article) return { title: "Cikk nem található" };
   return {
     title: `${article.title} – Onjaro`,
@@ -37,8 +38,8 @@ const styleLabel: Record<string, string> = {
   altalanos: "Általános",
 };
 
-export default function ArticleDetailPage({ params }: Props) {
-  const article = articles.find((a) => a.id === params.slug);
+export default async function ArticleDetailPage({ params }: Props) {
+  const article = await getArticleById(params.slug);
 
   if (!article) {
     notFound();

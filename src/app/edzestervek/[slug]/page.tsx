@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { articles } from "@/data/articles";
+import { getArticlesByType, getArticleById } from "@/lib/articlesDb";
 import { calculateReadTime } from "@/lib/readTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { gearLevelConfig } from "@/lib/gearLevel";
@@ -11,14 +11,13 @@ type Props = {
   params: { slug: string };
 };
 
-const trainingPlans = articles.filter((a) => a.type === "edzesterv");
-
-export function generateStaticParams() {
-  return trainingPlans.map((plan) => ({ slug: plan.id }));
+export async function generateStaticParams() {
+  const plans = await getArticlesByType("edzesterv");
+  return plans.map((plan) => ({ slug: plan.id }));
 }
 
-export function generateMetadata({ params }: Props) {
-  const plan = trainingPlans.find((a) => a.id === params.slug);
+export async function generateMetadata({ params }: Props) {
+  const plan = await getArticleById(params.slug);
   if (!plan) return { title: "Edzésterv nem található" };
   return {
     title: `${plan.title} – Onjaro`,
@@ -45,8 +44,8 @@ const difficultyColors: Record<string, string> = {
   haladó: "bg-red-100 text-red-700 border border-red-200",
 };
 
-export default function EdzestervDetailPage({ params }: Props) {
-  const plan = trainingPlans.find((a) => a.id === params.slug);
+export default async function EdzestervDetailPage({ params }: Props) {
+  const plan = await getArticleById(params.slug);
 
   if (!plan) {
     notFound();

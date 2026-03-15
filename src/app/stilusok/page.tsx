@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArticleCard from "@/components/ArticleCard";
-import { articles } from "@/data/articles";
+import { getArticles } from "@/lib/articlesDb";
 import type { ArticleStyle } from "@/data/articles";
 
 const styles = [
@@ -70,7 +70,9 @@ const styles = [
   },
 ] as const;
 
-export default function StilusokPage() {
+export default async function StilusokPage() {
+  const articles = await getArticles();
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />

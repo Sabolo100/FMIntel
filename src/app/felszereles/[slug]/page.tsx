@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { articles } from "@/data/articles";
+import { getArticlesByType, getArticleById } from "@/lib/articlesDb";
 import { calculateReadTime } from "@/lib/readTime";
 import { newBadgeConfig } from "@/lib/newBadge";
 import { gearLevelConfig } from "@/lib/gearLevel";
@@ -11,16 +11,13 @@ type Props = {
   params: { slug: string };
 };
 
-export function generateStaticParams() {
-  return articles
-    .filter((a) => a.type === "felszereles")
-    .map((article) => ({ slug: article.id }));
+export async function generateStaticParams() {
+  const articles = await getArticlesByType("felszereles");
+  return articles.map((article) => ({ slug: article.id }));
 }
 
-export function generateMetadata({ params }: Props) {
-  const article = articles.find(
-    (a) => a.id === params.slug && a.type === "felszereles"
-  );
+export async function generateMetadata({ params }: Props) {
+  const article = await getArticleById(params.slug);
   if (!article) return { title: "Felszerelés cikk nem található" };
   return {
     title: `${article.title} – Onjaro`,
@@ -35,10 +32,8 @@ const styleLabel: Record<string, string> = {
   altalanos: "Általános",
 };
 
-export default function FelszerelesDetailPage({ params }: Props) {
-  const article = articles.find(
-    (a) => a.id === params.slug && a.type === "felszereles"
-  );
+export default async function FelszerelesDetailPage({ params }: Props) {
+  const article = await getArticleById(params.slug);
 
   if (!article) {
     notFound();

@@ -1,0 +1,45 @@
+# Seed sources for Onjaro Bike Web research
+# These are initial trusted sources. The system will learn and score them over time.
+
+sources:
+  - url: "bikemag.hu"
+    trust_score: 0.9
+    language: "hu"
+    source_type: "web"
+    tags: ["cycling", "hungarian"]
+
+  - url: "kerekparos.com"
+    trust_score: 0.85
+    language: "hu"
+    source_type: "web"
+    tags: ["cycling", "hungarian"]
+
+  - url: "bfrk.hu"
+    trust_score: 0.8
+    language: "hu"
+    source_type: "web"
+    tags: ["cycling", "federation", "hungarian"]
+
+  - url: "cyclingtips.com"
+    trust_score: 0.8
+    language: "en"
+    source_type: "web"
+    tags: ["cycling", "international", "training"]
+
+  - url: "bikeradar.com"
+    trust_score: 0.75
+    language: "en"
+    source_type: "web"
+    tags: ["cycling", "gear", "reviews"]
+
+  - url: "trainerroad.com/blog"
+    trust_score: 0.8
+    language: "en"
+    source_type: "web"
+    tags: ["cycling", "training", "plans"]
+
+  - url: "roadbikereview.com"
+    trust_score: 0.7
+    language: "en"
+    source_type: "web"
+    tags: ["cycling", "gear", "reviews"]

@@ -1,12 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArticleCard from "@/components/ArticleCard";
-import { articles } from "@/data/articles";
+import { getArticlesByType } from "@/lib/articlesDb";
 import { intensityZoneConfig } from "@/lib/intensityZone";
-
-const trainingPlans = [...articles]
-  .filter((a) => a.type === "edzesterv")
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const styleGroups = [
   { id: "orszaguti", label: "Országúti", color: "brand" },
@@ -21,7 +17,8 @@ const difficultyColors: Record<string, string> = {
   haladó: "bg-red-100 text-red-700 border border-red-200",
 };
 
-export default function EdzestervekPage() {
+export default async function EdzestervekPage() {
+  const trainingPlans = await getArticlesByType("edzesterv");
   const featured = trainingPlans.filter((p) => p.featured);
   const newPlans = trainingPlans.filter((p) => p.isNew);
 
@@ -197,8 +194,8 @@ export default function EdzestervekPage() {
             Új edzésterv hozzáadásához szúrj be egy{" "}
             <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">type: &quot;edzesterv&quot;</code>{" "}
             bejegyzést a{" "}
-            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">src/data/articles.ts</code>{" "}
-            fájlba.
+            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">Supabase articles</code>{" "}
+            táblába.
           </p>
         </div>
       </div>

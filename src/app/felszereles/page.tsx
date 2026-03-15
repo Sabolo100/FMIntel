@@ -1,12 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ArticleCard from "@/components/ArticleCard";
-import { articles } from "@/data/articles";
+import { getArticlesByType } from "@/lib/articlesDb";
 import { priceBadgeConfig } from "@/lib/priceBadge";
-
-const equipmentArticles = [...articles]
-  .filter((a) => a.type === "felszereles")
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const categoryGroups = [
   { id: "orszaguti", label: "Országúti kerékpárok és alkatrészek" },
@@ -15,7 +11,8 @@ const categoryGroups = [
   { id: "altalanos", label: "Általános kerékpáros felszerelés" },
 ] as const;
 
-export default function FelszerelesPage() {
+export default async function FelszerelesPage() {
+  const equipmentArticles = await getArticlesByType("felszereles");
   const newEquipment = equipmentArticles.filter((e) => e.isNew);
   const premiumItems = equipmentArticles.filter((e) => e.priceBadge?.label === priceBadgeConfig.premium.label);
 
@@ -138,8 +135,8 @@ export default function FelszerelesPage() {
             Új felszerelés cikk hozzáadásához szúrj be egy{" "}
             <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">type: &quot;felszereles&quot;</code>{" "}
             bejegyzést a{" "}
-            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">src/data/articles.ts</code>{" "}
-            fájlba.
+            <code className="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono">Supabase articles</code>{" "}
+            táblába.
           </p>
         </div>
       </div>

@@ -1,0 +1,16 @@
+# Research policies for Onjaro Bike Web
+
+dedupe:
+  strategy: "title_similarity"
+  similarity_threshold: 0.85
+  unique_keys:
+    - "title"
+    - "type"
+
+persistence:
+  default_policy: "insert_if_new"
+  review_threshold: 0.6
+
+approval:
+  auto_approve_above: 0.8
+  require_manual_below: 0.4
