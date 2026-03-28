@@ -1,4 +1,8 @@
-"""Pydantic schema for building extraction - FM/PM/AM Intelligence."""
+"""Pydantic schema for building extraction - FM/PM/AM Intelligence.
+
+Note: Uses 'title' and 'content' for validator.py compatibility.
+Persistence.yaml maps title->name, content->description.
+"""
 
 from typing import Optional, List, Literal
 from pydantic import BaseModel, Field
@@ -6,7 +10,8 @@ from pydantic import BaseModel, Field
 
 class BuildingCandidate(BaseModel):
     """Schema for extracted building data."""
-    name: str = Field(min_length=2, max_length=300)
+    title: str = Field(min_length=2, max_length=300)
+    content: Optional[List[str]] = None
     name_aliases: List[str] = []
     building_type: Literal["iroda", "raktar", "logisztikai", "vegyes"] = "iroda"
     building_class: Optional[Literal["A+", "A", "B+", "B", "C"]] = None
@@ -26,5 +31,4 @@ class BuildingCandidate(BaseModel):
     year_renovated: Optional[int] = None
     owner_company_name: Optional[str] = None
     developer_company_name: Optional[str] = None
-    description: Optional[str] = None
     source_url: Optional[str] = None

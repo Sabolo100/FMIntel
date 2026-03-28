@@ -1,13 +1,17 @@
-"""Pydantic schema for person extraction - FM/PM/AM Intelligence."""
+"""Pydantic schema for person extraction - FM/PM/AM Intelligence.
 
-from typing import Optional, Literal
+Note: Uses 'title' (=person name) and 'content' for validator.py compatibility.
+Persistence.yaml maps title->name, content->bio.
+"""
+
+from typing import Optional, List, Literal
 from pydantic import BaseModel, Field
 
 
 class PersonCandidate(BaseModel):
     """Schema for extracted person data."""
-    name: str = Field(min_length=2, max_length=200)
-    title: Optional[str] = None
+    title: str = Field(min_length=2, max_length=200)
+    content: Optional[List[str]] = None
     current_company_name: Optional[str] = None
     position_title: Optional[str] = None
     position_category: Optional[Literal[
@@ -22,5 +26,4 @@ class PersonCandidate(BaseModel):
     ]] = "other"
     previous_company_name: Optional[str] = None
     linkedin_url: Optional[str] = None
-    bio: Optional[str] = None
     source_url: Optional[str] = None

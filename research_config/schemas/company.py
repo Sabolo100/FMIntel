@@ -1,4 +1,9 @@
-"""Pydantic schema for company extraction - FM/PM/AM Intelligence."""
+"""Pydantic schema for company extraction - FM/PM/AM Intelligence.
+
+Note: Uses 'title' and 'content' field names for compatibility with the
+validator.py business rules (which hardcodes checks for these fields).
+The persistence.yaml mapping converts title->name and content->description.
+"""
 
 from typing import Optional, List, Literal
 from pydantic import BaseModel, Field
@@ -6,10 +11,10 @@ from pydantic import BaseModel, Field
 
 class CompanyCandidate(BaseModel):
     """Schema for extracted company data."""
-    name: str = Field(min_length=2, max_length=200)
+    title: str = Field(min_length=2, max_length=200)
+    content: Optional[List[str]] = None
     name_aliases: List[str] = []
     service_types: List[Literal["fm", "pm", "am"]] = []
-    description: Optional[str] = None
     website: Optional[str] = None
     headquarters_city: Optional[str] = None
     headquarters_address: Optional[str] = None

@@ -1,9 +1,13 @@
+# Field mappings: extraction field -> Supabase column
+# Note: schemas use 'title' and 'content' for validator.py compatibility,
+# which are mapped here to the actual DB column names.
+
 companies:
   field_mapping:
-    name: "name"
+    title: "name"
+    content: "description"
     name_aliases: "name_aliases"
     service_types: "service_types"
-    description: "description"
     website: "website"
     headquarters_city: "headquarters_city"
     headquarters_address: "headquarters_address"
@@ -27,7 +31,8 @@ companies:
 
 buildings:
   field_mapping:
-    name: "name"
+    title: "name"
+    content: "description"
     name_aliases: "name_aliases"
     building_type: "building_type"
     building_class: "building_class"
@@ -43,7 +48,6 @@ buildings:
     floors: "floors"
     year_built: "year_built"
     year_renovated: "year_renovated"
-    description: "description"
     source_url: "source_urls"
   auto_fields:
     created_at: "auto_timestamp"
@@ -60,10 +64,10 @@ buildings:
 
 people:
   field_mapping:
-    name: "name"
-    title: "title"
+    title: "name"
+    content: "bio"
+    position_title: "title"
     linkedin_url: "linkedin_url"
-    bio: "bio"
     source_url: "source_urls"
   auto_fields:
     created_at: "auto_timestamp"
@@ -78,10 +82,10 @@ people:
 news_mentions:
   field_mapping:
     title: "title"
+    content: "summary"
     url: "url"
     source_domain: "source_domain"
     published_at: "published_at"
-    summary: "summary"
     entity_type: "entity_type"
     entity_name: "entity_name"
     sentiment: "sentiment"

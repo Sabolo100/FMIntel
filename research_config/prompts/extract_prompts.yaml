@@ -12,18 +12,22 @@ extract_prompt_template: |
   Az alábbi nyers szöveget alakítsd strukturált adattá.
   Határozd meg, milyen típusú entitásról szól (cég, épület, személy, hír).
 
+  FONTOS: A "title" mező mindig az entitás NEVE (cég neve, épület neve, személy neve, vagy hír címe).
+  A "content" mező mindig egy lista a leírás bekezdéseiből.
+
   Ha CÉG:
-  - name: Cég neve (hivatalos, magyar)
+  - title: Cég neve (hivatalos, magyar) - KÖTELEZŐ
+  - content: Rövid leírás bekezdésekre bontva (lista) - KÖTELEZŐ, pl. ["A cég fő tevékenysége...", "Szolgáltatásai között..."]
   - name_aliases: Alternatív nevek, márkák (lista)
   - service_types: Milyen szolgáltatásokat nyújt? ["fm", "pm", "am"]
-  - description: Rövid leírás (max 500 karakter)
   - website: Weboldal URL
   - headquarters_city: Székhelye
   - is_international: Nemzetközi cég-e? (true/false)
   - source_url: Az eredeti forrás URL
 
   Ha ÉPÜLET:
-  - name: Épület neve
+  - title: Épület neve - KÖTELEZŐ
+  - content: Épület leírása bekezdésekre bontva (lista) - KÖTELEZŐ
   - building_type: "iroda" / "raktar" / "logisztikai" / "vegyes"
   - building_class: "A+" / "A" / "B+" / "B" / "C"
   - status: "mukodo" / "fejlesztes_alatt" / "tervezett"
@@ -35,8 +39,8 @@ extract_prompt_template: |
   - source_url: Forrás URL
 
   Ha SZEMÉLY:
-  - name: Személy neve
-  - title: Jelenlegi beosztás
+  - title: Személy teljes neve - KÖTELEZŐ
+  - content: Rövid életrajz bekezdésekre bontva (lista) - KÖTELEZŐ
   - current_company_name: Jelenlegi munkáltató
   - position_title: Pozíció megnevezése
   - position_category: ceo/fm_director/pm_manager/am_manager/stb.
@@ -44,16 +48,17 @@ extract_prompt_template: |
   - source_url: Forrás URL
 
   Ha HÍR:
-  - title: Hír címe
+  - title: Hír címe - KÖTELEZŐ
+  - content: Összefoglaló bekezdésekre bontva (lista) - KÖTELEZŐ
   - url: Hír URL-je
   - source_domain: Forrás domain
   - published_at: Megjelenés dátuma (YYYY-MM-DD)
-  - summary: Rövid összefoglaló
   - entity_type: "company" / "building" / "person"
   - entity_name: Melyik entitásról szól
 
   FONTOS:
-  - Ha nincs elég adat, hagyd üresen a mezőt
+  - A "title" és "content" mezők KÖTELEZŐEK minden entitástípusnál
+  - Ha nincs elég adat más mezőkhöz, hagyd üresen
   - A nevet mindig magyarul add meg (ha lehetséges)
   - Válaszolj CSAK JSON formátumban, más szöveget ne adj
 
