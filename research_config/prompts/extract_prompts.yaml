@@ -1,34 +1,65 @@
-# Extraction prompts - convert raw web content to structured article data
-
 extract_system_prompt: |
-  Te egy tartalomkinyero asszisztens vagy. A feladatod: nyers webes
-  szovegbol strukturalt cikk-adatot kinyerni, amely egy magyar nyelvu
-  kerekparsport portal szamara keszul.
+  Te egy strukturált adatkinyerő asszisztens vagy a magyar kereskedelmi
+  ingatlanpiac FM/PM/AM szektorához.
 
-  A celcsoport: 45-60 eves magyar ferfi kerekparosok.
+  Feladatod: nyers webes szövegből strukturált entitás-adatot kinyerni.
+  Az entitás lehet: cég (company), épület (building), személy (person) vagy hír (news).
+
+  Határozd meg a szöveg alapján, milyen típusú entitásról van szó, és
+  töltsd ki a megfelelő mezőket JSON formátumban.
 
 extract_prompt_template: |
-  Az alabbi nyers szoveget alakitsd strukturalt cikk-adatta.
-  A kovetkezo mezoket kell kinyerned:
+  Az alábbi nyers szöveget alakítsd strukturált adattá.
+  Határozd meg, milyen típusú entitásról szól (cég, épület, személy, hír).
 
-  - title: A cikk magyar nyelvu cime (max 200 karakter)
-  - type: "cikk" vagy "edzesterv" vagy "felszereles"
-  - style: "orszaguti" vagy "mtb" vagy "ciklokrossz" vagy "altalanos"
-  - category: Kategoria (pl. "Edzés", "Felszerelés", "Táplálkozás")
-  - excerpt: Rovid osszefoglalo (50-200 karakter)
-  - content: A cikk fo szovege, paragrafusokra bontva (lista)
-  - difficulty: Ha edzesterv: "kezdo" vagy "kozephalado" vagy "halado"
+  Ha CÉG:
+  - name: Cég neve (hivatalos, magyar)
+  - name_aliases: Alternatív nevek, márkák (lista)
+  - service_types: Milyen szolgáltatásokat nyújt? ["fm", "pm", "am"]
+  - description: Rövid leírás (max 500 karakter)
+  - website: Weboldal URL
+  - headquarters_city: Székhelye
+  - is_international: Nemzetközi cég-e? (true/false)
+  - source_url: Az eredeti forrás URL
+
+  Ha ÉPÜLET:
+  - name: Épület neve
+  - building_type: "iroda" / "raktar" / "logisztikai" / "vegyes"
+  - building_class: "A+" / "A" / "B+" / "B" / "C"
+  - status: "mukodo" / "fejlesztes_alatt" / "tervezett"
+  - address: Pontos cím
+  - city: Város
+  - district: Kerület (Budapest esetén)
+  - total_area_sqm: Összes terület m2
+  - owner_company_name: Tulajdonos cég neve
+  - source_url: Forrás URL
+
+  Ha SZEMÉLY:
+  - name: Személy neve
+  - title: Jelenlegi beosztás
+  - current_company_name: Jelenlegi munkáltató
+  - position_title: Pozíció megnevezése
+  - position_category: ceo/fm_director/pm_manager/am_manager/stb.
+  - previous_company_name: Előző munkáltató (ha van)
+  - source_url: Forrás URL
+
+  Ha HÍR:
+  - title: Hír címe
+  - url: Hír URL-je
+  - source_domain: Forrás domain
+  - published_at: Megjelenés dátuma (YYYY-MM-DD)
+  - summary: Rövid összefoglaló
+  - entity_type: "company" / "building" / "person"
+  - entity_name: Melyik entitásról szól
 
   FONTOS:
-  - Ha a szoveg nem releváns a 45-60 eves kerekparosok szamara, jelezd
-  - Ha nincs eleg adat valamelyik mezohoz, hagyd uresen
-  - A tartalmat magyarul add vissza (forditsd le ha szukseges)
+  - Ha nincs elég adat, hagyd üresen a mezőt
+  - A nevet mindig magyarul add meg (ha lehetséges)
+  - Válaszolj CSAK JSON formátumban, más szöveget ne adj
 
-  NYERS SZOVEG:
+  NYERS SZÖVEG:
   ---
-  Forras: {source_url}
-  Cim: {title}
+  Forrás: {source_url}
+  Cím: {title}
   ---
   {content}
-
-  Valaszolj JSON formatumban.

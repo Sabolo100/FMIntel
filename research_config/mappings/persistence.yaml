@@ -1,43 +1,97 @@
-# Field mappings: Pydantic model field -> Supabase column
-# Used by the persistence layer to map extracted data to database columns.
-
-articles:
+companies:
   field_mapping:
-    title: "title"
-    type: "type"
-    style: "style"
-    category: "category"
-    excerpt: "excerpt"
-    content: "content"
-    word_count: "word_count"
-    date: "date"
-    category_color: "category_color"
-    badge: "badge"
-    price_badge: "price_badge"
-    featured: "featured"
-    recovery_time: "recovery_time"
-    is_new: "is_new"
-    intensity_zone: "intensity_zone"
-    age_badge: "age_badge"
-    gear_level: "gear_level"
-    weeks_duration: "weeks_duration"
-    sessions_per_week: "sessions_per_week"
-    difficulty: "difficulty"
-
+    name: "name"
+    name_aliases: "name_aliases"
+    service_types: "service_types"
+    description: "description"
+    website: "website"
+    headquarters_city: "headquarters_city"
+    headquarters_address: "headquarters_address"
+    founded_year: "founded_year"
+    employee_count_estimate: "employee_count_estimate"
+    is_international: "is_international"
+    status: "status"
+    source_url: "source_urls"
   auto_fields:
-    id: "auto_generate"
     created_at: "auto_timestamp"
     updated_at: "auto_timestamp"
+    first_seen_at: "auto_timestamp"
+    last_confirmed_at: "auto_timestamp"
+  required_fields:
+    - "name"
+  defaults:
+    status: "active"
+    is_international: false
+    service_types: []
+    confidence: 0.5
 
+buildings:
+  field_mapping:
+    name: "name"
+    name_aliases: "name_aliases"
+    building_type: "building_type"
+    building_class: "building_class"
+    status: "status"
+    address: "address"
+    city: "city"
+    district: "district"
+    zip_code: "zip_code"
+    latitude: "latitude"
+    longitude: "longitude"
+    total_area_sqm: "total_area_sqm"
+    leasable_area_sqm: "leasable_area_sqm"
+    floors: "floors"
+    year_built: "year_built"
+    year_renovated: "year_renovated"
+    description: "description"
+    source_url: "source_urls"
+  auto_fields:
+    created_at: "auto_timestamp"
+    updated_at: "auto_timestamp"
+    first_seen_at: "auto_timestamp"
+    last_confirmed_at: "auto_timestamp"
+  required_fields:
+    - "name"
+  defaults:
+    building_type: "iroda"
+    status: "mukodo"
+    city: "Budapest"
+    confidence: 0.5
+
+people:
+  field_mapping:
+    name: "name"
+    title: "title"
+    linkedin_url: "linkedin_url"
+    bio: "bio"
+    source_url: "source_urls"
+  auto_fields:
+    created_at: "auto_timestamp"
+    updated_at: "auto_timestamp"
+    first_seen_at: "auto_timestamp"
+    last_confirmed_at: "auto_timestamp"
+  required_fields:
+    - "name"
+  defaults:
+    confidence: 0.5
+
+news_mentions:
+  field_mapping:
+    title: "title"
+    url: "url"
+    source_domain: "source_domain"
+    published_at: "published_at"
+    summary: "summary"
+    entity_type: "entity_type"
+    entity_name: "entity_name"
+    sentiment: "sentiment"
+  auto_fields:
+    created_at: "auto_timestamp"
   required_fields:
     - "title"
-    - "type"
-    - "style"
-    - "category"
-    - "excerpt"
-    - "content"
-
+    - "url"
+    - "entity_type"
+    - "entity_name"
   defaults:
-    is_new: true
-    featured: false
-    category_color: "bg-blue-100 text-blue-800"
+    sentiment: "neutral"
+    confidence: 0.5

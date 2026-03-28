@@ -2,22 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Onjaro | Magyar Kerékpársport Portál",
+  title: "FM Intel | Piaci Intelligencia",
   description:
-    "Magyar kerékpársport-portál 45-60 éves férfiak számára. Edzéstervek, felszerelés-tanácsok, tippek országúti kerékpározáshoz, MTB-hez és ciklokrosszhoz.",
+    "Magyar FM/PM/AM piaci intelligencia platform. Facility management, property management és asset management adatok, elemzések és piaci trendek.",
   keywords: [
-    "kerékpározás",
-    "MTB",
-    "mountain bike",
-    "ciklokrossz",
-    "országúti kerékpározás",
-    "edzésterv",
-    "kerékpár felszerelés",
+    "facility management",
+    "property management",
+    "asset management",
+    "irodapiac",
+    "Budapest",
   ],
   openGraph: {
-    title: "Onjaro | Magyar Kerékpársport Portál",
+    title: "FM Intel | Piaci Intelligencia",
     description:
-      "Magyar kerékpársport-portál 45-60 éves férfiak számára. Edzéstervek, felszerelés-tanácsok és közösségi élmény.",
+      "Magyar FM/PM/AM piaci intelligencia platform. Facility management, property management és asset management adatok, elemzések és piaci trendek.",
     locale: "hu_HU",
     type: "website",
   },

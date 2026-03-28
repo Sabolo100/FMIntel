@@ -1,11 +1,8 @@
-# Research policies for Onjaro Bike Web
-
 dedupe:
-  strategy: "title_similarity"
+  strategy: "name_similarity"
   similarity_threshold: 0.85
   unique_keys:
-    - "title"
-    - "type"
+    - "name"
 
 persistence:
   default_policy: "insert_if_new"

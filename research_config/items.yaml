@@ -1,67 +1,93 @@
-# Research Item Definitions for Onjaro Bike Web
-# Each item defines a research target: what to search, how to extract, where to store.
-
 research_items:
-  - id: "cycling_articles_hu"
-    name: "Magyar kerekparos cikkek"
+  - id: "fm_pm_am_companies_hu"
+    name: "Magyar FM/PM/AM szolgáltató cégek"
     enabled: true
     priority: 1
-    target_table: "articles"
+    target_table: "companies"
     search_type: "topic_search"
-    schema_name: "article"
+    schema_name: "company"
     schedule: "daily"
     max_results_per_run: 5
     topics:
-      - "45 ev feletti kerekparozas edzesterv"
-      - "orszaguti kerekpar felszereles 2026"
-      - "MTB tippek kozepkoruaknak"
-      - "kerekparos regeneracio 45 felett"
-      - "kerekpar taplalkozas idos sportoloknak"
+      - "facility management szolgáltató cég Magyarország"
+      - "property management iroda Budapest"
+      - "asset management ingatlan Magyarország"
+      - "üzemeltetési szolgáltató irodaház Budapest"
+      - "CBRE JLL Cushman Wakefield Magyarország"
+      - "FM cég irodaház raktár logisztika"
+      - "ingatlankezelő cég kereskedelmi ingatlan"
     language: "hu"
     content_types:
-      - "cikk"
+      - "company"
     min_confidence: 0.6
     auto_approve_above: 0.8
     manual_review_below: 0.4
 
-  - id: "training_plans"
-    name: "Edzestervek kutatasa"
+  - id: "buildings_offices_hu"
+    name: "Irodaházak és logisztikai központok"
     enabled: true
     priority: 2
-    target_table: "articles"
+    target_table: "buildings"
     search_type: "topic_search"
-    schema_name: "article"
+    schema_name: "building"
+    schedule: "daily"
+    max_results_per_run: 5
+    topics:
+      - "irodaház Budapest A kategória"
+      - "új irodaház fejlesztés Budapest 2025 2026"
+      - "logisztikai központ Magyarország"
+      - "raktár bérlemény Budapest környék"
+      - "irodapiac Budapest bérbeadás"
+      - "kereskedelmi ingatlan fejlesztés"
+      - "irodaház üzemeltetési szerződés"
+    language: "hu"
+    content_types:
+      - "building"
+    min_confidence: 0.6
+    auto_approve_above: 0.8
+    manual_review_below: 0.4
+
+  - id: "personnel_movements_hu"
+    name: "Szakmai személyzetváltozások"
+    enabled: true
+    priority: 3
+    target_table: "people"
+    search_type: "topic_search"
+    schema_name: "person"
     schedule: "daily"
     max_results_per_run: 3
     topics:
-      - "kerekparos edzesterv 45-60 eves korosztaly"
-      - "MTB edzesterv kezdoknek kozepkoruaknak"
-      - "orszaguti kerekpar edzesterv haladoknak"
-      - "ciklokrossz felkeszules edzesterv"
+      - "kinevezés ingatlankezelés Magyarország"
+      - "FM PM vezető váltás Budapest"
+      - "CBRE JLL Colliers kinevezés Budapest"
+      - "ingatlankezelő cég új vezető"
+      - "facility management igazgató váltás"
     language: "hu"
     content_types:
-      - "edzesterv"
+      - "person"
+      - "movement"
     min_confidence: 0.7
     auto_approve_above: 0.85
     manual_review_below: 0.5
 
-  - id: "gear_reviews"
-    name: "Felszereles tesztek es ajanlok"
+  - id: "fm_pm_news_hu"
+    name: "FM/PM/AM hírek és piaci események"
     enabled: true
-    priority: 3
-    target_table: "articles"
+    priority: 4
+    target_table: "news_mentions"
     search_type: "topic_search"
-    schema_name: "article"
+    schema_name: "news_mention"
     schedule: "daily"
-    max_results_per_run: 3
+    max_results_per_run: 5
     topics:
-      - "kerekpar felszereles teszt 2026"
-      - "orszaguti kerekpar osszehasonlitas"
-      - "MTB felszereles ajanlo"
-      - "kerekparos ruha kiegeszitok kozepkoruaknak"
+      - "facility management piac Magyarország hírek"
+      - "irodapiac Budapest hírek"
+      - "kereskedelmi ingatlan piac Magyarország"
+      - "üzemeltetési szerződés irodaház"
+      - "ingatlankezelési tender Budapest"
     language: "hu"
     content_types:
-      - "felszereles"
-    min_confidence: 0.6
-    auto_approve_above: 0.8
-    manual_review_below: 0.4
+      - "news"
+    min_confidence: 0.5
+    auto_approve_above: 0.75
+    manual_review_below: 0.35

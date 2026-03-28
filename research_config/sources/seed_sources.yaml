@@ -1,45 +1,72 @@
-# Seed sources for Onjaro Bike Web research
-# These are initial trusted sources. The system will learn and score them over time.
-
 sources:
-  - url: "bikemag.hu"
+  - url: "portfolio.hu"
     trust_score: 0.9
     language: "hu"
     source_type: "web"
-    tags: ["cycling", "hungarian"]
+    tags: ["real_estate", "business", "hungarian"]
 
-  - url: "kerekparos.com"
+  - url: "property-magazine.eu"
     trust_score: 0.85
     language: "hu"
     source_type: "web"
-    tags: ["cycling", "hungarian"]
+    tags: ["real_estate", "fm", "pm"]
 
-  - url: "bfrk.hu"
+  - url: "fn.hu"
+    trust_score: 0.85
+    language: "hu"
+    source_type: "web"
+    tags: ["business", "real_estate", "hungarian"]
+
+  - url: "ingatlanbefektetes.hu"
     trust_score: 0.8
     language: "hu"
     source_type: "web"
-    tags: ["cycling", "federation", "hungarian"]
+    tags: ["real_estate", "investment"]
 
-  - url: "cyclingtips.com"
+  - url: "cbre.hu"
+    trust_score: 0.9
+    language: "hu"
+    source_type: "company"
+    tags: ["fm", "pm", "am", "cbre"]
+
+  - url: "jll.hu"
+    trust_score: 0.9
+    language: "hu"
+    source_type: "company"
+    tags: ["fm", "pm", "am", "jll"]
+
+  - url: "cushmanwakefield.com"
+    trust_score: 0.85
+    language: "en"
+    source_type: "company"
+    tags: ["fm", "pm", "am", "cushman"]
+
+  - url: "colliers.com"
+    trust_score: 0.85
+    language: "en"
+    source_type: "company"
+    tags: ["fm", "pm", "am", "colliers"]
+
+  - url: "bfrgroup.eu"
+    trust_score: 0.8
+    language: "hu"
+    source_type: "company"
+    tags: ["fm", "hungarian"]
+
+  - url: "propertyeu.info"
     trust_score: 0.8
     language: "en"
     source_type: "web"
-    tags: ["cycling", "international", "training"]
+    tags: ["real_estate", "europe"]
 
-  - url: "bikeradar.com"
+  - url: "realista.hu"
     trust_score: 0.75
-    language: "en"
+    language: "hu"
     source_type: "web"
-    tags: ["cycling", "gear", "reviews"]
+    tags: ["real_estate", "hungarian"]
 
-  - url: "trainerroad.com/blog"
+  - url: "vfrk.hu"
     trust_score: 0.8
-    language: "en"
+    language: "hu"
     source_type: "web"
-    tags: ["cycling", "training", "plans"]
-
-  - url: "roadbikereview.com"
-    trust_score: 0.7
-    language: "en"
-    source_type: "web"
-    tags: ["cycling", "gear", "reviews"]
+    tags: ["fm", "hungarian", "association"]

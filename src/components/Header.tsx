@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "/stilusok", label: "Stílusok" },
-  { href: "/cikkek", label: "Cikkek" },
-  { href: "/edzestervek", label: "Edzéstervek" },
-  { href: "/felszereles", label: "Felszerelés" },
+  { href: "/cegek", label: "Cégek" },
+  { href: "/ingatlanok", label: "Ingatlanok" },
+  { href: "/emberek", label: "Emberek" },
+  { href: "/valtozasok", label: "Változások" },
+  { href: "/modszertan", label: "Módszertan" },
 ];
 
 export default function Header() {
@@ -16,44 +17,49 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-brand-900 sticky top-0 z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center group-hover:bg-brand-700 transition-colors">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 bg-accent-500 rounded-lg flex items-center justify-center group-hover:bg-accent-400 transition-colors">
               <svg
                 className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
+                strokeWidth={2}
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <circle cx="5.5" cy="17.5" r="3.5" strokeWidth="2" />
-                <circle cx="18.5" cy="17.5" r="3.5" strokeWidth="2" />
                 <path
-                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M15 6a1 1 0 1 0 2 0 1 1 0 0 0-2 0M9 17.5l2-5 3-2 2-4"
+                  d="M3 21h18M3 21V8l5-5v18M10 21V6l7-3v18M19 21V5l2-1v17"
                 />
               </svg>
             </div>
-            <span className="text-xl font-bold text-slate-900">Onjaro</span>
+            <span className="text-xl font-bold text-white tracking-tight">
+              FM Intel
+            </span>
           </Link>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Fő navigáció">
+          <nav
+            className="hidden md:flex items-center gap-1"
+            aria-label="Fő navigáció"
+          >
             {navLinks.map((link) => {
-              const active = pathname === link.href || pathname.startsWith(link.href + "/");
+              const active =
+                pathname === link.href ||
+                pathname.startsWith(link.href + "/");
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium px-3 py-2 rounded-md transition-colors ${
+                  className={`text-sm font-medium px-3.5 py-2 rounded-md transition-colors ${
                     active
-                      ? "text-brand-600 bg-brand-50"
-                      : "text-slate-600 hover:text-brand-600 hover:bg-slate-50"
+                      ? "text-white bg-brand-800"
+                      : "text-brand-200 hover:text-white hover:bg-brand-800/60"
                   }`}
                 >
                   {link.label}
@@ -64,18 +70,38 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-md text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors"
+            className="md:hidden p-2 rounded-md text-brand-200 hover:text-white hover:bg-brand-800 transition-colors"
             aria-label={mobileOpen ? "Menü bezárása" : "Menü megnyitása"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>
@@ -84,9 +110,14 @@ export default function Header() {
 
       {/* Mobile navigation */}
       {mobileOpen && (
-        <nav className="md:hidden border-t border-slate-100 bg-white px-4 pb-4 pt-2" aria-label="Mobil navigáció">
+        <nav
+          className="md:hidden border-t border-brand-800 bg-brand-900 px-4 pb-4 pt-2"
+          aria-label="Mobil navigáció"
+        >
           {navLinks.map((link) => {
-            const active = pathname === link.href || pathname.startsWith(link.href + "/");
+            const active =
+              pathname === link.href ||
+              pathname.startsWith(link.href + "/");
             return (
               <Link
                 key={link.href}
@@ -94,8 +125,8 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`block text-sm font-medium px-3 py-2.5 rounded-md transition-colors ${
                   active
-                    ? "text-brand-600 bg-brand-50"
-                    : "text-slate-700 hover:text-brand-600 hover:bg-slate-50"
+                    ? "text-white bg-brand-800"
+                    : "text-brand-200 hover:text-white hover:bg-brand-800/60"
                 }`}
               >
                 {link.label}
