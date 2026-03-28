@@ -69,6 +69,8 @@ people:
     position_title: "title"
     linkedin_url: "linkedin_url"
     source_url: "source_urls"
+    # current_company_name is NOT a DB column — persister resolves it to current_company_id
+    current_company_name: "_resolve_company"
   auto_fields:
     created_at: "auto_timestamp"
     updated_at: "auto_timestamp"
@@ -78,6 +80,18 @@ people:
     - "name"
   defaults:
     confidence: 0.5
+  resolve_fields:
+    # After insert/update: resolve current_company_name -> current_company_id
+    current_company_id:
+      source_field: "_resolve_company"
+      lookup_table: "companies"
+      lookup_column: "name"
+      create_if_missing: true
+      create_defaults:
+        service_types: []
+        status: "active"
+        confidence: 0.4
+        is_international: false
 
 news_mentions:
   field_mapping:

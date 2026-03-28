@@ -6,8 +6,14 @@
 export interface ColumnDef {
   key: string;
   label: string;
-  type: "text" | "number" | "boolean" | "select" | "array" | "readonly";
+  type: "text" | "number" | "boolean" | "select" | "array" | "readonly" | "entity_lookup";
   options?: { value: string; label: string }[];
+  // entity_lookup: fetch records from another table as a dropdown
+  lookup?: {
+    table: string;       // which table to fetch from
+    labelField: string;  // field to show as display text
+    valueField: string;  // field to save (usually "id")
+  };
   searchable?: boolean;
   showInList?: boolean;
   showInEdit?: boolean;
@@ -112,6 +118,14 @@ export const tableConfigs: Record<string, TableConfig> = {
       { key: "id", label: "ID", type: "readonly", showInList: true, showInEdit: false, width: "w-32" },
       { key: "name", label: "Név", type: "text", searchable: true, showInList: true, showInEdit: true },
       { key: "title", label: "Pozíció", type: "text", showInList: true, showInEdit: true },
+      {
+        key: "current_company_id",
+        label: "Munkáltató cég",
+        type: "entity_lookup",
+        showInList: true,
+        showInEdit: true,
+        lookup: { table: "companies", labelField: "name", valueField: "id" },
+      },
       { key: "bio", label: "Bio", type: "text", showInList: false, showInEdit: true },
       { key: "linkedin_url", label: "LinkedIn", type: "text", showInList: false, showInEdit: true },
       { key: "email", label: "Email", type: "text", showInList: false, showInEdit: true },

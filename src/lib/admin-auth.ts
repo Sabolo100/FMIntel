@@ -3,13 +3,8 @@
  * Server-side session validation for admin routes.
  */
 import { cookies } from "next/headers";
-import crypto from "crypto";
-
 function makeSessionToken(secret: string): string {
-  return crypto
-    .createHmac("sha256", secret)
-    .update("admin-session")
-    .digest("hex");
+  return btoa(`admin-session:${secret}`);
 }
 
 export async function isAdminAuthenticated(): Promise<boolean> {

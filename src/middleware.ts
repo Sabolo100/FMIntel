@@ -3,13 +3,8 @@
  * Protects /admin/* routes (except /admin/login) with session cookie check.
  */
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
-
 function makeSessionToken(secret: string): string {
-  return crypto
-    .createHmac("sha256", secret)
-    .update("admin-session")
-    .digest("hex");
+  return btoa(`admin-session:${secret}`);
 }
 
 export function middleware(request: NextRequest) {

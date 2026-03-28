@@ -33,12 +33,46 @@ function EntitiesPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  // Cache for entity_lookup options: { "companies": [{value: "comp_...", label: "CBRE"}] }
+  const [lookupCache, setLookupCache] = useState<Record<string, { value: string; label: string }[]>>({});
   const [editingRow, setEditingRow] = useState<EntityRow | null>(null);
   const [mergeMode, setMergeMode] = useState(false);
   const [mergeSelection, setMergeSelection] = useState<string[]>([]);
   const [actionMessage, setActionMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const pageSize = 30;
+
+  // Load lookup options for entity_lookup columns
+  const loadLookups = useCallback(async () => {
+    if (!config) return;
+    const lookupCols = config.columns.filter(
+      (c) => c.type === "entity_lookup" && c.lookup
+    );
+    if (lookupCols.length === 0) return;
+
+    const newCache: Record<string, { value: string; label: string }[]> = {};
+    for (const col of lookupCols) {
+      const { table, labelField, valueField } = col.lookup!;
+      if (newCache[table]) continue; // already loaded
+      try {
+        const res = await fetch(
+          `/api/admin/entities?table=${table}&pageSize=500&orderBy=${labelField}&orderDir=asc`
+        );
+        const json = await res.json();
+        newCache[table] = (json.data || []).map((r: EntityRow) => ({
+          value: String(r[valueField] || ""),
+          label: String(r[labelField] || r[valueField] || ""),
+        }));
+      } catch {
+        newCache[table] = [];
+      }
+    }
+    setLookupCache((prev) => ({ ...prev, ...newCache }));
+  }, [config]);
+
+  useEffect(() => {
+    loadLookups();
+  }, [loadLookups]);
 
   const fetchData = useCallback(async () => {
     if (!config) return;
@@ -294,6 +328,9 @@ function EntitiesPage() {
                   onChange={(v) =>
                     setEditingRow({ ...editingRow, [col.key]: v })
                   }
+                  lookupOptions={
+                    col.lookup ? lookupCache[col.lookup.table] || [] : undefined
+                  }
                 />
               ))}
             </div>
@@ -374,7 +411,11 @@ function EntitiesPage() {
                     )}
                     {listColumns.map((col) => (
                       <td key={col.key} className={`px-4 py-3 text-slate-700 ${col.width || ""}`}>
-                        <CellRenderer column={col} value={row[col.key]} />
+                        <CellRenderer
+                          column={col}
+                          value={row[col.key]}
+                          lookupOptions={col.lookup ? lookupCache[col.lookup.table] : undefined}
+                        />
                       </td>
                     ))}
                     <td className="px-4 py-3 text-right">
@@ -430,9 +471,26 @@ function EntitiesPage() {
 }
 
 // -- Cell Renderer --
-function CellRenderer({ column, value }: { column: ColumnDef; value: unknown }) {
+function CellRenderer({
+  column,
+  value,
+  lookupOptions,
+}: {
+  column: ColumnDef;
+  value: unknown;
+  lookupOptions?: { value: string; label: string }[];
+}) {
   if (value === null || value === undefined) {
     return <span className="text-slate-300">—</span>;
+  }
+
+  if (column.type === "entity_lookup") {
+    const opt = lookupOptions?.find((o) => o.value === String(value));
+    return opt ? (
+      <span className="text-slate-800">{opt.label}</span>
+    ) : (
+      <span className="text-xs text-slate-400 font-mono">{String(value).slice(0, 16)}…</span>
+    );
   }
 
   if (column.type === "boolean") {
@@ -481,16 +539,76 @@ function FieldEditor({
   column,
   value,
   onChange,
+  lookupOptions,
 }: {
   column: ColumnDef;
   value: unknown;
   onChange: (v: unknown) => void;
+  lookupOptions?: { value: string; label: string }[];
 }) {
+  const [lookupSearch, setLookupSearch] = useState("");
+
   const label = (
     <label className="block text-sm font-medium text-slate-700 mb-1">
       {column.label}
     </label>
   );
+
+  if (column.type === "entity_lookup") {
+    const opts = lookupOptions || [];
+    const filtered = lookupSearch
+      ? opts.filter((o) =>
+          o.label.toLowerCase().includes(lookupSearch.toLowerCase())
+        )
+      : opts;
+    const currentLabel = opts.find((o) => o.value === String(value || ""))?.label;
+
+    return (
+      <div>
+        {label}
+        <div className="relative">
+          {/* Search input */}
+          <input
+            type="text"
+            value={lookupSearch}
+            onChange={(e) => setLookupSearch(e.target.value)}
+            placeholder={currentLabel || "Keresés..."}
+            className="w-full px-3 py-2 rounded-t-lg border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none"
+          />
+          {/* Dropdown list */}
+          <div className="border border-t-0 border-slate-200 rounded-b-lg max-h-48 overflow-y-auto bg-white shadow-sm">
+            <button
+              type="button"
+              onClick={() => { onChange(null); setLookupSearch(""); }}
+              className="w-full text-left px-3 py-2 text-sm text-slate-400 hover:bg-slate-50 border-b border-slate-100"
+            >
+              — Nincs hozzárendelve
+            </button>
+            {filtered.slice(0, 100).map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => { onChange(opt.value); setLookupSearch(""); }}
+                className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-blue-50 ${
+                  opt.value === String(value || "")
+                    ? "bg-blue-50 text-blue-700 font-medium"
+                    : "text-slate-800"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+            {filtered.length === 0 && (
+              <p className="px-3 py-2 text-sm text-slate-400">Nincs találat</p>
+            )}
+          </div>
+        </div>
+        {!!value && (
+          <p className="text-xs text-slate-400 mt-1 font-mono">ID: {String(value)}</p>
+        )}
+      </div>
+    );
+  }
 
   if (column.type === "select" && column.options) {
     return (
