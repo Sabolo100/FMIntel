@@ -3,45 +3,45 @@ import Footer from "@/components/Footer";
 
 const confidenceLevels = [
   {
-    label: "Megerositett",
+    label: "Megerősített",
     score: "90-100%",
     color: "bg-green-100 text-green-700 border-green-200",
     description:
-      "Tobb fuggetlen forrasbol igazolt adat. Hivatalos ceginformaciok, publikus nyilatkozatok vagy tobbszorosen megerositett hirek.",
+      "Több független forrásból igazolt adat. Hivatalos céginformációk, publikus nyilatkozatok vagy többszörösen megerősített hírek.",
   },
   {
-    label: "Valoszinu",
+    label: "Valószínű",
     score: "70-89%",
     color: "bg-emerald-100 text-emerald-700 border-emerald-200",
     description:
-      "Megbizhato forrasbol szarmazo informacio, amelyet legalabb egy masik forras is tamogat. Iparagi sajtokoezlemenyek, cegoldali frissitesek.",
+      "Megbízható forrásból származó információ, amelyet legalább egy másik forrás is támogat. Iparági sajtóközlemények, cégoldali frissítések.",
   },
   {
-    label: "Feltetelezett",
+    label: "Feltételezett",
     score: "50-69%",
     color: "bg-yellow-100 text-yellow-700 border-yellow-200",
     description:
-      "Egyetlen forrasbol szarmazo, meg nem megerositett adat. Iparagi pletykak, nem hivatalos forrasok.",
+      "Egyetlen forrásból származó, még nem megerősített adat. Iparági pletykák, nem hivatalos források.",
   },
   {
     label: "Bizonytalan",
     score: "0-49%",
     color: "bg-red-100 text-red-700 border-red-200",
     description:
-      "Korlatos vagy nem ellenorzott informacio. Kozvetlen forras hianyaban, kovetkezteteseken alapulo adatok.",
+      "Korlátolt vagy nem ellenőrzött információ. Közvetlen forrás hiányában, következtetéseken alapuló adatok.",
   },
 ];
 
 const entityTypes = [
   {
-    title: "Cegek",
+    title: "Cégek",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
       </svg>
     ),
     description:
-      "Facility management, property management es asset management szolgaltatok. Taroljuk a ceg alapadatait, szolgaltatasi tipusait, telephelyeit es kapcsolatait.",
+      "Facility management, property management és asset management szolgáltatók. Tároljuk a cég alapadatait, szolgáltatási típusait, telephelyeit és kapcsolatait.",
   },
   {
     title: "Ingatlanok",
@@ -51,7 +51,7 @@ const entityTypes = [
       </svg>
     ),
     description:
-      "Kereskedelmi ingatlanok: irodahazak, raktarak, logisztikai kozpontok es vegyes hasznalatu epuletek. Tipusok, osztalyok, teruletek es kezelesi szerzodese.",
+      "Kereskedelmi ingatlanok: irodaházak, raktárak, logisztikai központok és vegyes használatú épületek. Típusok, osztályok, területek és kezelési szerződések.",
   },
   {
     title: "Emberek",
@@ -61,30 +61,30 @@ const entityTypes = [
       </svg>
     ),
     description:
-      "Vezetok es donteshozok az FM/PM/AM szektorban. Karrier-utak, poziciok es cegkapcsolatok nyomon kovetese.",
+      "Vezetők és döntéshozók az FM/PM/AM szektorban. Karrier-utak, pozíciók és cégkapcsolatok nyomon követése.",
   },
 ];
 
 const dataSources = [
   {
-    title: "Hirportalok",
-    description: "Magyar es nemzetkozi ingatlanpiaci es uzleti hirportalok automatizalt figyelese.",
+    title: "Hírportálok",
+    description: "Magyar és nemzetközi ingatlanpiaci és üzleti hírportálok automatizált figyelése.",
   },
   {
-    title: "Cegweboldalak",
-    description: "FM/PM/AM szolgaltatok hivatalos weboldalainak rendszeres ellenorzese valtozasokert.",
+    title: "Cégweboldalak",
+    description: "FM/PM/AM szolgáltatók hivatalos weboldalainak rendszeres ellenőrzése változásokért.",
   },
   {
-    title: "Ingatlanportalok",
-    description: "Kereskedelmi ingatlan-adatbazisok es piaci elemzesek feldolgozasa.",
+    title: "Ingatlanportálok",
+    description: "Kereskedelmi ingatlan-adatbázisok és piaci elemzések feldolgozása.",
   },
   {
-    title: "Ceginformacios adatbazisok",
-    description: "Hivatalos cegnyilvantartasi adatok es penzugyi jelentsek integralaas.",
+    title: "Céginformációs adatbázisok",
+    description: "Hivatalos cégnyilvántartási adatok és pénzügyi jelentések integrálása.",
   },
   {
-    title: "LinkedIn es szakmai profilok",
-    description: "Publikus szakmai profilok figyelese szemelyi valtozasok detektalasara.",
+    title: "LinkedIn és szakmai profilok",
+    description: "Publikus szakmai profilok figyelése személyi változások detektálására.",
   },
 ];
 
@@ -97,38 +97,38 @@ export default function ModszertanPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page header */}
           <div className="mb-12">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Modszertan</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Módszertan</h1>
             <p className="text-slate-600">
-              Hogyan gyujtjuk, ellenorizzuk es tartjuk naprakeszen a piaci adatokat
+              Hogyan gyűjtjük, ellenőrizzük és tartjuk naprakészen a piaci adatokat
             </p>
           </div>
 
           {/* How does the system work */}
           <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
-              Hogyan mukodik a rendszer?
+              Hogyan működik a rendszer?
             </h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              A platform egy automatizalt kutatasi pipeline-on alapul, amely folyamatosan
+              A platform egy automatizált kutatási pipeline-on alapul, amely folyamatosan
               figyeli a magyar kereskedelmi ingatlanpiac FM (Facility Management),
-              PM (Property Management) es AM (Asset Management) szektorat.
+              PM (Property Management) és AM (Asset Management) szektorát.
             </p>
             <p className="text-slate-600 leading-relaxed mb-4">
-              A rendszer napi szinten vegigpasztalja az eloer meghatarozott forrasokat,
-              azonositja az uj informaciokat, osszeveti a meglevo adatbazissal, es
-              automatikusan frissiti a rekordokat. Minden valtozast naplozunk es
-              bizonyossagi szinttel latunk el.
+              A rendszer napi szinten végigpásztázza az előre meghatározott forrásokat,
+              azonosítja az új információkat, összeveti a meglévő adatbázissal, és
+              automatikusan frissíti a rekordokat. Minden változást naplózunk és
+              bizonyossági szinttel látunk el.
             </p>
             <p className="text-slate-600 leading-relaxed">
-              A pipeline harom fo lepesbol all: <strong>adatgyujtes</strong> (forrasok
-              bepasztazasa), <strong>normalizalas</strong> (strukturalt adatta alakitas) es{" "}
-              <strong>integralas</strong> (meglevo adatbazissal valo osszefeses es frissites).
+              A pipeline három fő lépésből áll: <strong>adatgyűjtés</strong> (források
+              bepásztázása), <strong>normalizálás</strong> (strukturált adattá alakítás) és{" "}
+              <strong>integrálás</strong> (meglévő adatbázissal való összefésülés és frissítés).
             </p>
           </div>
 
           {/* Data sources */}
           <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">Adatforrasok</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-6">Adatforrások</h2>
             <div className="space-y-4">
               {dataSources.map((source) => (
                 <div
@@ -152,11 +152,11 @@ export default function ModszertanPage() {
           {/* Confidence levels */}
           <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-6">
-              Bizonyossagi szintek
+              Bizonyossági szintek
             </h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              Minden adatpontot bizonyossagi szinttel latunk el, amely jelzi, mennyire
-              megbizhato az informacio. Ez segit a felhasznaloknak a donteshozatalban.
+              Minden adatpontot bizonyossági szinttel látunk el, amely jelzi, mennyire
+              megbízható az információ. Ez segít a felhasználóknak a döntéshozatalban.
             </p>
             <div className="space-y-4">
               {confidenceLevels.map((level) => (
@@ -180,36 +180,36 @@ export default function ModszertanPage() {
           {/* Update frequency */}
           <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
             <h2 className="text-xl font-bold text-slate-900 mb-4">
-              Frissitesi gyakorisag
+              Frissítési gyakoriság
             </h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              A rendszer napi kutatasi ciklusokban mukodik. Minden nap automatikusan
-              lefutnak a kovetkezo folyamatok:
+              A rendszer napi kutatási ciklusokban működik. Minden nap automatikusan
+              lefutnak a következő folyamatok:
             </p>
             <ul className="space-y-2 text-slate-600">
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Hirportalok es forrasok automatikus bepasztazasa
+                Hírportálok és források automatikus bepásztázása
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Uj informaciok azonositasa es strukturalasa
+                Új információk azonosítása és strukturálása
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Meglevo adatbazissal valo osszevetes es frissites
+                Meglévő adatbázissal való összevétés és frissítés
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Valtozasok naplozasa es ertesitesek generalasa
+                Változások naplózása és értesítések generálása
               </li>
             </ul>
           </div>
@@ -217,11 +217,11 @@ export default function ModszertanPage() {
           {/* Entity types */}
           <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8">
             <h2 className="text-xl font-bold text-slate-900 mb-6">
-              Entitas tipusok
+              Entitás típusok
             </h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              A rendszer harom fo entitas tipust kovet nyomon, amelyek a magyar FM/PM/AM piac
-              legfontosabb szereploit es objektumait reprezentaljak.
+              A rendszer három fő entitás típust követ nyomon, amelyek a magyar FM/PM/AM piac
+              legfontosabb szereplőit és objektumait reprezentálják.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {entityTypes.map((entity) => (

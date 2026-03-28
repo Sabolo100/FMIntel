@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = await params;
   const company = await getCompanyById(id);
   if (!company) {
-    return { title: "Ceg nem talalhato - FM Intel" };
+    return { title: "Cég nem található - FM Intel" };
   }
   return {
     title: `${company.name} - FM Intel`,
-    description: company.description || `${company.name} ceginformaciok az FM Intel platformon.`,
+    description: company.description || `${company.name} céginformációk az FM Intel platformon.`,
   };
 }
 
@@ -56,7 +56,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Vissza a cegekhez
+          Vissza a cégekhez
         </Link>
 
         {/* Company header */}
@@ -66,9 +66,9 @@ export default async function CompanyProfilePage({ params }: PageProps) {
               {company.name}
             </h1>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <ConfidenceBadge confidence={company.confidence_score} />
+              <ConfidenceBadge confidence={company.confidence} />
               <StatusBadge
-                status={company.is_active ? "active" : "inactive"}
+                status={company.status === "active" ? "active" : "inactive"}
                 variant="company"
               />
             </div>
@@ -110,7 +110,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
             {company.headquarters_city && (
               <div className="flex flex-col">
                 <span className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">
-                  Szekhelye
+                  Székhelye
                 </span>
                 <span className="text-sm text-slate-700">
                   {company.headquarters_city}
@@ -121,7 +121,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
             {company.founded_year && (
               <div className="flex flex-col">
                 <span className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">
-                  Alapitva
+                  Alapítva
                 </span>
                 <span className="text-sm text-slate-700">{company.founded_year}</span>
               </div>
@@ -129,7 +129,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
             {company.employee_count_estimate && (
               <div className="flex flex-col">
                 <span className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">
-                  Letszam (becsles)
+                  Létszám (becslés)
                 </span>
                 <span className="text-sm text-slate-700">
                   ~{company.employee_count_estimate.toLocaleString("hu-HU")} fo
@@ -150,7 +150,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
 
           {buildings.length === 0 ? (
             <p className="text-sm text-slate-400 py-4">
-              Nincsenek kapcsolodo ingatlanok.
+              Nincsenek kapcsolódó ingatlanok.
             </p>
           ) : (
             <div className="divide-y divide-slate-100">
@@ -167,19 +167,19 @@ export default async function CompanyProfilePage({ params }: PageProps) {
                       {bm.building?.name || "Ismeretlen ingatlan"}
                     </Link>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      {serviceTypeLabels[bm.management_role]}
-                      {bm.start_date && ` \u00B7 ${formatDate(bm.start_date)}`}
-                      {!bm.is_current && bm.end_date && ` - ${formatDate(bm.end_date)}`}
+                      {serviceTypeLabels[bm.role]}
+                      {bm.started_at && ` \u00B7 ${formatDate(bm.started_at)}`}
+                      {bm.ended_at && ` - ${formatDate(bm.ended_at)}`}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    {bm.is_current ? (
+                    {!bm.ended_at ? (
                       <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-green-100 text-green-700 border border-green-200">
-                        Aktualis
+                        Aktuális
                       </span>
                     ) : (
                       <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
-                        Lezart
+                        Lezárt
                       </span>
                     )}
                   </div>
@@ -192,7 +192,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
         {/* People at this company */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Munkatarsak
+            Munkatársak
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({people.length})
             </span>
@@ -200,7 +200,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
 
           {people.length === 0 ? (
             <p className="text-sm text-slate-400 py-4">
-              Nincsenek kapcsolodo szemelyek.
+              Nincsenek kapcsolódó személyek.
             </p>
           ) : (
             <div className="divide-y divide-slate-100">
@@ -214,12 +214,12 @@ export default async function CompanyProfilePage({ params }: PageProps) {
                       href={`/emberek/${job.person_id}`}
                       className="text-sm font-semibold text-slate-800 hover:text-accent-600 transition-colors"
                     >
-                      {job.person?.full_name || "Ismeretlen szemely"}
+                      {job.person?.name || "Ismeretlen személy"}
                     </Link>
                     <p className="text-xs text-slate-400 mt-0.5">
                       {job.position_title}
                       {job.position_category && ` \u00B7 ${positionCategoryLabels[job.position_category]}`}
-                      {job.start_date && ` \u00B7 ${formatDate(job.start_date)}`}
+                      {job.started_at && ` \u00B7 ${formatDate(job.started_at)}`}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
@@ -229,7 +229,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
                       </span>
                     ) : (
                       <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
-                        Korabbi
+                        Korábbi
                       </span>
                     )}
                   </div>
@@ -242,7 +242,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
         {/* Changes */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Valtozasok
+            Változások
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({changes.length})
             </span>

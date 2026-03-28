@@ -87,7 +87,7 @@ export async function getBuildingManagement(
       .from('building_management')
       .select('*, company:companies(*)')
       .eq('building_id', buildingId)
-      .order('is_current', { ascending: false });
+      .order('ended_at', { ascending: true, nullsFirst: true });
 
     if (error) {
       console.error('Error fetching building management:', error);

@@ -25,28 +25,28 @@ export default async function EmberekPage({ searchParams }: PageProps) {
 
   const filters = [
     {
-      name: "Pozicio kategoria",
+      name: "Pozíció kategória",
       paramName: "positionCategory",
       options: [
-        { value: "ceo", label: "Vezerigazgato (CEO)" },
-        { value: "coo", label: "Operativ igazgato (COO)" },
-        { value: "cfo", label: "Penzugyi igazgato (CFO)" },
-        { value: "cto", label: "Technologiai igazgato (CTO)" },
-        { value: "fm_director", label: "FM igazgato" },
-        { value: "pm_director", label: "PM igazgato" },
-        { value: "am_director", label: "AM igazgato" },
+        { value: "ceo", label: "Vezérigazgató (CEO)" },
+        { value: "coo", label: "Operatív igazgató (COO)" },
+        { value: "cfo", label: "Pénzügyi igazgató (CFO)" },
+        { value: "cto", label: "Technológiai igazgató (CTO)" },
+        { value: "fm_director", label: "FM igazgató" },
+        { value: "pm_director", label: "PM igazgató" },
+        { value: "am_director", label: "AM igazgató" },
         { value: "fm_manager", label: "FM menedzser" },
         { value: "pm_manager", label: "PM menedzser" },
         { value: "am_manager", label: "AM menedzser" },
-        { value: "regional_director", label: "Regionalis igazgato" },
-        { value: "country_manager", label: "Orszagigazgato" },
-        { value: "head_of_operations", label: "Uzemeltetesi vezeto" },
-        { value: "head_of_technical", label: "Muszaki vezeto" },
-        { value: "board_member", label: "Igazgatosagi tag" },
+        { value: "regional_director", label: "Regionális igazgató" },
+        { value: "country_manager", label: "Országigazgató" },
+        { value: "head_of_operations", label: "Üzemeltetési vezető" },
+        { value: "head_of_technical", label: "Műszaki vezető" },
+        { value: "board_member", label: "Igazgatósági tag" },
         { value: "partner", label: "Partner" },
-        { value: "business_development", label: "Uzletfejlesztes" },
-        { value: "leasing_manager", label: "Berbeadasi menedzser" },
-        { value: "other", label: "Egyeb" },
+        { value: "business_development", label: "Üzletfejlesztés" },
+        { value: "leasing_manager", label: "Bérbeadási menedzser" },
+        { value: "other", label: "Egyéb" },
       ],
     },
   ];
@@ -60,17 +60,17 @@ export default async function EmberekPage({ searchParams }: PageProps) {
           {/* Page header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
-              Szakmai szereplok
+              Szakmai szereplők
             </h1>
             <p className="text-slate-600">
-              Vezetok es donteshozok az FM/PM/AM szektorban
+              Vezetők és döntéshozók az FM/PM/AM szektorban
             </p>
           </div>
 
           {/* Search & Filters */}
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-8">
             <SearchBar
-              placeholder="Kereses nev alapjan..."
+              placeholder="Keresés név alapján..."
               defaultValue={params.q}
               paramName="q"
             />
@@ -100,10 +100,10 @@ export default async function EmberekPage({ searchParams }: PageProps) {
                 />
               </svg>
               <h3 className="text-lg font-semibold text-slate-700 mb-1">
-                Nincs talalat
+                Nincs találat
               </h3>
               <p className="text-sm text-slate-500">
-                Probald modositani a keresesi felteteleket vagy a szuroket.
+                Próbáld módosítani a keresési feltételeket vagy a szűrőket.
               </p>
             </div>
           )}

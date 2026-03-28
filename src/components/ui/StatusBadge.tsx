@@ -5,11 +5,11 @@ interface StatusBadgeProps {
 
 const buildingStatusMap: Record<string, { label: string; className: string }> = {
   mukodo: {
-    label: "Mukodo",
+    label: "Működő",
     className: "bg-green-100 text-green-700 border-green-200",
   },
   fejlesztes_alatt: {
-    label: "Fejlesztes alatt",
+    label: "Fejlesztés alatt",
     className: "bg-blue-100 text-blue-700 border-blue-200",
   },
   tervezett: {
@@ -17,22 +17,22 @@ const buildingStatusMap: Record<string, { label: string; className: string }> = 
     className: "bg-purple-100 text-purple-700 border-purple-200",
   },
   felujitas_alatt: {
-    label: "Felujitas alatt",
+    label: "Felújítás alatt",
     className: "bg-yellow-100 text-yellow-700 border-yellow-200",
   },
   ures: {
-    label: "Ures",
+    label: "Üres",
     className: "bg-slate-100 text-slate-600 border-slate-200",
   },
 };
 
 const companyStatusMap: Record<string, { label: string; className: string }> = {
   active: {
-    label: "Aktiv",
+    label: "Aktív",
     className: "bg-green-100 text-green-700 border-green-200",
   },
   inactive: {
-    label: "Inaktiv",
+    label: "Inaktív",
     className: "bg-slate-100 text-slate-600 border-slate-200",
   },
   acquired: {
@@ -44,7 +44,7 @@ const companyStatusMap: Record<string, { label: string; className: string }> = {
     className: "bg-purple-100 text-purple-700 border-purple-200",
   },
   dissolved: {
-    label: "Megszunt",
+    label: "Megszűnt",
     className: "bg-red-100 text-red-700 border-red-200",
   },
 };

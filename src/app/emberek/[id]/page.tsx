@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = await params;
   const person = await getPersonById(id);
   if (!person) {
-    return { title: "Szemely nem talalhato - FM Intel" };
+    return { title: "Személy nem található - FM Intel" };
   }
   return {
-    title: `${person.full_name} - FM Intel`,
-    description: person.bio || `${person.full_name} profilja az FM Intel platformon.`,
+    title: `${person.name} - FM Intel`,
+    description: person.bio || `${person.name} profilja az FM Intel platformon.`,
   };
 }
 
@@ -44,10 +44,10 @@ export default async function PersonProfilePage({ params }: PageProps) {
   const currentJob = jobs.find((j) => j.is_current);
 
   const timelineItems = jobs.map((job) => ({
-    title: job.company?.name || "Ismeretlen ceg",
+    title: job.company?.name || "Ismeretlen cég",
     subtitle: `${job.position_title}${job.position_category ? ` \u00B7 ${positionCategoryLabels[job.position_category]}` : ""}`,
-    date: job.start_date
-      ? `${formatDate(job.start_date)}${job.end_date ? ` - ${formatDate(job.end_date)}` : ""}`
+    date: job.started_at
+      ? `${formatDate(job.started_at)}${job.ended_at ? ` - ${formatDate(job.ended_at)}` : ""}`
       : undefined,
     active: job.is_current,
     badge: job.is_current ? (
@@ -77,27 +77,18 @@ export default async function PersonProfilePage({ params }: PageProps) {
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
-              {person.full_name}
+              {person.name}
             </h1>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <ConfidenceBadge confidence={person.confidence_score} />
-              {person.is_active ? (
-                <span className="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full border bg-green-100 text-green-700 border-green-200">
-                  Aktiv
-                </span>
-              ) : (
-                <span className="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full border bg-slate-100 text-slate-500 border-slate-200">
-                  Inaktiv
-                </span>
-              )}
+              <ConfidenceBadge confidence={person.confidence} />
             </div>
           </div>
 
           {/* Current position and company */}
-          {(person.current_position || currentJob) && (
+          {(person.title || currentJob) && (
             <div className="mb-4">
               <p className="text-slate-600">
-                {person.current_position || currentJob?.position_title}
+                {person.title || currentJob?.position_title}
                 {currentJob?.company && (
                   <>
                     {" \u2014 "}
@@ -152,7 +143,7 @@ export default async function PersonProfilePage({ params }: PageProps) {
         {/* Career path */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Karrierut
+            Karrierút
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({jobs.length})
             </span>
@@ -179,15 +170,15 @@ export default async function PersonProfilePage({ params }: PageProps) {
                         href={`/cegek/${job.company_id}`}
                         className="text-sm font-semibold text-slate-800 hover:text-accent-600 transition-colors"
                       >
-                        {job.company?.name || "Ismeretlen ceg"}
+                        {job.company?.name || "Ismeretlen cég"}
                       </Link>
                       <p className="text-xs text-slate-400 mt-0.5">
                         {job.position_title}
                         {job.position_category && ` \u00B7 ${positionCategoryLabels[job.position_category]}`}
                       </p>
                       <p className="text-xs text-slate-400">
-                        {job.start_date ? formatDate(job.start_date) : "\u2014"}
-                        {job.end_date ? ` - ${formatDate(job.end_date)}` : ""}
+                        {job.started_at ? formatDate(job.started_at) : "\u2014"}
+                        {job.ended_at ? ` - ${formatDate(job.ended_at)}` : ""}
                       </p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
@@ -197,7 +188,7 @@ export default async function PersonProfilePage({ params }: PageProps) {
                         </span>
                       ) : (
                         <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
-                          Korabbi
+                          Korábbi
                         </span>
                       )}
                     </div>
@@ -211,7 +202,7 @@ export default async function PersonProfilePage({ params }: PageProps) {
         {/* Changes */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Valtozasok
+            Változások
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({changes.length})
             </span>

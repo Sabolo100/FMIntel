@@ -7,7 +7,10 @@ interface PersonCardProps {
 }
 
 export default function PersonCard({ person, currentJob }: PersonCardProps) {
-  const initials = `${person.first_name.charAt(0)}${person.last_name.charAt(0)}`;
+  const nameParts = person.name.split(' ');
+  const initials = nameParts.length >= 2
+    ? `${nameParts[0].charAt(0)}${nameParts[nameParts.length - 1].charAt(0)}`
+    : person.name.charAt(0);
 
   return (
     <Link
@@ -20,7 +23,7 @@ export default function PersonCard({ person, currentJob }: PersonCardProps) {
           {person.photo_url ? (
             <img
               src={person.photo_url}
-              alt={person.full_name}
+              alt={person.name}
               className="w-12 h-12 rounded-full object-cover"
             />
           ) : (
@@ -33,7 +36,7 @@ export default function PersonCard({ person, currentJob }: PersonCardProps) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-bold text-brand-900 group-hover:text-accent-600 transition-colors leading-snug">
-            {person.full_name}
+            {person.name}
           </h3>
 
           {currentJob && (
@@ -47,9 +50,9 @@ export default function PersonCard({ person, currentJob }: PersonCardProps) {
             </div>
           )}
 
-          {!currentJob && person.current_position && (
+          {!currentJob && person.title && (
             <p className="text-sm text-brand-600 mt-1">
-              {person.current_position}
+              {person.title}
             </p>
           )}
 

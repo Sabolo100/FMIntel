@@ -32,7 +32,7 @@ export default async function CegekPage({ searchParams }: PageProps) {
 
   const filters = [
     {
-      name: "Szolgaltatas tipusa",
+      name: "Szolgáltatás típusa",
       paramName: "serviceType",
       options: [
         { value: "fm", label: "Facility Management" },
@@ -41,11 +41,11 @@ export default async function CegekPage({ searchParams }: PageProps) {
       ],
     },
     {
-      name: "Statusz",
+      name: "Státusz",
       paramName: "status",
       options: [
-        { value: "active", label: "Aktiv" },
-        { value: "inactive", label: "Inaktiv" },
+        { value: "active", label: "Aktív" },
+        { value: "inactive", label: "Inaktív" },
       ],
     },
   ];
@@ -58,16 +58,16 @@ export default async function CegekPage({ searchParams }: PageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Cegek</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Cégek</h1>
             <p className="text-slate-600">
-              FM, PM es AM szolgaltatok a magyar kereskedelmi ingatlanpiacon
+              FM, PM és AM szolgáltatók a magyar kereskedelmi ingatlanpiacon
             </p>
           </div>
 
           {/* Search & Filters */}
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-8">
             <SearchBar
-              placeholder="Kereses cegnev alapjan..."
+              placeholder="Keresés cégnév alapján..."
               defaultValue={params.q}
               paramName="q"
             />
@@ -97,10 +97,10 @@ export default async function CegekPage({ searchParams }: PageProps) {
                 />
               </svg>
               <h3 className="text-lg font-semibold text-slate-700 mb-1">
-                Nincs talalat
+                Nincs találat
               </h3>
               <p className="text-sm text-slate-500">
-                Probald modositani a keresesi felteteleket vagy a szuroket.
+                Próbáld módosítani a keresési feltételeket vagy a szűrőket.
               </p>
             </div>
           )}

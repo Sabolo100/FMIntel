@@ -49,7 +49,7 @@ export default async function AdminPage() {
             <p className="text-2xl font-bold text-brand-900">
               {stats.changesThisMonth}
             </p>
-            <p className="text-xs text-brand-500">Valtozas (ho)</p>
+            <p className="text-xs text-brand-500">Változás (hó)</p>
           </div>
         </div>
 

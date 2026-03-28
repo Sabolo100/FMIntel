@@ -24,7 +24,7 @@ export default function CompanyCard({
         <h3 className="text-base font-bold text-brand-900 group-hover:text-accent-600 transition-colors leading-snug">
           {company.name}
         </h3>
-        <ConfidenceBadge confidence={company.confidence_score} showLabel={false} />
+        <ConfidenceBadge confidence={company.confidence} showLabel={false} />
       </div>
 
       {/* Service type badges */}

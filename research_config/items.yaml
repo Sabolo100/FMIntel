@@ -7,15 +7,18 @@ research_items:
     search_type: "topic_search"
     schema_name: "company"
     schedule: "daily"
-    max_results_per_run: 5
+    max_results_per_run: 10
     topics:
-      - "facility management szolgáltató cég Magyarország"
-      - "property management iroda Budapest"
-      - "asset management ingatlan Magyarország"
-      - "üzemeltetési szolgáltató irodaház Budapest"
-      - "CBRE JLL Cushman Wakefield Magyarország"
-      - "FM cég irodaház raktár logisztika"
-      - "ingatlankezelő cég kereskedelmi ingatlan"
+      - "facility management szolgáltató cég Magyarország lista"
+      - "property management cég Budapest székhellyel"
+      - "asset management ingatlan szolgáltató Magyarország"
+      - "üzemeltetési cég irodaház kezelés Budapest"
+      - "FM PM AM szolgáltató cégek magyarországi piaca"
+      - "ingatlankezelő vállalat kereskedelmi ingatlan"
+      - "épületüzemeltetési vállalkozás Magyarország"
+      - "műszaki üzemeltetés outsourcing szolgáltató"
+      - "ingatlan property management szoftver piaci szereplő"
+      - "facilities management tender közbeszerzés Magyarország"
     language: "hu"
     content_types:
       - "company"
@@ -31,15 +34,18 @@ research_items:
     search_type: "topic_search"
     schema_name: "building"
     schedule: "daily"
-    max_results_per_run: 5
+    max_results_per_run: 10
     topics:
-      - "irodaház Budapest A kategória"
-      - "új irodaház fejlesztés Budapest 2025 2026"
-      - "logisztikai központ Magyarország"
-      - "raktár bérlemény Budapest környék"
-      - "irodapiac Budapest bérbeadás"
-      - "kereskedelmi ingatlan fejlesztés"
-      - "irodaház üzemeltetési szerződés"
+      - "A kategóriás irodaház Budapest bérleti ajánlat"
+      - "új irodafejlesztés Budapest 2024 2025 2026"
+      - "logisztikai park raktár bérbeadás Magyarország"
+      - "irodapiaci fejlesztés átadás Budapest"
+      - "kereskedelmi ingatlan épület alapterület nm"
+      - "irodaház felújítás bővítés Budapest kerület"
+      - "zöld minősítésű irodaház BREEAM LEED Budapest"
+      - "raktárcsarnok logisztikai központ Gyál Budaörs Szigetszentmiklós"
+      - "irodapiac üresedési ráta Budapest negyedéves"
+      - "ipari ingatlan fejlesztés Magyarország 2025"
     language: "hu"
     content_types:
       - "building"
@@ -55,13 +61,16 @@ research_items:
     search_type: "topic_search"
     schema_name: "person"
     schedule: "daily"
-    max_results_per_run: 3
+    max_results_per_run: 8
     topics:
-      - "kinevezés ingatlankezelés Magyarország"
-      - "FM PM vezető váltás Budapest"
-      - "CBRE JLL Colliers kinevezés Budapest"
-      - "ingatlankezelő cég új vezető"
-      - "facility management igazgató váltás"
+      - "kinevezés ingatlankezelés facility management Magyarország"
+      - "FM PM AM vezető váltás igazgató Budapest"
+      - "ingatlankezelő cég új country manager kinevezés"
+      - "facility management igazgató pozícióváltás"
+      - "property management vezető karrier ingatlanpiac"
+      - "üzemeltetési menedzser előléptetés Magyarország"
+      - "real estate asset management szakember LinkedIn"
+      - "ingatlanpiaci szakember díj elismerés konferencia"
     language: "hu"
     content_types:
       - "person"
@@ -78,13 +87,18 @@ research_items:
     search_type: "topic_search"
     schema_name: "news_mention"
     schedule: "daily"
-    max_results_per_run: 5
+    max_results_per_run: 10
     topics:
-      - "facility management piac Magyarország hírek"
-      - "irodapiac Budapest hírek"
-      - "kereskedelmi ingatlan piac Magyarország"
-      - "üzemeltetési szerződés irodaház"
-      - "ingatlankezelési tender Budapest"
+      - "facility management piac hírek Magyarország 2025"
+      - "irodapiac Budapest tranzakciók bérleti szerződés"
+      - "kereskedelmi ingatlan piac Magyarország negyedéves riport"
+      - "FM PM AM szerződés tender nyertes 2025"
+      - "ingatlankezelési iparág konferencia esemény"
+      - "irodapiaci kilátások trendek 2025 2026"
+      - "logisztikai raktár piac Magyarország fejlesztés"
+      - "property management díj rangsor top cég"
+      - "ingatlanpiaci felvásárlás portfólió tranzakció"
+      - "zöld irodaépítés fenntarthatóság ESG ingatlan"
     language: "hu"
     content_types:
       - "news"

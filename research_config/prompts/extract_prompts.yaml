@@ -2,65 +2,126 @@ extract_system_prompt: |
   Te egy strukturált adatkinyerő asszisztens vagy a magyar kereskedelmi
   ingatlanpiac FM/PM/AM szektorához.
 
-  Feladatod: nyers webes szövegből strukturált entitás-adatot kinyerni.
-  Az entitás lehet: cég (company), épület (building), személy (person) vagy hír (news).
+  Feladatod: nyers webes szövegből strukturált adatot kinyerni a megadott entitástípushoz.
+  Mindig CSAK a kért entitástípust keresd a szövegben.
+  Ha a szöveg nem tartalmaz a kért típusú entitást, üres JSON objektumot adj vissza: {{}}
 
-  Határozd meg a szöveg alapján, milyen típusú entitásról van szó, és
-  töltsd ki a megfelelő mezőket JSON formátumban.
+extract_company_prompt: |
+  A szövegből kinyerni egy FM/PM/AM szolgáltató CÉG adatait.
+  Ha a szöveg NEM tartalmaz valódi céget (pl. személy, épület vagy hír), adj vissza: {{}}
 
-extract_prompt_template: |
-  Az alábbi nyers szöveget alakítsd strukturált adattá.
-  Határozd meg, milyen típusú entitásról szól (cég, épület, személy, hír).
-
-  FONTOS: A "title" mező mindig az entitás NEVE (cég neve, épület neve, személy neve, vagy hír címe).
-  A "content" mező mindig egy lista a leírás bekezdéseiből.
-
-  Ha CÉG:
-  - title: Cég neve (hivatalos, magyar) - KÖTELEZŐ
-  - content: Rövid leírás bekezdésekre bontva (lista) - KÖTELEZŐ, pl. ["A cég fő tevékenysége...", "Szolgáltatásai között..."]
+  KINYERENDŐ MEZŐK:
+  - title: Cég NEVE (hivatalos, teljesen) - KÖTELEZŐ. Ha nincs azonosítható cég, üres objektumot adj vissza.
+  - content: Rövid leírás a cégről bekezdésekre bontva (lista) - KÖTELEZŐ, pl. ["A cég fő tevékenysége...", "Szolgáltatásai között..."]
   - name_aliases: Alternatív nevek, márkák (lista)
-  - service_types: Milyen szolgáltatásokat nyújt? ["fm", "pm", "am"]
+  - service_types: Milyen FM/PM/AM szolgáltatásokat nyújt? Csak ezek közül: ["fm", "pm", "am"]
   - website: Weboldal URL
-  - headquarters_city: Székhelye
+  - headquarters_city: Székhelye (város)
   - is_international: Nemzetközi cég-e? (true/false)
   - source_url: Az eredeti forrás URL
 
-  Ha ÉPÜLET:
-  - title: Épület neve - KÖTELEZŐ
+  FONTOS:
+  - Ha a szöveg egy személyről, épületről vagy hírről szól (nem cégről), adj vissza: {{}}
+  - Egyéneket (pl. "Kiss Péter") NE fogadd el cégként
+  - Válaszolj CSAK JSON formátumban
+
+  NYERS SZÖVEG:
+  ---
+  Forrás: {source_url}
+  Cím: {title}
+  ---
+  {content}
+
+extract_building_prompt: |
+  A szövegből kinyerni egy ÉPÜLET (irodaház, raktár, logisztikai központ) adatait.
+  Ha a szöveg NEM épületről szól, adj vissza: {{}}
+
+  KINYERENDŐ MEZŐK:
+  - title: Épület NEVE - KÖTELEZŐ. Ha nincs azonosítható épület, üres objektumot adj vissza.
   - content: Épület leírása bekezdésekre bontva (lista) - KÖTELEZŐ
   - building_type: "iroda" / "raktar" / "logisztikai" / "vegyes"
-  - building_class: "A+" / "A" / "B+" / "B" / "C"
+  - building_class: "A+" / "A" / "B+" / "B" / "C" (ha ismert)
   - status: "mukodo" / "fejlesztes_alatt" / "tervezett"
-  - address: Pontos cím
+  - address: Pontos cím (ha ismert)
   - city: Város
-  - district: Kerület (Budapest esetén)
-  - total_area_sqm: Összes terület m2
-  - owner_company_name: Tulajdonos cég neve
+  - district: Kerület (Budapest esetén, pl. "XIII. kerület")
+  - total_area_sqm: Összes alapterület m2-ben (szám)
+  - owner_company_name: Tulajdonos vagy fejlesztő cég neve
   - source_url: Forrás URL
 
-  Ha SZEMÉLY:
-  - title: Személy teljes neve - KÖTELEZŐ
+  FONTOS:
+  - Ha a szöveg cégről, személyről vagy hírről szól (nem épületről), adj vissza: {{}}
+  - Általános piaci statisztikát NE fogadd el épületként
+  - Válaszolj CSAK JSON formátumban
+
+  NYERS SZÖVEG:
+  ---
+  Forrás: {source_url}
+  Cím: {title}
+  ---
+  {content}
+
+extract_person_prompt: |
+  A szövegből kinyerni egy FM/PM/AM szakmai SZEMÉLY (vezető, igazgató, menedzser) adatait.
+  Ha a szöveg NEM azonosítható személyről szól, adj vissza: {{}}
+
+  KINYERENDŐ MEZŐK:
+  - title: Személy TELJES NEVE - KÖTELEZŐ. Ha nincs azonosítható személy, üres objektumot adj vissza.
   - content: Rövid életrajz bekezdésekre bontva (lista) - KÖTELEZŐ
-  - current_company_name: Jelenlegi munkáltató
-  - position_title: Pozíció megnevezése
-  - position_category: ceo/fm_director/pm_manager/am_manager/stb.
+  - current_company_name: Jelenlegi munkáltató cég neve
+  - position_title: Pozíció pontos megnevezése (pl. "Ügyvezető igazgató")
+  - position_category: Az alábbiak közül: ceo/coo/cfo/cto/fm_director/pm_director/am_director/fm_manager/pm_manager/am_manager/regional_director/country_manager/head_of_operations/head_of_technical/board_member/partner/business_development/leasing_manager/other
   - previous_company_name: Előző munkáltató (ha van)
   - source_url: Forrás URL
 
-  Ha HÍR:
-  - title: Hír címe - KÖTELEZŐ
+  FONTOS:
+  - Ha a szöveg cégről, épületről vagy piaci hírről szól (nem személyről), adj vissza: {{}}
+  - Csak valódi személyt fogadj el (keresztnév + vezetéknév)
+  - Szervezetek, egyesületek NEM személyek
+  - Válaszolj CSAK JSON formátumban
+
+  NYERS SZÖVEG:
+  ---
+  Forrás: {source_url}
+  Cím: {title}
+  ---
+  {content}
+
+extract_news_mention_prompt: |
+  A szövegből kinyerni egy FM/PM/AM piaci HÍR adatait.
+  Mindig valódi hírként kezeld a szöveget.
+
+  KINYERENDŐ MEZŐK:
+  - title: Hír CÍME - KÖTELEZŐ (tömör, informatív)
   - content: Összefoglaló bekezdésekre bontva (lista) - KÖTELEZŐ
-  - url: Hír URL-je
-  - source_domain: Forrás domain
-  - published_at: Megjelenés dátuma (YYYY-MM-DD)
-  - entity_type: "company" / "building" / "person"
-  - entity_name: Melyik entitásról szól
+  - url: Hír URL-je (a source_url-ből)
+  - source_domain: Forrás domain (pl. "portfolio.hu")
+  - published_at: Megjelenés dátuma YYYY-MM-DD formátumban (ha ismert)
+  - entity_type: Melyik entitástípusról szól leginkább? "company" / "building" / "person"
+  - entity_name: Az érintett entitás neve (cég, épület vagy személy neve)
+  - sentiment: "positive" / "negative" / "neutral"
 
   FONTOS:
-  - A "title" és "content" mezők KÖTELEZŐEK minden entitástípusnál
-  - Ha nincs elég adat más mezőkhöz, hagyd üresen
-  - A nevet mindig magyarul add meg (ha lehetséges)
-  - Válaszolj CSAK JSON formátumban, más szöveget ne adj
+  - Az entity_name és entity_type KÖTELEZŐ - ha nem azonosítható, becsüld meg
+  - Az url mezőbe a forrás URL-t add meg
+  - Válaszolj CSAK JSON formátumban
+
+  NYERS SZÖVEG:
+  ---
+  Forrás: {source_url}
+  Cím: {title}
+  ---
+  {content}
+
+# Generic fallback (used if no schema-specific prompt exists)
+extract_prompt_template: |
+  A szövegből kinyerni egy FM/PM/AM piaci entitás adatait JSON formátumban.
+
+  FONTOS:
+  - A "title" mező az entitás NEVE - KÖTELEZŐ
+  - A "content" mező leírás bekezdések listájaként - KÖTELEZŐ
+  - Ha nincs azonosítható entitás, adj vissza: {{}}
+  - Válaszolj CSAK JSON formátumban
 
   NYERS SZÖVEG:
   ---

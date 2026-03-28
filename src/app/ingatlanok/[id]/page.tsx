@@ -49,13 +49,13 @@ export default async function BuildingProfilePage({ params }: PageProps) {
   ]);
 
   const timelineItems = management.map((m) => ({
-    title: m.company?.name || "Ismeretlen ceg",
-    subtitle: `${serviceTypeLabels[m.management_role]}${m.start_date ? ` \u00B7 ${formatDate(m.start_date)}` : ""}${m.end_date ? ` - ${formatDate(m.end_date)}` : ""}`,
-    date: m.is_current ? "Jelenlegi" : formatDate(m.end_date),
-    active: m.is_current,
-    badge: m.is_current ? (
+    title: m.company?.name || "Ismeretlen cég",
+    subtitle: `${serviceTypeLabels[m.role]}${m.started_at ? ` \u00B7 ${formatDate(m.started_at)}` : ""}${m.ended_at ? ` - ${formatDate(m.ended_at)}` : ""}`,
+    date: !m.ended_at ? "Jelenlegi" : formatDate(m.ended_at),
+    active: !m.ended_at,
+    badge: !m.ended_at ? (
       <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 text-green-700 border border-green-200">
-        Aktiv
+        Aktív
       </span>
     ) : undefined,
   }));
@@ -83,7 +83,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
               {building.name}
             </h1>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <ConfidenceBadge confidence={building.confidence_score} />
+              <ConfidenceBadge confidence={building.confidence} />
             </div>
           </div>
 
@@ -94,7 +94,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
             </span>
             {building.building_class && (
               <span className="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded-full border bg-indigo-100 text-indigo-700 border-indigo-200">
-                {building.building_class} kategoria
+                {building.building_class} kategória
               </span>
             )}
             <StatusBadge status={building.status} variant="building" />
@@ -104,7 +104,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
           <p className="text-slate-600 mb-6">
             {building.address}, {building.city}
             {building.district && ` (${building.district})`}
-            {building.postal_code && ` - ${building.postal_code}`}
+            {building.zip_code && ` - ${building.zip_code}`}
           </p>
 
           {/* Description */}
@@ -118,10 +118,10 @@ export default async function BuildingProfilePage({ params }: PageProps) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-slate-50 rounded-xl p-4 text-center">
               <span className="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">
-                Terulet
+                Terület
               </span>
               <span className="text-lg font-bold text-slate-800">
-                {formatArea(building.gla_sqm)}
+                {formatArea(building.total_area_sqm)}
               </span>
             </div>
             <div className="bg-slate-50 rounded-xl p-4 text-center">
@@ -129,17 +129,12 @@ export default async function BuildingProfilePage({ params }: PageProps) {
                 Szintek
               </span>
               <span className="text-lg font-bold text-slate-800">
-                {building.floors_above != null ? building.floors_above : "\u2014"}
-                {building.floors_below != null && building.floors_below > 0 && (
-                  <span className="text-sm font-normal text-slate-400">
-                    {" "}/ -{building.floors_below}
-                  </span>
-                )}
+                {building.floors != null ? building.floors : "\u2014"}
               </span>
             </div>
             <div className="bg-slate-50 rounded-xl p-4 text-center">
               <span className="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">
-                Epitesi ev
+                Építési év
               </span>
               <span className="text-lg font-bold text-slate-800">
                 {building.year_built ?? "\u2014"}
@@ -147,7 +142,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
             </div>
             <div className="bg-slate-50 rounded-xl p-4 text-center">
               <span className="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">
-                Felujitas eve
+                Felújítás éve
               </span>
               <span className="text-lg font-bold text-slate-800">
                 {building.year_renovated ?? "\u2014"}
@@ -159,7 +154,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
         {/* Management (FM/PM/AM) */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 mb-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Kezelok
+            Kezelők
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({management.length})
             </span>
@@ -167,7 +162,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
 
           {management.length === 0 ? (
             <p className="text-sm text-slate-400 py-4">
-              Nincsenek kapcsolodo kezeloi adatok.
+              Nincsenek kapcsolódó kezelői adatok.
             </p>
           ) : (
             <>
@@ -186,22 +181,22 @@ export default async function BuildingProfilePage({ params }: PageProps) {
                         href={`/cegek/${m.company_id}`}
                         className="text-sm font-semibold text-slate-800 hover:text-accent-600 transition-colors"
                       >
-                        {m.company?.name || "Ismeretlen ceg"}
+                        {m.company?.name || "Ismeretlen cég"}
                       </Link>
                       <p className="text-xs text-slate-400 mt-0.5">
-                        {serviceTypeLabels[m.management_role]}
-                        {m.start_date && ` \u00B7 ${formatDate(m.start_date)}`}
-                        {m.end_date && ` - ${formatDate(m.end_date)}`}
+                        {serviceTypeLabels[m.role]}
+                        {m.started_at && ` \u00B7 ${formatDate(m.started_at)}`}
+                        {m.ended_at && ` - ${formatDate(m.ended_at)}`}
                       </p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      {m.is_current ? (
+                      {!m.ended_at ? (
                         <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-green-100 text-green-700 border border-green-200">
                           Jelenlegi
                         </span>
                       ) : (
                         <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
-                          Korabbi
+                          Korábbi
                         </span>
                       )}
                     </div>
@@ -215,7 +210,7 @@ export default async function BuildingProfilePage({ params }: PageProps) {
         {/* Changes */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
           <h2 className="text-lg font-bold text-slate-900 mb-5">
-            Valtozasok
+            Változások
             <span className="text-sm font-normal text-slate-400 ml-2">
               ({changes.length})
             </span>

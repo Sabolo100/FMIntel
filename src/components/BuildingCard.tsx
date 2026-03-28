@@ -58,7 +58,7 @@ export default function BuildingCard({ building }: BuildingCardProps) {
             {building.address}, {building.city}
           </span>
         </p>
-        {building.gla_sqm && (
+        {building.total_area_sqm && (
           <p className="text-sm text-brand-600 flex items-center gap-1.5">
             <svg
               className="w-3.5 h-3.5 text-brand-400 flex-shrink-0"
@@ -73,7 +73,7 @@ export default function BuildingCard({ building }: BuildingCardProps) {
                 d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
               />
             </svg>
-            {formatArea(building.gla_sqm)}
+            {formatArea(building.total_area_sqm)}
           </p>
         )}
       </div>
@@ -81,28 +81,10 @@ export default function BuildingCard({ building }: BuildingCardProps) {
       {/* Footer */}
       <div className="flex items-center gap-3 text-xs text-brand-400 pt-3 border-t border-brand-50">
         {building.year_built && (
-          <span>Epitesi ev: {building.year_built}</span>
+          <span>Építési év: {building.year_built}</span>
         )}
-        {building.floors_above && (
-          <span>{building.floors_above} emelet</span>
-        )}
-        {building.certifications && building.certifications.length > 0 && (
-          <span className="flex items-center gap-1">
-            <svg
-              className="w-3.5 h-3.5 text-green-500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            {building.certifications.join(", ")}
-          </span>
+        {building.floors && (
+          <span>{building.floors} emelet</span>
         )}
       </div>
     </Link>

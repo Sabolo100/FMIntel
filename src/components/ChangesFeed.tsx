@@ -77,9 +77,9 @@ function entityLink(entityType: EntityType, entityId: string): string {
 }
 
 const entityTypeLabels: Record<EntityType, string> = {
-  company: "Ceg",
+  company: "Cég",
   building: "Ingatlan",
-  person: "Szemely",
+  person: "Személy",
 };
 
 export default function ChangesFeed({ changes, showAll = false }: ChangesFeedProps) {
@@ -88,7 +88,7 @@ export default function ChangesFeed({ changes, showAll = false }: ChangesFeedPro
   if (displayChanges.length === 0) {
     return (
       <div className="text-center py-8 text-brand-400 text-sm">
-        Nincsenek valtozasok a megadott idoszakban.
+        Nincsenek változások a megadott időszakban.
       </div>
     );
   }

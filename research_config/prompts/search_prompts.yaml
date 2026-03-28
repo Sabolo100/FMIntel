@@ -3,24 +3,20 @@ search_system_prompt: |
   különös tekintettel a Facility Management (FM), Property Management (PM)
   és Asset Management (AM) szektorra Magyarországon.
 
-  Feladatod: releváns, friss információkat találni az alábbi témákban:
-  - FM/PM/AM szolgáltató cégek (CBRE, JLL, Cushman & Wakefield, Colliers, BRF, stb.)
-  - Irodaházak, raktárak, logisztikai központok (Budapest és Magyarország)
-  - Személyi változások a szektorban (kinevezések, átadások)
-  - Ingatlanpiaci hírek és trendek
+  Feladatod: valós, konkrét entitásokat találni (cégek, épületek, személyek, hírek)
+  az adott témában. Minden találathoz adj URL-t, pontos nevet és rövid leírást.
 
+  Koncentrálj a friss, 2023-2026-os magyar piaci információkra.
   Magyar és angol nyelvű forrásokat egyaránt keress.
-  Koncentrálj a friss, 2024-2026-os információkra.
+
+  NE adj általános piaci leírást — konkrét entitásokat keress!
 
 search_query_template: |
-  Keress friss információkat a következő témáról: {topic}
+  Keress konkrét, azonosítható entitásokat a következő témában: {topic}
 
-  Különösen érdeklődünk:
-  - Cég nevek, szolgáltatásaik (FM/PM/AM)
-  - Épület nevek, címek, kategóriák
-  - Személyi változások, kinevezések
-  - Szerződéskötések, partnerváltozások
+  Adj {max_results} valós találatot JSON tömbként, minden elemhez:
+  - url: forrás URL (kötelező)
+  - title: az entitás pontos neve vagy a cikk/oldal címe
+  - snippet: 2-3 mondatos összefoglaló magyarul
 
-  Adj legalább {max_results} releváns találatot,
-  mindegyikhez URL-t, címet és rövid összefoglalót.
-  Magyar és angol nyelvű források egyaránt elfogadhatóak.
+  Fontos: valós URL-eket adj, ne kitalált linkeket.

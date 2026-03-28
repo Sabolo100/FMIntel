@@ -36,8 +36,8 @@ export default async function HomePage() {
 
             <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
               A magyar kereskedelmi ingatlanpiac facility management, property management
-              es asset management szektorinak atfogo adatbazisa. Cegek, ingatlanok,
-              szakemberek es piaci valtozasok egy helyen.
+              és asset management szektorinak átfogó adatbázisa. Cégek, ingatlanok,
+              szakemberek és piaci változások egy helyen.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -45,7 +45,7 @@ export default async function HomePage() {
                 href="/cegek"
                 className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
-                Cegek bongeszese
+                Cégek böngészése
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -59,7 +59,7 @@ export default async function HomePage() {
                 href="/modszertan"
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
-                Hogyan mukodik?
+                Hogyan működik?
               </Link>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatCard
-              label="Cegek"
+              label="Cégek"
               value={stats.companiesCount}
               href="/cegek"
               icon={
@@ -101,7 +101,7 @@ export default async function HomePage() {
               }
             />
             <StatCard
-              label="Valtozasok e honapban"
+              label="Változások e hónapban"
               value={stats.changesThisMonth}
               href="/valtozasok"
               icon={
@@ -120,17 +120,17 @@ export default async function HomePage() {
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                Legutobbi valtozasok
+                Legutóbbi változások
               </h2>
               <p className="text-slate-600 text-sm">
-                A legfrissebb piaci mozgasok es adatfrissitesek
+                A legfrissebb piaci mozgások és adatfrissítések
               </p>
             </div>
             <Link
               href="/valtozasok"
               className="hidden md:inline-flex items-center gap-1.5 text-brand-600 hover:text-brand-700 font-medium text-sm transition-colors"
             >
-              Osszes valtozas
+              Összes változás
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -148,10 +148,10 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-bold text-slate-900 mb-2">
-              Fedezd fel az adatbazist
+              Fedezd fel az adatbázist
             </h2>
             <p className="text-slate-600 text-sm">
-              Valassz egy kategoriat es kezdj el bongeszni
+              Válassz egy kategóriát és kezdj el böngészni
             </p>
           </div>
 
@@ -166,13 +166,13 @@ export default async function HomePage() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">
-                Cegek
+                Cégek
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                FM, PM es AM szolgaltatok a magyar piacon. Cegadatok, szolgaltatasi tipusok es kapcsolatok.
+                FM, PM és AM szolgáltatók a magyar piacon. Cégadatok, szolgáltatási típusok és kapcsolatok.
               </p>
               <div className="mt-4 flex items-center gap-1 text-brand-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Tovabb</span>
+                <span>Tovább</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -192,10 +192,10 @@ export default async function HomePage() {
                 Ingatlanok
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Kereskedelmi ingatlanok: irodak, raktarak, logisztikai kozpontok. Tipusok, osztalyok es kezeles.
+                Kereskedelmi ingatlanok: irodák, raktárak, logisztikai központok. Típusok, osztályok és kezelés.
               </p>
               <div className="mt-4 flex items-center gap-1 text-accent-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Tovabb</span>
+                <span>Tovább</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -212,13 +212,13 @@ export default async function HomePage() {
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-green-600 transition-colors">
-                Szakmai szereplok
+                Szakmai szereplők
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Vezetok es donteshozok az FM/PM/AM szektorban. Karrier-utak es cegkapcsolatok.
+                Vezetők és döntéshozók az FM/PM/AM szektorban. Karrier-utak és cégkapcsolatok.
               </p>
               <div className="mt-4 flex items-center gap-1 text-green-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Tovabb</span>
+                <span>Tovább</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -232,18 +232,18 @@ export default async function HomePage() {
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            Hogyan mukodik?
+            Hogyan működik?
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto mb-8">
-            Automatizalt kutatasi pipeline-unk folyamatosan figyeli a magyar kereskedelmi
-            ingatlanpiac FM/PM/AM szektorat. Hir- es cegadatokbol epitjuk az adatbazist,
-            amelyet bizonyossagi szintekkel minositve teszunk elehetove.
+            Automatizált kutatási pipeline-unk folyamatosan figyeli a magyar kereskedelmi
+            ingatlanpiac FM/PM/AM szektorát. Hír- és cégadatokból építjük az adatbázist,
+            amelyet bizonyossági szintekkel minősítve teszünk elérhetővé.
           </p>
           <Link
             href="/modszertan"
             className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
-            Reszletes modszertan
+            Részletes módszertan
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

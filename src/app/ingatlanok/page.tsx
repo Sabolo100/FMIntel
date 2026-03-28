@@ -33,17 +33,17 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
 
   const filters = [
     {
-      name: "Ingatlan tipusa",
+      name: "Ingatlan típusa",
       paramName: "buildingType",
       options: [
         { value: "iroda", label: "Iroda" },
-        { value: "raktar", label: "Raktar" },
+        { value: "raktar", label: "Raktár" },
         { value: "logisztikai", label: "Logisztikai" },
-        { value: "vegyes", label: "Vegyes hasznalatu" },
+        { value: "vegyes", label: "Vegyes használatú" },
       ],
     },
     {
-      name: "Osztaly",
+      name: "Osztály",
       paramName: "buildingClass",
       options: [
         { value: "A+", label: "A+" },
@@ -54,14 +54,14 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
       ],
     },
     {
-      name: "Statusz",
+      name: "Státusz",
       paramName: "status",
       options: [
-        { value: "mukodo", label: "Mukodo" },
-        { value: "fejlesztes_alatt", label: "Fejlesztes alatt" },
+        { value: "mukodo", label: "Működő" },
+        { value: "fejlesztes_alatt", label: "Fejlesztés alatt" },
         { value: "tervezett", label: "Tervezett" },
-        { value: "felujitas_alatt", label: "Felujitas alatt" },
-        { value: "ures", label: "Ures" },
+        { value: "felujitas_alatt", label: "Felújítás alatt" },
+        { value: "ures", label: "Üres" },
       ],
     },
   ];
@@ -76,14 +76,14 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-2">Ingatlanok</h1>
             <p className="text-slate-600">
-              Kereskedelmi ingatlanok a magyar piacon: irodak, raktarak, logisztikai kozpontok
+              Kereskedelmi ingatlanok a magyar piacon: irodák, raktárak, logisztikai központok
             </p>
           </div>
 
           {/* Search & Filters */}
           <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-8">
             <SearchBar
-              placeholder="Kereses nev vagy cim alapjan..."
+              placeholder="Keresés név vagy cím alapján..."
               defaultValue={params.q}
               paramName="q"
             />
@@ -113,10 +113,10 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
                 />
               </svg>
               <h3 className="text-lg font-semibold text-slate-700 mb-1">
-                Nincs talalat
+                Nincs találat
               </h3>
               <p className="text-sm text-slate-500">
-                Probald modositani a keresesi felteteleket vagy a szuroket.
+                Próbáld módosítani a keresési feltételeket vagy a szűrőket.
               </p>
             </div>
           )}

@@ -11,19 +11,14 @@ export async function getPeople(filters?: {
   try {
     let query = supabase.from('people').select('*');
 
-    if (filters?.positionCategory) {
-      query = query.eq('position_category', filters.positionCategory);
-    }
     if (filters?.companyId) {
       query = query.eq('current_company_id', filters.companyId);
     }
     if (filters?.search) {
-      query = query.or(
-        `full_name.ilike.%${filters.search}%,first_name.ilike.%${filters.search}%,last_name.ilike.%${filters.search}%`
-      );
+      query = query.ilike('name', `%${filters.search}%`);
     }
 
-    const { data, error } = await query.order('full_name');
+    const { data, error } = await query.order('name');
 
     if (error) {
       console.error('Error fetching people:', error);
@@ -66,7 +61,7 @@ export async function getPersonJobs(
       .select('*, company:companies(*)')
       .eq('person_id', personId)
       .order('is_current', { ascending: false })
-      .order('start_date', { ascending: false });
+      .order('started_at', { ascending: false });
 
     if (error) {
       console.error('Error fetching person jobs:', error);
@@ -85,10 +80,8 @@ export async function searchPeople(query: string): Promise<Person[]> {
     const { data, error } = await supabase
       .from('people')
       .select('*')
-      .or(
-        `full_name.ilike.%${query}%,first_name.ilike.%${query}%,last_name.ilike.%${query}%,current_position.ilike.%${query}%`
-      )
-      .order('full_name')
+      .or(`name.ilike.%${query}%,title.ilike.%${query}%`)
+      .order('name')
       .limit(50);
 
     if (error) {

@@ -15,12 +15,10 @@ export async function getCompanies(filters?: {
       query = query.contains('service_types', [filters.serviceType]);
     }
     if (filters?.search) {
-      query = query.or(
-        `name.ilike.%${filters.search}%,short_name.ilike.%${filters.search}%`
-      );
+      query = query.ilike('name', `%${filters.search}%`);
     }
     if (filters?.status !== undefined) {
-      query = query.eq('is_active', filters.status);
+      query = query.eq('status', filters.status ? 'active' : 'inactive');
     }
 
     const { data, error } = await query.order('name');
@@ -85,7 +83,7 @@ export async function getCompanyBuildings(
       .from('building_management')
       .select('*, building:buildings(*)')
       .eq('company_id', companyId)
-      .order('is_current', { ascending: false });
+      .order('ended_at', { ascending: true, nullsFirst: true });
 
     if (error) {
       console.error('Error fetching company buildings:', error);
@@ -127,7 +125,7 @@ export async function searchCompanies(query: string): Promise<Company[]> {
       .from('companies')
       .select('*')
       .or(
-        `name.ilike.%${query}%,short_name.ilike.%${query}%,description.ilike.%${query}%`
+        `name.ilike.%${query}%,description.ilike.%${query}%`
       )
       .order('name')
       .limit(50);

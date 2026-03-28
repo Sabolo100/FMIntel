@@ -25,16 +25,16 @@ export default async function ValtozasokPage({ searchParams }: PageProps) {
 
   const filters = [
     {
-      name: "Valtozas tipusa",
+      name: "Változás típusa",
       paramName: "changeType",
       options: [
-        { value: "new_entity", label: "Uj entitas" },
-        { value: "updated_entity", label: "Frissitett entitas" },
-        { value: "new_management", label: "Uj kezelesi szerzodes" },
-        { value: "ended_management", label: "Megszunt kezeles" },
-        { value: "personnel_move", label: "Szemelyi valtozas" },
-        { value: "company_relation", label: "Cegkapcsolat valtozas" },
-        { value: "data_correction", label: "Adatjavitas" },
+        { value: "new_entity", label: "Új entitás" },
+        { value: "updated_entity", label: "Frissített entitás" },
+        { value: "new_management", label: "Új kezelési szerződés" },
+        { value: "ended_management", label: "Megszűnt kezelés" },
+        { value: "personnel_move", label: "Személyi változás" },
+        { value: "company_relation", label: "Cégkapcsolat változás" },
+        { value: "data_correction", label: "Adatjavítás" },
       ],
     },
   ];
@@ -48,10 +48,10 @@ export default async function ValtozasokPage({ searchParams }: PageProps) {
           {/* Page header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
-              Valtozasok
+              Változások
             </h1>
             <p className="text-slate-600">
-              Piaci mozgasok, szemelyi valtozasok es adatfrissitesek idorendi sorrendben
+              Piaci mozgások, személyi változások és adatfrissítések időrendi sorrendben
             </p>
           </div>
 
