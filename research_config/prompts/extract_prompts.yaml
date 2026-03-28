@@ -19,10 +19,16 @@ extract_company_prompt: |
   - headquarters_city: Székhelye (város)
   - is_international: Nemzetközi cég-e? (true/false)
   - source_url: Az eredeti forrás URL
+  - key_people: A szövegben említett SZEMÉLYEK (vezetők, menedzserek, döntéshozók) listája. Minden személy egy objektum:
+      - name: Személy TELJES NEVE (pl. "Bőjte Richárd") - KÖTELEZŐ
+      - position_title: Pozíció pontos megnevezése (pl. "Ügyvezető", "Facility Manager", "Műszaki igazgató")
+      - position_category: Az alábbiak közül ha meghatározható: ceo/coo/cfo/cto/fm_director/pm_director/am_director/fm_manager/pm_manager/am_manager/regional_director/country_manager/head_of_operations/head_of_technical/board_member/partner/business_development/leasing_manager/other
+    Ha NEM említ a szöveg személyeket, adj üres listát: []
 
   FONTOS:
   - Ha a szöveg egy személyről, épületről vagy hírről szól (nem cégről), adj vissza: {{}}
   - Egyéneket (pl. "Kiss Péter") NE fogadd el cégként
+  - DE ha a cég leírásában személyek vannak említve (pl. "ügyvezető: X"), azokat a key_people mezőben add meg!
   - Válaszolj CSAK JSON formátumban
 
   NYERS SZÖVEG:

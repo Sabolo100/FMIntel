@@ -1,10 +1,22 @@
 export const revalidate = 0;
 
+/**
+ * Ingatlanok listing page
+ *
+ * BANNER IMAGE GENERATION PROMPT (/public/banners/ingatlanok.jpg):
+ * "Budapest modern commercial real estate district aerial photography, glass office
+ *  parks, logistics centers and warehouse complexes viewed from above, abstract
+ *  geometric urban planning patterns, clear blue sky with light clouds, sharp
+ *  architectural lines, top-down perspective, professional drone photography,
+ *  cyan and slate color palette, 16:5 panoramic crop"
+ */
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BuildingCard from "@/components/BuildingCard";
 import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
+import PageBanner from "@/components/PageBanner";
 import { getBuildings, searchBuildings } from "@/lib/db/buildings";
 import type { BuildingType, BuildingClass, BuildingStatus } from "@/lib/types";
 
@@ -67,21 +79,70 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen" style={{ background: "#f0f5fb" }}>
       <Header />
 
-      <section className="py-10 md:py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Ingatlanok</h1>
-            <p className="text-slate-600">
-              Kereskedelmi ingatlanok a magyar piacon: irodák, raktárak, logisztikai központok
-            </p>
+      {/* ── BANNER ─────────────────────────────────────────── */}
+      {/* IMAGE: /public/banners/ingatlanok.jpg — see prompt above */}
+      <PageBanner
+        badge="ADATBÁZIS"
+        title="Ingatlanok"
+        subtitle="Kereskedelmi ingatlanok a magyar piacon: irodák, raktárak, logisztikai központok"
+        imageSrc="/banners/ingatlanok.jpg"
+      >
+        {/* Decorative building-class scale */}
+        <div className="flex items-center gap-1 mt-3">
+          <span className="text-xs font-mono mr-2" style={{ color: "#94a3b8" }}>Osztály:</span>
+          {[
+            { cls: "A+", color: "#0284c7" },
+            { cls: "A",  color: "#0d9488" },
+            { cls: "B+", color: "#65a30d" },
+            { cls: "B",  color: "#d97706" },
+            { cls: "C",  color: "#94a3b8" },
+          ].map((c, i) => (
+            <span
+              key={c.cls}
+              className="inline-flex items-center justify-center text-xs font-bold rounded"
+              style={{
+                width: 32,
+                height: 24,
+                background: `${c.color}15`,
+                color: c.color,
+                border: `1px solid ${c.color}30`,
+                fontSize: "0.65rem",
+                opacity: 1 - i * 0.08,
+              }}
+            >
+              {c.cls}
+            </span>
+          ))}
+          {/* Floor-plan dots decoration */}
+          <div className="ml-4 flex gap-1 items-center" aria-hidden>
+            {[...Array(8)].map((_, i) => (
+              <span
+                key={i}
+                className="rounded-full"
+                style={{
+                  width: 4,
+                  height: 4,
+                  background: "rgba(2,132,199,0.2)",
+                  transform: `scale(${1 - i * 0.08})`,
+                }}
+              />
+            ))}
           </div>
+        </div>
+      </PageBanner>
 
-          {/* Search & Filters */}
-          <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-8">
+      {/* ── CONTENT ────────────────────────────────────────── */}
+      <section className="py-10">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+
+          {/* Search + filters */}
+          <div
+            className="bg-white rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-3"
+            style={{ border: "1px solid #e2e8f0" }}
+          >
             <SearchBar
               placeholder="Keresés név vagy cím alapján..."
               defaultValue={params.q}
@@ -89,6 +150,16 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
             />
             <FilterBar filters={filters} />
           </div>
+
+          {/* Results count */}
+          {buildings.length > 0 && (
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-xs font-mono tracking-widest uppercase" style={{ color: "#94a3b8" }}>
+                {buildings.length} találat
+              </span>
+              <div className="flex-1 h-px" style={{ background: "#e2e8f0" }} />
+            </div>
+          )}
 
           {/* Results */}
           {buildings.length > 0 ? (
@@ -98,24 +169,17 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
-              <svg
-                className="w-12 h-12 text-brand-300 mx-auto mb-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.5}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
+            <div
+              className="text-center py-20 bg-white rounded-2xl"
+              style={{ border: "1px solid #e2e8f0" }}
+            >
+              <svg className="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" strokeWidth={1}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
-              <h3 className="text-lg font-semibold text-slate-700 mb-1">
+              <h3 className="text-base font-semibold mb-1" style={{ color: "#475569" }}>
                 Nincs találat
               </h3>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm" style={{ color: "#94a3b8" }}>
                 Próbáld módosítani a keresési feltételeket vagy a szűrőket.
               </p>
             </div>

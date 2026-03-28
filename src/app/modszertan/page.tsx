@@ -1,244 +1,541 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
+const pipelineSteps = [
+  {
+    num: "01",
+    title: "Adatgyűjtés",
+    subtitle: "FETCH",
+    description:
+      "Automatizált spider-ek naponta végigpásztázzák az előre meghatározott forrásokat — hírportálokat, cégweboldalakat, ingatlan-adatbázisokat és szakmai profilokat. Az összegyűjtött nyers tartalom strukturálatlan szövegként kerül a pipeline-ba.",
+    color: "#0284c7",
+  },
+  {
+    num: "02",
+    title: "Normalizálás",
+    subtitle: "NORMALIZE",
+    description:
+      "AI-alapú extraction layer azonosítja az entitásokat (cég, ingatlan, személy), kinyeri a releváns attribútumokat, és egységesített strukturált rekordokká alakítja az adatokat. Duplikációszűrés névnormalizálással.",
+    color: "#0d9488",
+  },
+  {
+    num: "03",
+    title: "Integrálás",
+    subtitle: "INTEGRATE",
+    description:
+      "Az új rekordok összevétése a meglévő adatbázissal. Egyező entitásoknál frissítés és bizonyossági szint újraszámítás. Minden változás naplózásra kerül, teljes auditnyom megőrzéssel.",
+    color: "#4f46e5",
+  },
+];
+
 const confidenceLevels = [
   {
     label: "Megerősített",
-    score: "90-100%",
-    color: "bg-green-100 text-green-700 border-green-200",
+    score: 95,
+    range: "90–100%",
+    hex: "#16a34a",
     description:
-      "Több független forrásból igazolt adat. Hivatalos céginformációk, publikus nyilatkozatok vagy többszörösen megerősített hírek.",
+      "Több független forrásból igazolt. Hivatalos céginformációk, publikus nyilatkozatok vagy többszörösen megerősített hírek.",
   },
   {
     label: "Valószínű",
-    score: "70-89%",
-    color: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    score: 79,
+    range: "70–89%",
+    hex: "#65a30d",
     description:
-      "Megbízható forrásból származó információ, amelyet legalább egy másik forrás is támogat. Iparági sajtóközlemények, cégoldali frissítések.",
+      "Megbízható forrásból, legalább egy másik forrás által is támogatva. Iparági sajtóközlemények, cégoldali frissítések.",
   },
   {
     label: "Feltételezett",
-    score: "50-69%",
-    color: "bg-yellow-100 text-yellow-700 border-yellow-200",
+    score: 59,
+    range: "50–69%",
+    hex: "#d97706",
     description:
-      "Egyetlen forrásból származó, még nem megerősített adat. Iparági pletykák, nem hivatalos források.",
+      "Egyetlen forrásból, még nem megerősített. Iparági hírek, nem hivatalos közlések.",
   },
   {
     label: "Bizonytalan",
-    score: "0-49%",
-    color: "bg-red-100 text-red-700 border-red-200",
+    score: 30,
+    range: "0–49%",
+    hex: "#dc2626",
     description:
-      "Korlátolt vagy nem ellenőrzött információ. Közvetlen forrás hiányában, következtetéseken alapuló adatok.",
+      "Korlátolt vagy nem ellenőrzött információ. Következtetéseken alapuló, megerősítésre váró adatok.",
   },
 ];
 
 const entityTypes = [
   {
+    label: "FM · PM · AM",
     title: "Cégek",
+    stat: "~400+",
+    statLabel: "nyomon követett vállalat",
+    description:
+      "Facility management, property management és asset management szolgáltatók teljes profiljukkal: szolgáltatástípusok, portfólió méret, kontaktszemélyek és változáshistória.",
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-7 h-7">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
       </svg>
     ),
-    description:
-      "Facility management, property management és asset management szolgáltatók. Tároljuk a cég alapadatait, szolgáltatási típusait, telephelyeit és kapcsolatait.",
   },
   {
+    label: "IRODA · RAKTÁR · LOGISZTIKA",
     title: "Ingatlanok",
+    stat: "~1 200+",
+    statLabel: "kereskedelmi ingatlan",
+    description:
+      "Irodaházak, raktárak, logisztikai központok. Minden rekordhoz típus, épületkategória (A+–C), bérelhető terület és aktuális FM/PM/AM megbízott.",
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M3 21V8l5-5v18M10 21V6l7-3v18M19 21V5l2-1v17" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-7 h-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
       </svg>
     ),
-    description:
-      "Kereskedelmi ingatlanok: irodaházak, raktárak, logisztikai központok és vegyes használatú épületek. Típusok, osztályok, területek és kezelési szerződések.",
   },
   {
+    label: "VEZETŐ · DÖNTÉSHOZÓ",
     title: "Emberek",
+    stat: "~800+",
+    statLabel: "szakmai szereplő",
+    description:
+      "Iparági vezetők és döntéshozók teljes karrierútjukkal. Pozícióváltások, cégkapcsolatok és aktuális megbízatások valós idejű követése.",
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-7 h-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
       </svg>
     ),
-    description:
-      "Vezetők és döntéshozók az FM/PM/AM szektorban. Karrier-utak, pozíciók és cégkapcsolatok nyomon követése.",
   },
 ];
 
 const dataSources = [
-  {
-    title: "Hírportálok",
-    description: "Magyar és nemzetközi ingatlanpiaci és üzleti hírportálok automatizált figyelése.",
-  },
-  {
-    title: "Cégweboldalak",
-    description: "FM/PM/AM szolgáltatók hivatalos weboldalainak rendszeres ellenőrzése változásokért.",
-  },
-  {
-    title: "Ingatlanportálok",
-    description: "Kereskedelmi ingatlan-adatbázisok és piaci elemzések feldolgozása.",
-  },
-  {
-    title: "Céginformációs adatbázisok",
-    description: "Hivatalos cégnyilvántartási adatok és pénzügyi jelentések integrálása.",
-  },
-  {
-    title: "LinkedIn és szakmai profilok",
-    description: "Publikus szakmai profilok figyelése személyi változások detektálására.",
-  },
+  { title: "Hírportálok", sub: "portfolio.hu · property-magazine.eu · fn.hu", icon: "📡" },
+  { title: "FM/PM/AM cégweboldalak", sub: "Rendszeres crawl, változásdetekció", icon: "🏢" },
+  { title: "Ingatlanportálok", sub: "CBRE · JLL · Cushman & Wakefield", icon: "🗺️" },
+  { title: "Céginformációs adatbázisok", sub: "Cégbíróság, KSH, e-cégjegyzék", icon: "🗂️" },
+  { title: "Szakmai profilok", sub: "LinkedIn publikus adatok", icon: "👤" },
 ];
 
 export default function ModszertanPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen" style={{ background: "#f0f5fb" }}>
       <Header />
 
-      <section className="py-10 md:py-14">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page header */}
-          <div className="mb-12">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Módszertan</h1>
-            <p className="text-slate-600">
-              Hogyan gyűjtjük, ellenőrizzük és tartjuk naprakészen a piaci adatokat
-            </p>
+      {/* ── HERO ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-16 pb-20" style={{ background: "#ffffff" }}>
+        {/* blueprint grid */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(2,132,199,0.07) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(2,132,199,0.07) 1px, transparent 1px)
+            `,
+            backgroundSize: "48px 48px",
+          }}
+        />
+        {/* radial fade */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(2,132,199,0.08) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-6">
+            <span
+              className="text-xs font-mono tracking-[0.2em] uppercase px-3 py-1 rounded-full border"
+              style={{
+                color: "#0284c7",
+                borderColor: "rgba(2,132,199,0.25)",
+                background: "rgba(2,132,199,0.07)",
+              }}
+            >
+              RENDSZER DOKUMENTÁCIÓ
+            </span>
           </div>
 
-          {/* How does the system work */}
-          <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">
+          <h1
+            className="font-black leading-none mb-6"
+            style={{
+              fontSize: "clamp(3rem, 8vw, 6rem)",
+              color: "#0f172a",
+              letterSpacing: "-0.03em",
+              fontFamily: "'Georgia', serif",
+            }}
+          >
+            Módszertan
+          </h1>
+
+          <p
+            className="max-w-2xl text-lg leading-relaxed"
+            style={{ color: "#64748b" }}
+          >
+            Hogyan gyűjtjük, ellenőrizzük és tartjuk naprakészen a magyar
+            kereskedelmi ingatlanpiac FM · PM · AM szektorának adatait — napi
+            automatizált kutatási ciklusokban.
+          </p>
+
+          {/* stats row */}
+          <div className="mt-12 grid grid-cols-3 gap-6 max-w-lg">
+            {[
+              { n: "Napi", label: "frissítési ciklus" },
+              { n: "3", label: "pipeline lépés" },
+              { n: "4", label: "bizonyossági szint" },
+            ].map((s) => (
+              <div key={s.label}>
+                <div
+                  className="text-3xl font-black mb-1"
+                  style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}
+                >
+                  {s.n}
+                </div>
+                <div className="text-xs font-mono uppercase tracking-wider" style={{ color: "#94a3b8" }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PIPELINE ─────────────────────────────────────── */}
+      <section className="py-20" style={{ background: "#f0f5fb" }}>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="flex items-baseline gap-4 mb-12">
+            <span className="text-xs font-mono tracking-[0.15em] uppercase" style={{ color: "#0284c7" }}>
+              01 — Pipeline
+            </span>
+            <h2 className="text-2xl font-bold" style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}>
               Hogyan működik a rendszer?
             </h2>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              A platform egy automatizált kutatási pipeline-on alapul, amely folyamatosan
-              figyeli a magyar kereskedelmi ingatlanpiac FM (Facility Management),
-              PM (Property Management) és AM (Asset Management) szektorát.
-            </p>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              A rendszer napi szinten végigpásztázza az előre meghatározott forrásokat,
-              azonosítja az új információkat, összeveti a meglévő adatbázissal, és
-              automatikusan frissíti a rekordokat. Minden változást naplózunk és
-              bizonyossági szinttel látunk el.
-            </p>
-            <p className="text-slate-600 leading-relaxed">
-              A pipeline három fő lépésből áll: <strong>adatgyűjtés</strong> (források
-              bepásztázása), <strong>normalizálás</strong> (strukturált adattá alakítás) és{" "}
-              <strong>integrálás</strong> (meglévő adatbázissal való összefésülés és frissítés).
-            </p>
           </div>
 
-          {/* Data sources */}
-          <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">Adatforrások</h2>
-            <div className="space-y-4">
-              {dataSources.map((source) => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {pipelineSteps.map((step, i) => (
+              <div
+                key={step.num}
+                className="relative rounded-2xl p-8 bg-white"
+                style={{ border: "1px solid #e2e8f0" }}
+              >
+                {/* connector line */}
+                {i < 2 && (
+                  <div
+                    aria-hidden
+                    className="hidden lg:block absolute top-1/2 -right-3 w-6 h-px"
+                    style={{ background: "#cbd5e1" }}
+                  />
+                )}
+
                 <div
-                  key={source.title}
-                  className="flex items-start gap-3 p-4 bg-brand-50 rounded-lg"
+                  className="text-xs font-mono tracking-widest mb-2"
+                  style={{ color: step.color }}
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center text-brand-600 mt-0.5">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                    </svg>
+                  {step.subtitle}
+                </div>
+                <div
+                  className="text-6xl font-black leading-none mb-4"
+                  style={{
+                    color: "rgba(0,0,0,0.05)",
+                    fontFamily: "'Georgia', serif",
+                    userSelect: "none",
+                  }}
+                >
+                  {step.num}
+                </div>
+                <h3
+                  className="text-xl font-bold mb-3"
+                  style={{ color: "#0f172a" }}
+                >
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#64748b" }}>
+                  {step.description}
+                </p>
+
+                <div
+                  className="absolute bottom-0 left-8 right-8 h-0.5 rounded-full"
+                  style={{
+                    background: `linear-gradient(90deg, ${step.color}, transparent)`,
+                    opacity: 0.5,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ENTITY TYPES ─────────────────────────────────── */}
+      <section className="py-20" style={{ background: "#ffffff" }}>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="flex items-baseline gap-4 mb-12">
+            <span className="text-xs font-mono tracking-[0.15em] uppercase" style={{ color: "#0284c7" }}>
+              02 — Entitások
+            </span>
+            <h2 className="text-2xl font-bold" style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}>
+              Mit követünk nyomon?
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {entityTypes.map((e) => (
+              <div
+                key={e.title}
+                className="rounded-2xl p-7 flex flex-col gap-5"
+                style={{
+                  background: "#f8fafc",
+                  border: "1px solid #e2e8f0",
+                }}
+              >
+                <div>
+                  <div
+                    className="text-xs font-mono tracking-widest mb-4"
+                    style={{ color: "#94a3b8" }}
+                  >
+                    {e.label}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">{source.title}</h3>
-                    <p className="text-sm text-slate-600">{source.description}</p>
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                    style={{
+                      background: "rgba(2,132,199,0.1)",
+                      color: "#0284c7",
+                    }}
+                  >
+                    {e.icon}
+                  </div>
+                  <h3
+                    className="text-xl font-bold mb-2"
+                    style={{ color: "#0f172a" }}
+                  >
+                    {e.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "#64748b" }}>
+                    {e.description}
+                  </p>
+                </div>
+                <div
+                  className="mt-auto pt-5 border-t"
+                  style={{ borderColor: "#e2e8f0" }}
+                >
+                  <div
+                    className="text-2xl font-black"
+                    style={{ color: "#0284c7", fontFamily: "'Georgia', serif" }}
+                  >
+                    {e.stat}
+                  </div>
+                  <div className="text-xs font-mono uppercase tracking-wider mt-1" style={{ color: "#94a3b8" }}>
+                    {e.statLabel}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* Confidence levels */}
-          <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">
+      {/* ── CONFIDENCE LEVELS ────────────────────────────── */}
+      <section className="py-20" style={{ background: "#f0f5fb" }}>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="flex items-baseline gap-4 mb-4">
+            <span className="text-xs font-mono tracking-[0.15em] uppercase" style={{ color: "#0284c7" }}>
+              03 — Adatminőség
+            </span>
+            <h2 className="text-2xl font-bold" style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}>
               Bizonyossági szintek
             </h2>
-            <p className="text-slate-600 leading-relaxed mb-6">
-              Minden adatpontot bizonyossági szinttel látunk el, amely jelzi, mennyire
-              megbízható az információ. Ez segít a felhasználóknak a döntéshozatalban.
-            </p>
-            <div className="space-y-4">
-              {confidenceLevels.map((level) => (
-                <div
-                  key={level.label}
-                  className="flex items-start gap-4 p-4 rounded-lg border border-brand-50"
-                >
-                  <span
-                    className={`inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full border flex-shrink-0 ${level.color}`}
-                  >
-                    {level.label} ({level.score})
-                  </span>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {level.description}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
+          <p className="mb-12 max-w-2xl text-sm leading-relaxed" style={{ color: "#64748b" }}>
+            Minden adatpontot bizonyossági szinttel látunk el, amely jelzi az
+            információ megbízhatóságát. A szint alapja a forrásszám, a
+            forrás megbízhatósága és a megerősítési státusz.
+          </p>
 
-          {/* Update frequency */}
-          <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8 mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-4">
-              Frissítési gyakoriság
-            </h2>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              A rendszer napi kutatási ciklusokban működik. Minden nap automatikusan
-              lefutnak a következő folyamatok:
-            </p>
-            <ul className="space-y-2 text-slate-600">
-              <li className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Hírportálok és források automatikus bepásztázása
-              </li>
-              <li className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Új információk azonosítása és strukturálása
-              </li>
-              <li className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Meglévő adatbázissal való összevétés és frissítés
-              </li>
-              <li className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Változások naplózása és értesítések generálása
-              </li>
-            </ul>
-          </div>
-
-          {/* Entity types */}
-          <div className="bg-white rounded-xl border border-brand-100 p-6 md:p-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-6">
-              Entitás típusok
-            </h2>
-            <p className="text-slate-600 leading-relaxed mb-6">
-              A rendszer három fő entitás típust követ nyomon, amelyek a magyar FM/PM/AM piac
-              legfontosabb szereplőit és objektumait reprezentálják.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {entityTypes.map((entity) => (
-                <div
-                  key={entity.title}
-                  className="p-5 bg-brand-50 rounded-xl"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center mb-3">
-                    {entity.icon}
+          <div className="space-y-4">
+            {confidenceLevels.map((level) => (
+              <div
+                key={level.label}
+                className="rounded-2xl p-6 bg-white"
+                style={{ border: "1px solid #e2e8f0" }}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  {/* label + score */}
+                  <div className="sm:w-48 flex-shrink-0">
+                    <div
+                      className="text-base font-bold mb-0.5"
+                      style={{ color: level.hex }}
+                    >
+                      {level.label}
+                    </div>
+                    <div
+                      className="text-xs font-mono tracking-widest"
+                      style={{ color: "#94a3b8" }}
+                    >
+                      {level.range}
+                    </div>
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">{entity.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    {entity.description}
-                  </p>
+
+                  {/* bar */}
+                  <div className="flex-1">
+                    <div
+                      className="relative h-2 rounded-full overflow-hidden mb-3"
+                      style={{ background: "#f1f5f9" }}
+                    >
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${level.score}%`,
+                          background: `linear-gradient(90deg, ${level.hex}66, ${level.hex})`,
+                        }}
+                      />
+                    </div>
+                    <p className="text-sm leading-relaxed" style={{ color: "#64748b" }}>
+                      {level.description}
+                    </p>
+                  </div>
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── DATA SOURCES + FREQUENCY ─────────────────────── */}
+      <section className="py-20" style={{ background: "#ffffff" }}>
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+            {/* Sources */}
+            <div>
+              <div className="flex items-baseline gap-4 mb-10">
+                <span className="text-xs font-mono tracking-[0.15em] uppercase" style={{ color: "#0284c7" }}>
+                  04 — Források
+                </span>
+              </div>
+              <h2
+                className="text-2xl font-bold mb-8"
+                style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}
+              >
+                Adatforrások
+              </h2>
+              <div className="space-y-0">
+                {dataSources.map((src, i) => (
+                  <div
+                    key={src.title}
+                    className="flex items-start gap-4 py-4"
+                    style={{
+                      borderBottom:
+                        i < dataSources.length - 1
+                          ? "1px solid #f1f5f9"
+                          : "none",
+                    }}
+                  >
+                    <span className="text-2xl leading-none mt-0.5">{src.icon}</span>
+                    <div>
+                      <div
+                        className="font-semibold text-sm mb-1"
+                        style={{ color: "#1e293b" }}
+                      >
+                        {src.title}
+                      </div>
+                      <div
+                        className="text-xs font-mono"
+                        style={{ color: "#94a3b8" }}
+                      >
+                        {src.sub}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* Frequency */}
+            <div>
+              <div className="flex items-baseline gap-4 mb-10">
+                <span className="text-xs font-mono tracking-[0.15em] uppercase" style={{ color: "#0284c7" }}>
+                  05 — Frissítés
+                </span>
+              </div>
+              <h2
+                className="text-2xl font-bold mb-8"
+                style={{ color: "#0f172a", fontFamily: "'Georgia', serif" }}
+              >
+                Napi ciklus
+              </h2>
+
+              <div className="relative pl-6">
+                {/* vertical line */}
+                <div
+                  aria-hidden
+                  className="absolute left-0 top-2 bottom-2 w-px"
+                  style={{ background: "rgba(2,132,199,0.2)" }}
+                />
+
+                {[
+                  { time: "01:00", label: "Forrás-crawl", desc: "Hírportálok és weboldalak automatikus bepásztázása" },
+                  { time: "03:00", label: "Extrakció", desc: "AI-alapú entitás- és attribútum-kinyerés" },
+                  { time: "05:00", label: "Deduplikáció", desc: "Névnormalizálással, fuzzy match-eléssel" },
+                  { time: "06:00", label: "Integráció", desc: "DB frissítés, változásnaplózás, bizonyossági szint frissítés" },
+                ].map((item) => (
+                  <div key={item.time} className="relative mb-8 last:mb-0">
+                    {/* dot */}
+                    <div
+                      aria-hidden
+                      className="absolute -left-6 top-1 w-3 h-3 rounded-full border-2"
+                      style={{
+                        background: "#ffffff",
+                        borderColor: "#0284c7",
+                      }}
+                    />
+                    <div
+                      className="text-xs font-mono mb-1"
+                      style={{ color: "#0284c7" }}
+                    >
+                      {item.time}
+                    </div>
+                    <div
+                      className="font-semibold text-sm mb-1"
+                      style={{ color: "#1e293b" }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      className="text-xs leading-relaxed"
+                      style={{ color: "#94a3b8" }}
+                    >
+                      {item.desc}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DISCLAIMER ───────────────────────────────────── */}
+      <section
+        className="py-12"
+        style={{ background: "#f0f5fb", borderTop: "1px solid #e2e8f0" }}
+      >
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="flex gap-4 items-start">
+            <div
+              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mt-0.5"
+              style={{ background: "rgba(2,132,199,0.1)", color: "#0284c7" }}
+            >
+              i
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+              A platform adatai automatizált kutatáson alapulnak és tájékoztató
+              jellegűek. Bár minden tőlünk telhetőt megteszünk az adatok
+              pontosságáért, a felhasználás előtt az érzékeny döntéshozatali
+              helyzetekben javasolt a közvetlen forrásból való megerősítés.
+              Az adatok rendszeres frissítése ellenére a valós helyzettől való
+              eltérés lehetséges.
+            </p>
           </div>
         </div>
       </section>

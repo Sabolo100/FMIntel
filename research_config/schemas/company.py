@@ -9,6 +9,13 @@ from typing import Optional, List, Literal
 from pydantic import BaseModel, Field
 
 
+class KeyPerson(BaseModel):
+    """A person mentioned in a company description."""
+    name: str = Field(min_length=2, max_length=200)
+    position_title: Optional[str] = None
+    position_category: Optional[str] = None
+
+
 class CompanyCandidate(BaseModel):
     """Schema for extracted company data."""
     title: str = Field(min_length=2, max_length=200)
@@ -24,3 +31,4 @@ class CompanyCandidate(BaseModel):
     parent_company_name: Optional[str] = None
     status: str = "active"
     source_url: Optional[str] = None
+    key_people: List[KeyPerson] = []

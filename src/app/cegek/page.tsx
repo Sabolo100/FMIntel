@@ -1,10 +1,22 @@
 export const revalidate = 0;
 
+/**
+ * Cégek listing page
+ *
+ * BANNER IMAGE GENERATION PROMPT (/public/banners/cegek.jpg):
+ * "Modern corporate office building lobby interior, glass and steel atrium,
+ *  reception desk with minimalist design, high ceiling with skylight, natural
+ *  light streaming through floor-to-ceiling windows, cool blue and white tones,
+ *  clean architectural photography, ultra wide angle lens, editorial quality,
+ *  no people, 16:5 panoramic crop"
+ */
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CompanyCard from "@/components/CompanyCard";
 import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
+import PageBanner from "@/components/PageBanner";
 import { getCompanies } from "@/lib/db/companies";
 import type { ServiceType } from "@/lib/types";
 
@@ -51,21 +63,48 @@ export default async function CegekPage({ searchParams }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen" style={{ background: "#f0f5fb" }}>
       <Header />
 
-      <section className="py-10 md:py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Cégek</h1>
-            <p className="text-slate-600">
-              FM, PM és AM szolgáltatók a magyar kereskedelmi ingatlanpiacon
-            </p>
-          </div>
+      {/* ── BANNER ─────────────────────────────────────────── */}
+      {/* IMAGE: /public/banners/cegek.jpg — see prompt above */}
+      <PageBanner
+        badge="ADATBÁZIS"
+        title="Cégek"
+        subtitle="FM, PM és AM szolgáltatók a magyar kereskedelmi ingatlanpiacon"
+        imageSrc="/banners/cegek.jpg"
+      >
+        {/* Decorative service-type chips */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {[
+            { label: "Facility Management", short: "FM", color: "#0284c7", bg: "rgba(2,132,199,0.08)" },
+            { label: "Property Management", short: "PM", color: "#0d9488", bg: "rgba(13,148,136,0.08)" },
+            { label: "Asset Management", short: "AM", color: "#4f46e5", bg: "rgba(79,70,229,0.08)" },
+          ].map((t) => (
+            <span
+              key={t.short}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full"
+              style={{ color: t.color, background: t.bg, border: `1px solid ${t.color}22` }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ background: t.color }}
+              />
+              {t.short} · {t.label}
+            </span>
+          ))}
+        </div>
+      </PageBanner>
 
-          {/* Search & Filters */}
-          <div className="flex flex-col sm:flex-row sm:items-end gap-4 mb-8">
+      {/* ── CONTENT ────────────────────────────────────────── */}
+      <section className="py-10">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+
+          {/* Search + filters row */}
+          <div
+            className="bg-white rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-3"
+            style={{ border: "1px solid #e2e8f0" }}
+          >
             <SearchBar
               placeholder="Keresés cégnév alapján..."
               defaultValue={params.q}
@@ -74,7 +113,20 @@ export default async function CegekPage({ searchParams }: PageProps) {
             <FilterBar filters={filters} />
           </div>
 
-          {/* Results */}
+          {/* Results count */}
+          {companies.length > 0 && (
+            <div className="flex items-center gap-3 mb-6">
+              <span
+                className="text-xs font-mono tracking-widest uppercase"
+                style={{ color: "#94a3b8" }}
+              >
+                {companies.length} találat
+              </span>
+              <div className="flex-1 h-px" style={{ background: "#e2e8f0" }} />
+            </div>
+          )}
+
+          {/* Results grid */}
           {companies.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {companies.map((company) => (
@@ -82,24 +134,26 @@ export default async function CegekPage({ searchParams }: PageProps) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
+            <div
+              className="text-center py-20 bg-white rounded-2xl"
+              style={{ border: "1px solid #e2e8f0" }}
+            >
+              {/* Decorative empty-state: building outline */}
               <svg
-                className="w-12 h-12 text-brand-300 mx-auto mb-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.5}
+                className="mx-auto mb-4"
+                width="48"
+                height="48"
                 viewBox="0 0 24 24"
+                fill="none"
+                stroke="#cbd5e1"
+                strokeWidth={1}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
               </svg>
-              <h3 className="text-lg font-semibold text-slate-700 mb-1">
+              <h3 className="text-base font-semibold mb-1" style={{ color: "#475569" }}>
                 Nincs találat
               </h3>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm" style={{ color: "#94a3b8" }}>
                 Próbáld módosítani a keresési feltételeket vagy a szűrőket.
               </p>
             </div>

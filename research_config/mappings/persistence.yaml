@@ -16,6 +16,8 @@ companies:
     is_international: "is_international"
     status: "status"
     source_url: "source_urls"
+    # key_people is NOT a DB column — persister extracts it to create person+job records
+    key_people: "_key_people"
   auto_fields:
     created_at: "auto_timestamp"
     updated_at: "auto_timestamp"
@@ -28,6 +30,17 @@ companies:
     is_international: false
     service_types: []
     confidence: 0.5
+  # After persisting a company, create person + job records for key_people
+  related_entities:
+    key_people:
+      source_field: "_key_people"
+      person_table: "people"
+      jobs_table: "jobs"
+      person_defaults:
+        confidence: 0.4
+      job_defaults:
+        is_current: true
+        confidence: 0.4
 
 buildings:
   field_mapping:
