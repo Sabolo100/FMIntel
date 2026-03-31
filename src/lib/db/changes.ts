@@ -8,7 +8,7 @@ export async function getRecentChanges(limit: number = 20): Promise<Change[]> {
     const { data, error } = await supabase
       .from('changes')
       .select('*')
-      .order('detected_at', { ascending: false })
+      .order('created_at', { ascending: false })
       .limit(limit);
 
     if (error) {
@@ -33,7 +33,7 @@ export async function getChangesByEntity(
       .select('*')
       .eq('entity_type', entityType)
       .eq('entity_id', entityId)
-      .order('detected_at', { ascending: false });
+      .order('created_at', { ascending: false });
 
     if (error) {
       console.error('Error fetching changes by entity:', error);
@@ -56,7 +56,7 @@ export async function getChangesByType(
       .from('changes')
       .select('*')
       .eq('change_type', changeType)
-      .order('detected_at', { ascending: false })
+      .order('created_at', { ascending: false })
       .limit(limit);
 
     if (error) {

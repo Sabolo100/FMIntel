@@ -121,14 +121,24 @@ export default function ChangesFeed({ changes, showAll = false }: ChangesFeedPro
                     {entityTypeLabels[change.entity_type]}
                   </a>
                 </p>
-                {change.change_summary && (
+                {change.summary && (
                   <p className="text-sm text-brand-500 mt-0.5 line-clamp-2">
-                    {change.change_summary}
+                    {change.summary}
+                  </p>
+                )}
+                {change.related_entity_name && (
+                  <p className="text-xs text-brand-400 mt-0.5">
+                    <a
+                      href={change.related_entity_type ? entityLink(change.related_entity_type, change.related_entity_id!) : '#'}
+                      className="hover:underline hover:text-accent-600"
+                    >
+                      {change.related_entity_name}
+                    </a>
                   </p>
                 )}
               </div>
               <time className="text-xs text-brand-400 whitespace-nowrap flex-shrink-0">
-                {formatDate(change.detected_at)}
+                {formatDate(change.created_at)}
               </time>
             </div>
           </div>

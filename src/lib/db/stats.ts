@@ -26,7 +26,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         .from('changes')
         .select('id', { count: 'exact', head: true })
         .gte(
-          'detected_at',
+          'created_at',
           new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()
         ),
     ]);

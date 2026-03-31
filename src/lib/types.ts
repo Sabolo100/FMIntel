@@ -144,22 +144,18 @@ export interface CompanyRelation {
 }
 
 export interface Change {
-  id: string;
+  id: number;
+  change_type: ChangeType;
   entity_type: EntityType;
   entity_id: string;
-  change_type: ChangeType;
-  field_name: string | null;
-  old_value: string | null;
-  new_value: string | null;
-  change_summary: string | null;
-  detected_at: string;
-  source_url: string | null;
-  data_source: string | null;
-  confidence_score: number;
-  is_reviewed: boolean;
-  reviewed_by: string | null;
-  reviewed_at: string | null;
-  notes: string | null;
+  entity_name: string | null;
+  summary: string | null;
+  details: Record<string, unknown> | null;
+  related_entity_type: EntityType | null;
+  related_entity_id: string | null;
+  related_entity_name: string | null;
+  confidence: number;
+  source_urls: string[];
   created_at: string;
 }
 
