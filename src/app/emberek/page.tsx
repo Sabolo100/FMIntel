@@ -75,34 +75,22 @@ export default async function EmberekPage({ searchParams }: PageProps) {
         subtitle="Vezetők és döntéshozók az FM/PM/AM szektorban"
         imageSrc="/banners/emberek.jpg"
       >
-        {/* Decorative network-node org chart (SVG) */}
-        <div className="flex items-center gap-5 mt-3" aria-hidden>
-          {/* Node visualization */}
-          <svg width="80" height="40" viewBox="0 0 80 40" fill="none">
-            {/* center node */}
-            <circle cx="40" cy="20" r="8" fill="rgba(79,70,229,0.15)" stroke="#4f46e5" strokeWidth="1.5" />
-            {/* left node */}
-            <circle cx="12" cy="20" r="5" fill="rgba(79,70,229,0.08)" stroke="#4f46e5" strokeWidth="1" strokeDasharray="2 1" />
-            {/* right node */}
-            <circle cx="68" cy="20" r="5" fill="rgba(79,70,229,0.08)" stroke="#4f46e5" strokeWidth="1" strokeDasharray="2 1" />
-            {/* top node */}
-            <circle cx="40" cy="5" r="4" fill="rgba(79,70,229,0.08)" stroke="#4f46e5" strokeWidth="1" strokeDasharray="2 1" />
-            {/* connectors */}
-            <line x1="17" y1="20" x2="32" y2="20" stroke="#4f46e5" strokeWidth="1" strokeOpacity="0.3" />
-            <line x1="48" y1="20" x2="63" y2="20" stroke="#4f46e5" strokeWidth="1" strokeOpacity="0.3" />
-            <line x1="40" y1="9" x2="40" y2="12" stroke="#4f46e5" strokeWidth="1" strokeOpacity="0.3" />
-          </svg>
-          <div className="flex flex-col gap-1">
-            {[
-              { color: "#4f46e5", label: "Igazgató szint" },
-              { color: "#0284c7", label: "Menedzser szint" },
-            ].map((l) => (
-              <span key={l.label} className="inline-flex items-center gap-1.5 text-xs font-mono" style={{ color: "#94a3b8" }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: l.color }} />
-                {l.label}
-              </span>
-            ))}
-          </div>
+        {/* Decorative position-level chips */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {[
+            { label: "Ügyvezető / CEO", color: "#4f46e5", bg: "rgba(79,70,229,0.08)" },
+            { label: "FM / PM igazgató", color: "#0284c7", bg: "rgba(2,132,199,0.08)" },
+            { label: "AM menedzser", color: "#0d9488", bg: "rgba(13,148,136,0.08)" },
+          ].map((t) => (
+            <span
+              key={t.label}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full"
+              style={{ color: t.color, background: t.bg, border: `1px solid ${t.color}22` }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: t.color }} />
+              {t.label}
+            </span>
+          ))}
         </div>
       </PageBanner>
 
