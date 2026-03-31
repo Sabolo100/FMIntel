@@ -3,14 +3,20 @@ import type { Building, BuildingManagement, BuildingType, BuildingClass, Buildin
 
 export const revalidate = 0;
 
+export interface BuildingWithOwner extends Building {
+  owner_company_name?: string | null;
+}
+
 export async function getBuildings(filters?: {
   buildingType?: BuildingType;
   buildingClass?: BuildingClass;
   status?: BuildingStatus;
   city?: string;
-}): Promise<Building[]> {
+}): Promise<BuildingWithOwner[]> {
   try {
-    let query = supabase.from('buildings').select('*');
+    let query = supabase
+      .from('buildings')
+      .select('*, owner:companies!buildings_owner_company_id_fkey(name)');
 
     if (filters?.buildingType) {
       query = query.eq('building_type', filters.buildingType);
@@ -32,7 +38,11 @@ export async function getBuildings(filters?: {
       return [];
     }
 
-    return (data as Building[]) || [];
+    // Flatten owner company name onto building
+    return ((data as (Building & { owner?: { name: string } | null })[]) || []).map((b) => ({
+      ...b,
+      owner_company_name: b.owner?.name ?? null,
+    }));
   } catch (err) {
     console.error('Error fetching buildings:', err);
     return [];
@@ -101,7 +111,7 @@ export async function getBuildingManagement(
   }
 }
 
-export async function searchBuildings(query: string): Promise<Building[]> {
+export async function searchBuildings(query: string): Promise<BuildingWithOwner[]> {
   try {
     const { data, error } = await supabase
       .from('buildings')

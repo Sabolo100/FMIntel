@@ -17,6 +17,7 @@ import BuildingCard from "@/components/BuildingCard";
 import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
 import PageBanner from "@/components/PageBanner";
+import MapViewToggle from "@/components/MapViewToggle";
 import { getBuildings, searchBuildings } from "@/lib/db/buildings";
 import type { BuildingType, BuildingClass, BuildingStatus } from "@/lib/types";
 
@@ -26,11 +27,13 @@ interface PageProps {
     buildingType?: string;
     buildingClass?: string;
     status?: string;
+    view?: string;
   }>;
 }
 
 export default async function IngatlanokPage({ searchParams }: PageProps) {
   const params = await searchParams;
+  const isMapView = params.view === "map";
 
   let buildings;
   if (params.q) {
@@ -138,7 +141,7 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
-          {/* Search + filters */}
+          {/* Search + filters + view toggle */}
           <div
             className="bg-white rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-3"
             style={{ border: "1px solid #e2e8f0" }}
@@ -149,6 +152,7 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
               paramName="q"
             />
             <FilterBar filters={filters} />
+            <MapViewToggle isMapView={isMapView} />
           </div>
 
           {/* Results count */}
@@ -161,13 +165,17 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
             </div>
           )}
 
-          {/* Results */}
+          {/* Results — list or map */}
           {buildings.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {buildings.map((building) => (
-                <BuildingCard key={building.id} building={building} />
-              ))}
-            </div>
+            isMapView ? (
+              <MapViewToggle.Map buildings={buildings} />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {buildings.map((building) => (
+                  <BuildingCard key={building.id} building={building} />
+                ))}
+              </div>
+            )
           ) : (
             <div
               className="text-center py-20 bg-white rounded-2xl"
