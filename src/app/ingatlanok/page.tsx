@@ -18,6 +18,7 @@ import SearchBar from "@/components/ui/SearchBar";
 import FilterBar from "@/components/ui/FilterBar";
 import PageBanner from "@/components/PageBanner";
 import MapViewToggle from "@/components/MapViewToggle";
+import BuildingMapWrapper from "@/components/BuildingMapWrapper";
 import { getBuildings, searchBuildings } from "@/lib/db/buildings";
 import type { BuildingType, BuildingClass, BuildingStatus } from "@/lib/types";
 
@@ -168,7 +169,7 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
           {/* Results — list or map */}
           {buildings.length > 0 ? (
             isMapView ? (
-              <MapViewToggle.Map buildings={buildings} />
+              <BuildingMapWrapper buildings={buildings} />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {buildings.map((building) => (
