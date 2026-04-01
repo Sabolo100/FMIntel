@@ -142,23 +142,38 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
-          {/* Search + filters + view toggle */}
+          {/* ── Control bar ──────────────────────────────────── */}
           <div
-            className="bg-white rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-3"
-            style={{ border: "1px solid #e2e8f0" }}
+            className="bg-white rounded-2xl mb-8"
+            style={{ border: "1px solid #e2e8f0", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}
           >
-            <SearchBar
-              placeholder="Keresés név vagy cím alapján..."
-              defaultValue={params.q}
-              paramName="q"
-            />
-            <FilterBar filters={filters} />
-            <MapViewToggle isMapView={isMapView} />
+            {/* Top row: search + toggle */}
+            <div className="flex items-center gap-3 p-3 pb-0">
+              <div className="flex-1">
+                <SearchBar
+                  placeholder="Keresés név vagy cím alapján..."
+                  defaultValue={params.q}
+                  paramName="q"
+                />
+              </div>
+              <MapViewToggle isMapView={isMapView} />
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: "#f1f5f9", margin: "10px 12px 0" }} />
+
+            {/* Bottom row: filters */}
+            <div className="flex flex-wrap items-center gap-2 p-3 pt-2">
+              <span className="text-xs font-mono tracking-widest uppercase mr-1" style={{ color: "#cbd5e1" }}>
+                Szűrő
+              </span>
+              <FilterBar filters={filters} />
+            </div>
           </div>
 
           {/* Results count */}
           {buildings.length > 0 && (
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-5">
               <span className="text-xs font-mono tracking-widest uppercase" style={{ color: "#94a3b8" }}>
                 {buildings.length} találat
               </span>

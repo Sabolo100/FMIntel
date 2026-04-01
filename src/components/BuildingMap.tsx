@@ -207,53 +207,132 @@ export default function BuildingMap({ buildings }: BuildingMapProps) {
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         crossOrigin=""
       />
-      {/* Custom popup style */}
+      {/* Custom popup + map style */}
       <style>{`
         .fm-popup .leaflet-popup-content-wrapper {
-          border-radius: 12px;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+          border-radius: 14px;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06);
           border: 1px solid #e2e8f0;
           padding: 0;
         }
         .fm-popup .leaflet-popup-content {
-          margin: 12px 14px;
+          margin: 14px 16px;
         }
         .fm-popup .leaflet-popup-tip {
           background: white;
+          box-shadow: none;
         }
         .leaflet-popup-close-button {
-          top: 6px !important;
-          right: 8px !important;
-          font-size: 16px !important;
-          color: #94a3b8 !important;
+          top: 8px !important;
+          right: 10px !important;
+          font-size: 18px !important;
+          color: #cbd5e1 !important;
+          font-weight: 300 !important;
+        }
+        .leaflet-popup-close-button:hover {
+          color: #64748b !important;
+          background: transparent !important;
+        }
+        .leaflet-control-zoom {
+          border: none !important;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
+          border-radius: 10px !important;
+          overflow: hidden;
+        }
+        .leaflet-control-zoom a {
+          color: #0f172a !important;
+          font-weight: 600 !important;
+          background: white !important;
+          border: none !important;
+          border-bottom: 1px solid #f1f5f9 !important;
+        }
+        .leaflet-control-zoom a:last-child {
+          border-bottom: none !important;
+        }
+        .leaflet-control-zoom a:hover {
+          background: #f8fafc !important;
+          color: #0284c7 !important;
+        }
+        .leaflet-control-attribution {
+          font-family: monospace;
+          font-size: 10px !important;
+          background: rgba(255,255,255,0.85) !important;
+          backdrop-filter: blur(4px);
+          border-radius: 6px 0 0 0 !important;
+          padding: 3px 8px !important;
         }
       `}</style>
 
-      {/* Legend */}
-      <div className="flex flex-wrap gap-3 mb-3 px-1">
-        {Object.entries(buildingTypeLabel).map(([key, label]) => (
-          <span key={key} className="inline-flex items-center gap-1.5 text-xs font-mono" style={{ color: "#64748b" }}>
-            <span className="w-3 h-3 rounded-full border-2 border-white shadow-sm" style={{ background: buildingTypeColor[key] }} />
-            {label}
-          </span>
-        ))}
-        <span className="ml-auto text-xs font-mono" style={{ color: "#94a3b8" }}>
-          {mappable.length} ingatlan a térképen
-        </span>
-      </div>
+      {/* Map frame */}
+      <div style={{
+        borderRadius: 18,
+        overflow: "hidden",
+        border: "1px solid #e2e8f0",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
+      }}>
+        {/* Header bar */}
+        <div style={{
+          background: "white",
+          borderBottom: "1px solid #f1f5f9",
+          padding: "10px 16px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+        }}>
+          {/* Legend */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "center" }}>
+            {Object.entries(buildingTypeLabel).map(([key, label]) => (
+              <span key={key} style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 11,
+                fontFamily: "monospace",
+                color: "#64748b",
+                letterSpacing: "0.02em",
+              }}>
+                <span style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  background: buildingTypeColor[key],
+                  border: "2px solid white",
+                  boxShadow: `0 0 0 1px ${buildingTypeColor[key]}55`,
+                  display: "inline-block",
+                  flexShrink: 0,
+                }} />
+                {label}
+              </span>
+            ))}
+          </div>
 
-      {/* Map container */}
-      <div
-        ref={mapRef}
-        style={{
-          width: "100%",
-          height: 540,
-          borderRadius: 16,
-          overflow: "hidden",
-          border: "1px solid #e2e8f0",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
-        }}
-      />
+          {/* Count badge */}
+          <span style={{
+            fontSize: 11,
+            fontFamily: "monospace",
+            fontWeight: 600,
+            color: "#0284c7",
+            background: "rgba(2,132,199,0.07)",
+            border: "1px solid rgba(2,132,199,0.18)",
+            borderRadius: 999,
+            padding: "3px 10px",
+            whiteSpace: "nowrap",
+            letterSpacing: "0.04em",
+          }}>
+            {mappable.length} ingatlan
+          </span>
+        </div>
+
+        {/* Map */}
+        <div
+          ref={mapRef}
+          style={{
+            width: "100%",
+            height: 560,
+          }}
+        />
+      </div>
     </>
   );
 }
