@@ -147,27 +147,31 @@ export default async function IngatlanokPage({ searchParams }: PageProps) {
             className="bg-white rounded-2xl mb-8"
             style={{ border: "1px solid #e2e8f0", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}
           >
-            {/* Top row: search + toggle */}
-            <div className="flex items-center gap-3 p-3 pb-0">
-              <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-3 p-3">
+              {/* Search — grows to fill space */}
+              <div style={{ flex: "1 1 220px", minWidth: 0 }}>
                 <SearchBar
                   placeholder="Keresés név vagy cím alapján..."
                   defaultValue={params.q}
                   paramName="q"
                 />
               </div>
-              <MapViewToggle isMapView={isMapView} />
-            </div>
 
-            {/* Divider */}
-            <div style={{ height: 1, background: "#f1f5f9", margin: "10px 12px 0" }} />
+              {/* Vertical divider (hidden on mobile wrap) */}
+              <div className="hidden sm:block self-stretch" style={{ width: 1, background: "#f1f5f9" }} />
 
-            {/* Bottom row: filters */}
-            <div className="flex flex-wrap items-center gap-2 p-3 pt-2">
-              <span className="text-xs font-mono tracking-widest uppercase mr-1" style={{ color: "#cbd5e1" }}>
-                Szűrő
-              </span>
-              <FilterBar filters={filters} />
+              {/* Filters */}
+              <div style={{ flex: "0 0 auto" }}>
+                <FilterBar filters={filters} />
+              </div>
+
+              {/* Vertical divider */}
+              <div className="hidden sm:block self-stretch" style={{ width: 1, background: "#f1f5f9" }} />
+
+              {/* Map/list toggle */}
+              <div style={{ flex: "0 0 auto" }}>
+                <MapViewToggle isMapView={isMapView} />
+              </div>
             </div>
           </div>
 
