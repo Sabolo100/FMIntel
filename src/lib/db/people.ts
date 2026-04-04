@@ -3,13 +3,19 @@ import type { Person, Job, Company, PositionCategory } from '../types';
 
 export const revalidate = 0;
 
+export type PersonWithCompany = Person & {
+  current_company: { id: string; name: string } | null;
+};
+
 export async function getPeople(filters?: {
   positionCategory?: PositionCategory;
   companyId?: string;
   search?: string;
-}): Promise<Person[]> {
+}): Promise<PersonWithCompany[]> {
   try {
-    let query = supabase.from('people').select('*');
+    let query = supabase
+      .from('people')
+      .select('*, current_company:companies!people_current_company_id_fkey(id, name)');
 
     if (filters?.companyId) {
       query = query.eq('current_company_id', filters.companyId);
@@ -25,7 +31,7 @@ export async function getPeople(filters?: {
       return [];
     }
 
-    return (data as Person[]) || [];
+    return (data as PersonWithCompany[]) || [];
   } catch (err) {
     console.error('Error fetching people:', err);
     return [];

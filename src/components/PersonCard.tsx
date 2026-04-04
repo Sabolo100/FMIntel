@@ -4,9 +4,10 @@ import type { Person, Job, Company } from "@/lib/types";
 interface PersonCardProps {
   person: Person;
   currentJob?: Job & { company: Company };
+  companyName?: string;
 }
 
-export default function PersonCard({ person, currentJob }: PersonCardProps) {
+export default function PersonCard({ person, currentJob, companyName }: PersonCardProps) {
   const nameParts = person.name.split(' ');
   const initials = nameParts.length >= 2
     ? `${nameParts[0].charAt(0)}${nameParts[nameParts.length - 1].charAt(0)}`
@@ -50,10 +51,15 @@ export default function PersonCard({ person, currentJob }: PersonCardProps) {
             </div>
           )}
 
-          {!currentJob && person.title && (
-            <p className="text-sm text-brand-600 mt-1">
-              {person.title}
-            </p>
+          {!currentJob && (person.title || companyName) && (
+            <div className="mt-1 space-y-0.5">
+              {person.title && (
+                <p className="text-sm text-brand-600">{person.title}</p>
+              )}
+              {companyName && (
+                <p className="text-sm text-brand-500">{companyName}</p>
+              )}
+            </div>
           )}
 
           {/* LinkedIn indicator */}
