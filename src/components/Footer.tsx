@@ -87,7 +87,13 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-brand-800 pt-6 text-sm text-center text-brand-400">
-          <p>&copy; {currentYear} FM Intel. Minden jog fenntartva.</p>
+          <p>
+            &copy; {currentYear} FM Intel. Minden jog fenntartva.
+            {" · "}
+            <Link href="/adatvedelmi-tajekoztato" className="hover:text-white transition-colors">
+              Adatvédelmi tájékoztató
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
